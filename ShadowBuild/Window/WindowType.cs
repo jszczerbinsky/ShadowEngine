@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowBuild
+namespace ShadowBuild.Window
 {
-    public class Class1
+    public enum WindowType
     {
+        FULLSCREEN,
+        WINDOW
     }
 }
