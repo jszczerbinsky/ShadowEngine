@@ -13,6 +13,11 @@ namespace ShadowBuild
         public static Resolution resolution { get; private set; }
         public static int maxFPS { get; private set; }
 
+        internal static void renderNewFrame()
+        {
+
+        }
+
         public static void setFPSlimit(int fpsLimit)
         {
             maxFPS = fpsLimit;

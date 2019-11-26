@@ -15,11 +15,13 @@ namespace ShadowBuild.Objects
 
         public GameObject parent { get; private set; }
         public EmptyTexture defaultTexture { get; private set; }
-        public EmptyTexture actualTexture {
+        public EmptyTexture actualTexture
+        {
             get { if (playingAnimation) return actualTexture; else return this.defaultTexture; }
-            private set { this.actualTexture = value; } }
+            private set { this.actualTexture = value; }
+        }
         public bool playingAnimation { get; private set; }
         public List<Collider> colliders { get; private set; } = new List<Collider>();
-        public bool isRendered { get; private set;}
+        public bool isRendered { get; private set; }
     }
 }
