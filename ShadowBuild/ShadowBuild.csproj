@@ -46,6 +46,7 @@
     <Compile Include="Events\Event.cs" />
     <Compile Include="Exceptions\EventNameIsAlreadyUsedException.cs" />
     <Compile Include="Exceptions\EventNotFoundException.cs" />
+    <Compile Include="Exceptions\TickerFrequencyEqualsZeroException.cs" />
     <Compile Include="Objects\Collisions\Collider.cs" />
     <Compile Include="Objects\Collisions\ColliderShape.cs" />
     <Compile Include="Objects\Dimensions\_2Dsize.cs" />
@@ -68,6 +69,10 @@
     <Compile Include="Window\Resolution.cs" />
     <Compile Include="Window\WindowType.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="GameWindow.resx">
+      <DependentUpon>GameWindow.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

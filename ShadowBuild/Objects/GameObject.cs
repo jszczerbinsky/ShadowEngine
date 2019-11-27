@@ -11,7 +11,7 @@ namespace ShadowBuild.Objects
 {
     public class GameObject : _2Dobject
     {
-        public static List<GameObject> allGameObjects { get; private set; }
+        public static List<GameObject> allGameObjects { get; private set; } = new List<GameObject>();
 
         public GameObject parent { get; private set; }
         public EmptyTexture defaultTexture { get; private set; }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShadowBuild.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace ShadowBuild.Utils
 
         public Ticker(int frequency)
         {
+            if (frequency == 0) throw new TickerFrequencyEqualsZeroException();
             thread = new Thread(() => {
                 while (true)
                 {
@@ -22,9 +24,10 @@ namespace ShadowBuild.Utils
                     Thread.Sleep(1000 / frequency);
                 }
             });
+            thread.Start();
 
         }
-        public void stop()
+        public void abort()
         {
             thread.Abort();
         }
