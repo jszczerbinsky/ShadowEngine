@@ -1,4 +1,5 @@
 ﻿using ShadowBuild.Utils;
+using System;
 using System.Windows.Forms;
 
 namespace ShadowBuild
@@ -10,6 +11,8 @@ namespace ShadowBuild
 
         public GameWindow()
         {
+            this.FormClosing += onClose;
+
             Render.gameWindow = this;
             Render.initialize();
             InitializeComponent();
@@ -17,6 +20,11 @@ namespace ShadowBuild
             renderTicker = new Ticker(Render.maxFPS);
             renderTicker.onTick += Render.renderNewFrame;
             this.Show();
+        }
+
+        private void onClose(object sender, EventArgs a)
+        {
+            renderTicker.abort();
         }
 
         private void InitializeComponent()
@@ -38,6 +46,7 @@ namespace ShadowBuild
             // 
             this.ClientSize = new System.Drawing.Size(282, 253);
             this.Controls.Add(this.display);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "GameWindow";
             ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();
             this.ResumeLayout(false);
