@@ -24,7 +24,8 @@ namespace ShadowBuild
             renderTicker.onTick += Render.renderNewFrame;
 
             this.Show();
-            Log.say("Window shown");
+            Log.say("Calling OnStart");
+            ShadowBuildProject.project.OnStart();
 
         }
 

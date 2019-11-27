@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ShadowBuild.Objects
 {
-    public class GameObject : _2Dobject
+    public class GameObject : _2DobjectResizeable
     {
         public static List<GameObject> allGameObjects { get; private set; } = new List<GameObject>();
 
@@ -23,5 +23,14 @@ namespace ShadowBuild.Objects
         public bool playingAnimation { get; private set; }
         public List<Collider> colliders { get; private set; } = new List<Collider>();
         public bool isRendered { get; private set; }
+
+        public GameObject(EmptyTexture texture)
+        {
+            this.setPosition(0, 0);
+            this.defaultTexture = texture;
+            this.isRendered = true;
+            this.setSize(new _2Dsize(1, 1));
+            allGameObjects.Add(this);
+        }
     }
 }

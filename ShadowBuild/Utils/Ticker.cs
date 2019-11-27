@@ -20,7 +20,8 @@ namespace ShadowBuild.Utils
             thread = new Thread(() => {
                 while (true)
                 {
-                    onTick();
+                    if(Render.lastFrameRendered) onTick();
+                    //await Task.Run(() => { Render.renderNewFrame(); });
                     Thread.Sleep(1000 / frequency);
                 }
             });

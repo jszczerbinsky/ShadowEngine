@@ -9,9 +9,16 @@ namespace ShadowBuild
 {
     public abstract class ShadowBuildProject
     {
+        internal static ShadowBuildProject project;
+
+        public abstract void OnStart();
+
         public ShadowBuildProject()
         {
             Log.say("Starting new ShadowBuild project");
+
+            project = this;
+
 
             Render.gameWindow = new GameWindow();
             Application.Run(Render.gameWindow);
