@@ -11,19 +11,26 @@ namespace ShadowBuild
 
         public GameWindow()
         {
+            Log.say("Creating new game window");
+
             this.FormClosing += onClose;
 
             Render.gameWindow = this;
             Render.initialize();
             InitializeComponent();
 
+            Log.say("Initializing ticker");
             renderTicker = new Ticker(Render.maxFPS);
             renderTicker.onTick += Render.renderNewFrame;
+
             this.Show();
+            Log.say("Window shown");
+
         }
 
         private void onClose(object sender, EventArgs a)
         {
+            Log.say("Closing...");
             renderTicker.abort();
         }
 

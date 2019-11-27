@@ -11,6 +11,8 @@ namespace ShadowBuild
     {
         public ShadowBuildProject()
         {
+            Log.say("Starting new ShadowBuild project");
+
             Render.gameWindow = new GameWindow();
             Application.Run(Render.gameWindow);
         }
