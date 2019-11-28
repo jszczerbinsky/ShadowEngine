@@ -18,11 +18,9 @@ namespace ShadowBuild
     {
         internal static GameWindow gameWindow;
         public static Resolution resolution { get; private set; }
-        public static int maxFPS { get; private set; }
 
-        public static bool lastFrameRendered = true;
 
-        public static bool showObjectBorders = true;
+        public static bool showObjectBorders = false;
 
         internal static void initialize()
         {
@@ -31,13 +29,10 @@ namespace ShadowBuild
             resolution.X = 800;
             resolution.Y = 600;
             resolution.windowType = WindowType.WINDOW;
-
-            maxFPS = 60;
         }
 
         internal static void renderNewFrame()
         {
-            lastFrameRendered = false;
 
             Bitmap frame = new Bitmap(resolution.X, resolution.Y);
 
@@ -153,14 +148,7 @@ namespace ShadowBuild
                     gameWindow.display.Image = frame;
                     if (tmp != null) tmp.Dispose();
                 }));
-                lastFrameRendered = true;
             }
-        }
-
-        public static void setFPSlimit(int fpsLimit)
-        {
-            maxFPS = fpsLimit;
-            Log.say("FPS limit changed to " + fpsLimit + " FPS");
         }
 
         public static void SetResolution(Resolution newResolution)

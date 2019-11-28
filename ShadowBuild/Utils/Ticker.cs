@@ -15,16 +15,17 @@ namespace ShadowBuild.Utils
         public delegate void OnTickDelegateVoid();
         public OnTickDelegateVoid onTick;
 
-
-
-        public Ticker(int frequency)
+        public Ticker()
         {
-            if (frequency == 0) throw new TickerFrequencyEqualsZeroException();
-            thread = new Thread(() => {
+            thread = new Thread(async () => {
                 while (true)
                 {
-                    if (Render.lastFrameRendered) onTick();
-                    Thread.Sleep(1000 / frequency);
+                    DateTime timeOnStart = DateTime.Now;
+                    await Task.Run(new Action(()=> { onTick(); }));
+                    DateTime timeOnEnd = DateTime.Now;
+
+                    TimeSpan delay = timeOnEnd - timeOnStart;
+                    currentFPS = (int)(1000 / delay.TotalMilliseconds);
                 }
             });
             thread.Start();

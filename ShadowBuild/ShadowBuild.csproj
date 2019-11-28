@@ -48,7 +48,6 @@
     <Compile Include="Events\Event.cs" />
     <Compile Include="Exceptions\EventNameIsAlreadyUsedException.cs" />
     <Compile Include="Exceptions\EventNotFoundException.cs" />
-    <Compile Include="Exceptions\TickerFrequencyEqualsZeroException.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Objects\Collisions\Collider.cs" />
     <Compile Include="Objects\Collisions\ColliderShape.cs" />

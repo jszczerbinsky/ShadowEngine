@@ -20,7 +20,7 @@ namespace ShadowBuild
             InitializeComponent();
 
             Log.say("Initializing ticker");
-            renderTicker = new Ticker(Render.maxFPS);
+            renderTicker = new Ticker();
             renderTicker.onTick += Render.renderNewFrame;
 
             this.Show();
