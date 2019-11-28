@@ -56,7 +56,6 @@
     <Compile Include="Objects\Texturing\ColorTexture.cs" />
     <Compile Include="Objects\Texturing\GridTexture.cs" />
     <Compile Include="Objects\Texturing\RegularTexture.cs" />
-    <Compile Include="Objects\Texturing\TextureMode.cs" />
     <Compile Include="Objects\_2Dobject.cs" />
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="GameWindow.cs">

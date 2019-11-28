@@ -1,4 +1,5 @@
 ﻿using ShadowBuild.Objects;
+using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Window;
 using System;
@@ -46,49 +47,74 @@ namespace ShadowBuild
 
             using (Graphics g = Graphics.FromImage(frame))
             {
-                foreach (GameObject gobj in GameObject.allGameObjects)
+                //Render objects
+                foreach (GameObject obj in GameObject.allGameObjects)
                 {
-                    if (gobj.isRendered)
+                    if (obj.isRendered)
                     {
-                        if (gobj.actualTexture is RegularTexture)
+                        if (obj.actualTexture is RegularTexture)
                         {
-                            RegularTexture tex = (RegularTexture)gobj.actualTexture;
-                            if (tex.mode == TextureMode.NORMAL)
-                                g.DrawImage(
-                                    tex.image,
-                                    new Rectangle(
-                                        new Point(
-                                            gobj.position.X,
-                                            gobj.position.Y
-                                        ), new Size(
-                                            tex.image.Width * gobj.size.X,
-                                            tex.image.Height * gobj.size.Y
-                                            )
+                            RegularTexture tex = (RegularTexture)obj.actualTexture;
+
+                            g.DrawImage(
+                                tex.image,
+                                new Rectangle(
+                                    new Point(
+                                        obj.globalPosition.X - tex.image.Width * obj.size.X / 2,
+                                        obj.globalPosition.Y - tex.image.Height * obj.size.Y / 2
+                                    ), new Size(
+                                        tex.image.Width * obj.size.X,
+                                        tex.image.Height * obj.size.Y
                                         )
-                                    );
+                                    )
+                                );
 
                         }
+
+                    }
+                }
+                //Render object centers
+                foreach (GameObject obj in GameObject.allGameObjects)
+                {
+                    if (obj.isRendered)
+                    {
                         g.FillEllipse(
                             new SolidBrush(
                                     Color.Red
                             ),
                             new Rectangle(
                                 new Point(
-                                    gobj.position.X - 1,
-                                    gobj.position.Y - 1),
+                                    obj.globalPosition.X - 1,
+                                    obj.globalPosition.Y - 1),
                                 new Size(
                                     5, 5)
                                 ));
+
+                        RegularTexture tex = (RegularTexture)obj.actualTexture;
+
+                        g.DrawRectangle(
+                            new Pen(
+                                new SolidBrush(
+                                        Color.Green
+                                ),
+                            2),
+                            new Rectangle(
+                                new Point(
+                                    obj.globalPosition.X - tex.image.Width * obj.size.X / 2,
+                                    obj.globalPosition.Y - tex.image.Height * obj.size.Y / 2),
+                                new Size(
+                                    tex.image.Width, tex.image.Height)
+                                ));
                     }
                 }
+                gameWindow.Invoke(new Action(() =>
+                {
+                    Image tmp = gameWindow.display.Image;
+                    gameWindow.display.Image = frame;
+                    if (tmp != null) tmp.Dispose();
+                }));
+                lastFrameRendered = true;
             }
-            gameWindow.Invoke(new Action(() =>
-            {
-                Image tmp = gameWindow.display.Image;
-                gameWindow.display.Image = frame;
-                if (tmp != null) tmp.Dispose();
-            }));
-            lastFrameRendered = true;
         }
 
         public static void setFPSlimit(int fpsLimit)

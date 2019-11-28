@@ -21,7 +21,6 @@ namespace ShadowBuild.Utils
                 while (true)
                 {
                     if(Render.lastFrameRendered) onTick();
-                    //await Task.Run(() => { Render.renderNewFrame(); });
                     Thread.Sleep(1000 / frequency);
                 }
             });

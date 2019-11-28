@@ -10,7 +10,6 @@ namespace ShadowBuild.Objects
     public class _2Dobject
     {
         public _2Dsize position { get; private set; }
-        public double rotation { get; private set; }
 
         #region position
 
@@ -26,22 +25,6 @@ namespace ShadowBuild.Objects
         {
             //Check collision
             this.position.setDimensions(this.position.X + X, this.position.Y + Y);
-        }
-
-        #endregion
-
-       
-
-        #region rotation
-
-        public void setRotation(double rot)
-        {
-            this.rotation = rot;
-        }
-        public void rotate(double rot)
-        {
-            //Check collision
-            this.rotation += rot;
         }
 
         #endregion

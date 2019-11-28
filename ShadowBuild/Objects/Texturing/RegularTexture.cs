@@ -9,12 +9,10 @@ namespace ShadowBuild.Objects.Texturing
 {
     public class RegularTexture : EmptyTexture
     {
-        public TextureMode mode;
 
-        public RegularTexture(Bitmap image, TextureMode mode)
+        public RegularTexture(Bitmap image  )
         {
             this.image = image;
-            this.mode = mode;
         }
     }
 }
