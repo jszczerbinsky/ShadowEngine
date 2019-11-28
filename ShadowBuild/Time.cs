@@ -6,16 +6,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ShadowBuild.Utils
+namespace ShadowBuild
 {
-    public class Ticker
+    public static class Time
     {
-        public long currentFPS { get; private set; } = 0;
-        private Thread thread;
+        private static Thread thread;
         public delegate void OnTickDelegateVoid();
-        public OnTickDelegateVoid onTick;
+        public static OnTickDelegateVoid onTick;
+        public static long currentFPS { get; private set; } = 0;
+        public static double delay = 0;
 
-        public Ticker()
+
+        internal static void startTicker()
         {
             thread = new Thread(async () => {
                 while (true)
@@ -24,14 +26,15 @@ namespace ShadowBuild.Utils
                     await Task.Run(new Action(()=> { onTick(); }));
                     DateTime timeOnEnd = DateTime.Now;
 
-                    TimeSpan delay = timeOnEnd - timeOnStart;
-                    currentFPS = (int)(1000 / delay.TotalMilliseconds);
+                    TimeSpan tsdelay = timeOnEnd - timeOnStart;
+                    delay = tsdelay.TotalSeconds;
+                    currentFPS = (int)(1000 / tsdelay.TotalMilliseconds);
                 }
             });
             thread.Start();
 
         }
-        public void abort()
+        internal static void abortThread()
         {
             thread.Abort();
         }

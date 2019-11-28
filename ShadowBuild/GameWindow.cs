@@ -1,12 +1,10 @@
-﻿using ShadowBuild.Utils;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace ShadowBuild
 {
     internal class GameWindow : Form
     {
-        internal Ticker renderTicker;
         internal PictureBox display;
 
         public GameWindow()
@@ -20,8 +18,8 @@ namespace ShadowBuild
             InitializeComponent();
 
             Log.say("Initializing ticker");
-            renderTicker = new Ticker();
-            renderTicker.onTick += Render.renderNewFrame;
+            Time.startTicker();
+            Time.onTick += Render.renderNewFrame;
 
             this.Show();
             Log.say("Calling OnStart");
@@ -32,7 +30,7 @@ namespace ShadowBuild
         private void onClose(object sender, EventArgs a)
         {
             Log.say("Closing...");
-            renderTicker.abort();
+            Time.abortThread();
         }
 
         private void InitializeComponent()

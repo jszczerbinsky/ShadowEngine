@@ -20,7 +20,8 @@ namespace ShadowBuild
         public static Resolution resolution { get; private set; }
 
 
-        public static bool showObjectBorders = false;
+
+        public static bool showObjectBorders = true;
 
         internal static void initialize()
         {
