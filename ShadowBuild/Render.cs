@@ -60,11 +60,11 @@ namespace ShadowBuild
                                 tex.image,
                                 new Rectangle(
                                     new Point(
-                                        obj.globalPosition.X - tex.image.Width * obj.size.X / 2,
-                                        obj.globalPosition.Y - tex.image.Height * obj.size.Y / 2
+                                        (int)(obj.startPosition.X),
+                                        (int)(obj.startPosition.Y)
                                     ), new Size(
-                                        tex.image.Width * obj.size.X,
-                                        tex.image.Height * obj.size.Y
+                                        (int)(tex.image.Width * obj.size.X),
+                                        (int)(tex.image.Height * obj.size.Y)
                                         )
                                     )
                                 );
@@ -84,8 +84,9 @@ namespace ShadowBuild
                             ),
                             new Rectangle(
                                 new Point(
-                                    obj.globalPosition.X - 1,
-                                    obj.globalPosition.Y - 1),
+                                    (int)(obj.globalPosition.X - 2),
+                                    (int)(obj.globalPosition.Y - 2)
+                                ),
                                 new Size(
                                     5, 5)
                                 ));
@@ -100,10 +101,11 @@ namespace ShadowBuild
                             2),
                             new Rectangle(
                                 new Point(
-                                    obj.globalPosition.X - tex.image.Width * obj.size.X / 2,
-                                    obj.globalPosition.Y - tex.image.Height * obj.size.Y / 2),
+                                    (int)(obj.startPosition.X),
+                                    (int)(obj.startPosition.Y)
+                                ),
                                 new Size(
-                                    tex.image.Width, tex.image.Height)
+                                    (int)(tex.image.Width * obj.size.X), (int)(tex.image.Height * obj.size.Y))
                                 ));
                     }
                 }

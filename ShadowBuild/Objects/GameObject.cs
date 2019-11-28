@@ -14,6 +14,9 @@ namespace ShadowBuild.Objects
         public static List<GameObject> allGameObjects { get; private set; } = new List<GameObject>();
 
         public GameObject parent { get; private set; }
+
+        #region position
+
         public _2Dsize globalPosition
         {
             get
@@ -27,6 +30,29 @@ namespace ShadowBuild.Objects
             }
             private set { }
         }
+        public _2Dsize startPosition
+        {
+            get
+            {
+                float decreseLeft = 0;
+                float decreseTop = 0;
+
+                if(actualTexture is RegularTexture)
+                {
+                    decreseLeft -= this.actualTexture.image.Width*this.size.X / 2;
+                    decreseTop -= this.actualTexture.image.Height*this.size.Y / 2;
+                }
+                _2Dsize decrese = new _2Dsize(decreseLeft, decreseTop);
+
+                return _2Dsize.add(this.globalPosition, decrese);
+            }
+            private set { }
+        }
+
+        #endregion
+
+        #region textures and animations
+
         public EmptyTexture defaultTexture { get; private set; }
         public EmptyTexture actualTexture
         {
@@ -34,8 +60,11 @@ namespace ShadowBuild.Objects
             private set { this.actualTexture = value; }
         }
         public bool playingAnimation { get; private set; }
-        public List<Collider> colliders { get; private set; } = new List<Collider>();
         public bool isRendered { get; private set; }
+
+        #endregion
+
+        public List<Collider> colliders { get; private set; } = new List<Collider>();
 
         public GameObject(EmptyTexture texture)
         {
@@ -49,5 +78,6 @@ namespace ShadowBuild.Objects
         {
             this.parent = obj;
         }
+
     }
 }

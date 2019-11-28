@@ -8,8 +8,8 @@ namespace ShadowBuild.Objects.Dimensions
 {
     public class _2Dsize
     {
-        public int X { get; private set; }
-        public int Y { get; private set; }
+        public float X { get; private set; }
+        public float Y { get; private set; }
 
         public _2Dsize()
         {
@@ -17,7 +17,7 @@ namespace ShadowBuild.Objects.Dimensions
             this.Y = 0;
         }
 
-        public _2Dsize(int X, int Y)
+        public _2Dsize(float X, float Y)
         {
             this.X = X;
             this.Y = Y;
@@ -28,7 +28,7 @@ namespace ShadowBuild.Objects.Dimensions
             return new _2Dsize(size1.X + size2.X, size1.Y+ size2.Y);
         }
 
-        public void setDimensions(int newX, int newY)
+        public void setDimensions(float newX, float newY)
         {
             this.X = newX;
             this.Y = newY;

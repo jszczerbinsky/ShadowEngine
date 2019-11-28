@@ -11,5 +11,7 @@ namespace ShadowBuild.Objects.Texturing
     public abstract class EmptyTexture
     {
         public Bitmap image;
+
+        
     }
 }

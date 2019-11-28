@@ -17,7 +17,7 @@ namespace ShadowBuild.Objects
         {
             this.size = size;
         }
-        public void setSize(int X, int Y)
+        public void setSize(float X, float Y)
         {
             this.size = new _2Dsize(X, Y);
         }
