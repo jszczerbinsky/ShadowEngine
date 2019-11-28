@@ -12,6 +12,7 @@ namespace ShadowBuild
         internal static ShadowBuildProject project;
 
         public abstract void OnStart();
+        public abstract void OnTick();
 
         public ShadowBuildProject()
         {
@@ -21,6 +22,7 @@ namespace ShadowBuild
 
 
             Render.gameWindow = new GameWindow();
+            Render.gameWindow.renderTicker.onTick += OnTick;
             Application.Run(Render.gameWindow);
         }
     }

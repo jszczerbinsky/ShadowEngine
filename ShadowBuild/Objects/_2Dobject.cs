@@ -21,11 +21,6 @@ namespace ShadowBuild.Objects
         {
             this.position = new _2Dsize(X, Y);
         }
-        public void move(int X, int Y)
-        {
-            //Check collision
-            this.position.setDimensions(this.position.X + X, this.position.Y + Y);
-        }
 
         #endregion
 

@@ -6,7 +6,7 @@ namespace ShadowBuild
 {
     internal class GameWindow : Form
     {
-        private Ticker renderTicker;
+        internal Ticker renderTicker;
         internal PictureBox display;
 
         public GameWindow()

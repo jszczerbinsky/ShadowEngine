@@ -49,11 +49,12 @@ namespace ShadowBuild
 
             using (Graphics g = Graphics.FromImage(frame))
             {
-                //Render objects
+                
                 foreach (GameObject obj in GameObject.allGameObjects)
                 {
                     if (obj.isRendered)
                     {
+                        #region rendering objects
                         if (obj.actualTexture is RegularTexture)
                         {
                             RegularTexture tex = (RegularTexture)obj.actualTexture;
@@ -72,8 +73,10 @@ namespace ShadowBuild
                                 );
 
                         }
+                        #endregion
 
-                        //Render object borders
+
+                        #region rendering object borders 
                         if (showObjectBorders)
                         {
 
@@ -111,9 +114,14 @@ namespace ShadowBuild
                                     ));
 
                         }
+
+                        #endregion
                     }
                 }
-                //Render object centers
+
+
+                #region rendering object centers
+
                 if (showObjectBorders)
                     foreach (GameObject obj in GameObject.allGameObjects)
                     {
@@ -136,6 +144,9 @@ namespace ShadowBuild
 
                         }
                     }
+
+                #endregion
+
                 gameWindow.Invoke(new Action(() =>
                 {
                     Image tmp = gameWindow.display.Image;

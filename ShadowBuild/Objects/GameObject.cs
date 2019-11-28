@@ -78,6 +78,11 @@ namespace ShadowBuild.Objects
         {
             this.parent = obj;
         }
+        public void move(float X, float Y)
+        {
+            //Check collision
+            this.position.setDimensions(this.position.X + X, this.position.Y + Y);
+        }
 
     }
 }

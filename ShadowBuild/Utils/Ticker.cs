@@ -10,9 +10,12 @@ namespace ShadowBuild.Utils
 {
     public class Ticker
     {
+        public long currentFPS { get; private set; } = 0;
         private Thread thread;
         public delegate void OnTickDelegateVoid();
         public OnTickDelegateVoid onTick;
+
+
 
         public Ticker(int frequency)
         {
@@ -20,7 +23,7 @@ namespace ShadowBuild.Utils
             thread = new Thread(() => {
                 while (true)
                 {
-                    if(Render.lastFrameRendered) onTick();
+                    if (Render.lastFrameRendered) onTick();
                     Thread.Sleep(1000 / frequency);
                 }
             });
