@@ -22,6 +22,8 @@ namespace ShadowBuild
 
         public static bool lastFrameRendered = true;
 
+        public static bool showObjectBorders = true;
+
         internal static void initialize()
         {
             Log.say("Initializing resolution settings");
@@ -71,44 +73,69 @@ namespace ShadowBuild
 
                         }
 
+                        //Render object borders
+                        if (showObjectBorders)
+                        {
+
+                            Random rand = new Random();
+                            Color fillColor = Color.FromArgb(100, rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+
+                            g.FillRectangle(
+                                    new SolidBrush(
+                                            fillColor
+                                    ),
+                                new Rectangle(
+                                    new Point(
+                                        (int)(obj.startPosition.X),
+                                        (int)(obj.startPosition.Y)
+                                    ),
+                                    new Size(
+                                        (int)(EmptyTexture.getSize(obj.actualTexture).X * obj.size.X), (int)(EmptyTexture.getSize(obj.actualTexture).Y * obj.size.Y))
+                                    ));
+
+                            Color drawColor = Color.FromArgb(100, rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
+
+                            g.DrawRectangle(
+                                new Pen(
+                                    new SolidBrush(
+                                            drawColor
+                                    ),
+                                    3),
+                                new Rectangle(
+                                    new Point(
+                                        (int)(obj.startPosition.X),
+                                        (int)(obj.startPosition.Y)
+                                    ),
+                                    new Size(
+                                        (int)(EmptyTexture.getSize(obj.actualTexture).X * obj.size.X), (int)(EmptyTexture.getSize(obj.actualTexture).Y * obj.size.Y))
+                                    ));
+
+                        }
                     }
                 }
                 //Render object centers
-                foreach (GameObject obj in GameObject.allGameObjects)
-                {
-                    if (obj.isRendered)
+                if (showObjectBorders)
+                    foreach (GameObject obj in GameObject.allGameObjects)
                     {
-                        g.FillEllipse(
-                            new SolidBrush(
-                                    Color.Red
-                            ),
-                            new Rectangle(
-                                new Point(
-                                    (int)(obj.globalPosition.X - 2),
-                                    (int)(obj.globalPosition.Y - 2)
-                                ),
-                                new Size(
-                                    5, 5)
-                                ));
-
-                        RegularTexture tex = (RegularTexture)obj.actualTexture;
-
-                        g.DrawRectangle(
-                            new Pen(
+                        if (obj.isRendered)
+                        {
+                            g.FillEllipse(
                                 new SolidBrush(
-                                        Color.Green
+                                        Color.Red
                                 ),
-                            2),
-                            new Rectangle(
-                                new Point(
-                                    (int)(obj.startPosition.X),
-                                    (int)(obj.startPosition.Y)
-                                ),
-                                new Size(
-                                    (int)(tex.image.Width * obj.size.X), (int)(tex.image.Height * obj.size.Y))
-                                ));
+                                new Rectangle(
+                                    new Point(
+                                        (int)(obj.globalPosition.X - 2),
+                                        (int)(obj.globalPosition.Y - 2)
+                                    ),
+                                    new Size(
+                                        5, 5)
+                                    ));
+
+
+
+                        }
                     }
-                }
                 gameWindow.Invoke(new Action(() =>
                 {
                     Image tmp = gameWindow.display.Image;

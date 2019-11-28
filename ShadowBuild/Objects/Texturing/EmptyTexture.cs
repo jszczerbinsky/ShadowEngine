@@ -12,6 +12,10 @@ namespace ShadowBuild.Objects.Texturing
     {
         public Bitmap image;
 
-        
+        public static _2Dsize getSize(EmptyTexture tex)
+        {
+            if (tex is RegularTexture) return new _2Dsize(tex.image.Width, tex.image.Height);
+            else return null;
+        }
     }
 }
