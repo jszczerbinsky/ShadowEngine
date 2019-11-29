@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShadowBuild.Input;
+using System;
 using System.Windows.Forms;
 
 namespace ShadowBuild
@@ -54,9 +55,19 @@ namespace ShadowBuild
             this.Controls.Add(this.display);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "GameWindow";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();
             this.ResumeLayout(false);
 
+        }
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            Keyboard.setKeyState(e, true);
+        }
+        private void OnKeyUp(object sender, KeyEventArgs e)
+        {
+            Keyboard.setKeyState(e, false);
         }
     }
 }

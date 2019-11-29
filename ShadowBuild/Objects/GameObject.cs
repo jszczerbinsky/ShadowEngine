@@ -83,6 +83,11 @@ namespace ShadowBuild.Objects
             //Check collision
             this.position.setDimensions(this.position.X + X, this.position.Y + Y);
         }
+        public void move(double X, double Y)
+        {
+            //Check collision
+            this.position.setDimensions((float)(this.position.X + X), (float)(this.position.Y + Y));
+        }
 
     }
 }
