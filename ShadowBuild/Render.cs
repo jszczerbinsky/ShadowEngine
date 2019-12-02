@@ -87,6 +87,30 @@ namespace ShadowBuild
                             else g.FillRectangle(brush, size);
 
                         }
+                        else if (obj.actualTexture is GridTexture)
+                        {
+                            GridTexture tex = (GridTexture)obj.actualTexture;
+
+                            for (int x = 0; x < tex.xCount; x++)
+                            {
+                                for (int y = 0; y < tex.yCount; y++)
+                                {
+
+                                    g.DrawImage(
+                                        tex.image,
+                                        new Rectangle(
+                                            new Point(
+                                                (int)(obj.startPosition.X + x*tex.image.Width*obj.size.X),
+                                                (int)(obj.startPosition.Y + y*tex.image.Height*obj.size.Y)
+                                            ), new Size(
+                                                (int)(tex.image.Width * obj.size.X),
+                                                (int)(tex.image.Height * obj.size.Y)
+                                                )
+                                            )
+                                        );
+                                }
+                            }
+                        }
                         #endregion
 
 
