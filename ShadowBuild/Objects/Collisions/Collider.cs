@@ -9,7 +9,7 @@ namespace ShadowBuild.Objects.Collisions
 {
     public sealed class Collider : _2Dobject
     {
-        public ColliderShape shape { get; private set; }
+        public Shape shape { get; private set; }
         
     }
 }

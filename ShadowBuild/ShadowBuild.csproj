@@ -50,7 +50,7 @@
     <Compile Include="Exceptions\EventNotFoundException.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Objects\Collisions\Collider.cs" />
-    <Compile Include="Objects\Collisions\ColliderShape.cs" />
+    <Compile Include="Objects\Dimensions\Shape.cs" />
     <Compile Include="Objects\Dimensions\_2Dsize.cs" />
     <Compile Include="Objects\Texturing\ColorTexture.cs" />
     <Compile Include="Objects\Texturing\GridTexture.cs" />

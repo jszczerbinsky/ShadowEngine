@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ShadowBuild.Objects.Dimensions;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShadowBuild.Objects.Texturing
 {
     public class ColorTexture : EmptyTexture
     {
-        public Color color { get; private set; }
+        public Color color;
+        public _2Dsize size;
+        public Shape shape;
 
-        public void setColor(Color color)
+        public ColorTexture(Color color, Shape shape, _2Dsize size)
         {
+            this.shape = shape;
             this.color = color;
+            this.size = size;
         }
     }
 }

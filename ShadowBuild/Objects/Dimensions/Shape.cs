@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowBuild.Objects.Collisions
+namespace ShadowBuild.Objects
 {
-    public enum ColliderShape
+    public enum Shape
     {
         RECTANGLE,
         ELLIPSE

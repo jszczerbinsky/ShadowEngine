@@ -43,7 +43,7 @@ namespace ShadowBuild
 
             using (Graphics g = Graphics.FromImage(frame))
             {
-                
+
                 foreach (GameObject obj in GameObject.allGameObjects)
                 {
                     if (obj.isRendered)
@@ -65,6 +65,26 @@ namespace ShadowBuild
                                         )
                                     )
                                 );
+
+                        }
+                        else if (obj.actualTexture is ColorTexture)
+                        {
+                            ColorTexture tex = (ColorTexture)obj.actualTexture;
+                            Brush brush = new SolidBrush(tex.color);
+                            Rectangle size = new Rectangle(
+                                new Point(
+                                     (int)(obj.startPosition.X),
+                                     (int)(obj.startPosition.Y)
+                                ),
+                                new Size(
+                                    (int)(tex.size.X * obj.size.X),
+                                    (int)(tex.size.Y * obj.size.Y)
+                                )
+                            );
+
+                            if (tex.shape == Shape.ELLIPSE)
+                                g.FillEllipse(brush, size);
+                            else g.FillRectangle(brush, size);
 
                         }
                         #endregion
