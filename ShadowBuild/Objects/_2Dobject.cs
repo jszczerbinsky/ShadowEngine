@@ -17,7 +17,7 @@ namespace ShadowBuild.Objects
         {
             this.position = position;
         }
-        public void setPosition(float X, float Y)
+        public void setPosition(double X, double Y)
         {
             this.position = new _2Dsize(X, Y);
         }
