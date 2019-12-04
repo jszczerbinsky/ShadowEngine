@@ -19,7 +19,7 @@ namespace ShadowBuild
         internal static GameWindow gameWindow;
         public static Resolution resolution { get; private set; }
 
-        public static bool showObjectBorders = false;
+        public static bool showObjectBorders = true;
 
         internal static void initialize()
         {
@@ -48,112 +48,9 @@ namespace ShadowBuild
                 {
                     if (obj.isRendered)
                     {
-                        #region rendering objects
-                        if (obj.actualTexture is RegularTexture)
-                        {
-                            RegularTexture tex = (RegularTexture)obj.actualTexture;
+                        obj.actualTexture.render(g, obj);
 
-                            g.DrawImage(
-                                tex.image,
-                                new Rectangle(
-                                    new Point(
-                                        (int)(obj.startPosition.X),
-                                        (int)(obj.startPosition.Y)
-                                    ), new Size(
-                                        (int)(tex.image.Width * obj.size.X),
-                                        (int)(tex.image.Height * obj.size.Y)
-                                        )
-                                    )
-                                );
-
-                        }
-                        else if (obj.actualTexture is ColorTexture)
-                        {
-                            ColorTexture tex = (ColorTexture)obj.actualTexture;
-                            Brush brush = new SolidBrush(tex.color);
-                            Rectangle size = new Rectangle(
-                                new Point(
-                                     (int)(obj.startPosition.X),
-                                     (int)(obj.startPosition.Y)
-                                ),
-                                new Size(
-                                    (int)(tex.size.X * obj.size.X),
-                                    (int)(tex.size.Y * obj.size.Y)
-                                )
-                            );
-
-                            if (tex.shape == Shape.ELLIPSE)
-                                g.FillEllipse(brush, size);
-                            else g.FillRectangle(brush, size);
-
-                        }
-                        else if (obj.actualTexture is GridTexture)
-                        {
-                            GridTexture tex = (GridTexture)obj.actualTexture;
-
-                            for (int x = 0; x < tex.xCount; x++)
-                            {
-                                for (int y = 0; y < tex.yCount; y++)
-                                {
-
-                                    g.DrawImage(
-                                        tex.image,
-                                        new Rectangle(
-                                            new Point(
-                                                (int)(obj.startPosition.X + x*tex.image.Width*obj.size.X),
-                                                (int)(obj.startPosition.Y + y*tex.image.Height*obj.size.Y)
-                                            ), new Size(
-                                                (int)(tex.image.Width * obj.size.X),
-                                                (int)(tex.image.Height * obj.size.Y)
-                                                )
-                                            )
-                                        );
-                                }
-                            }
-                        }
-                        #endregion
-
-
-                        #region rendering object borders 
-                        if (showObjectBorders)
-                        {
-
-                            Random rand = new Random();
-                            Color fillColor = Color.FromArgb(100, rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
-
-                            g.FillRectangle(
-                                    new SolidBrush(
-                                            fillColor
-                                    ),
-                                new Rectangle(
-                                    new Point(
-                                        (int)(obj.startPosition.X),
-                                        (int)(obj.startPosition.Y)
-                                    ),
-                                    new Size(
-                                        (int)(EmptyTexture.getSize(obj.actualTexture).X * obj.size.X), (int)(EmptyTexture.getSize(obj.actualTexture).Y * obj.size.Y))
-                                    ));
-
-                            Color drawColor = Color.FromArgb(100, rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
-
-                            g.DrawRectangle(
-                                new Pen(
-                                    new SolidBrush(
-                                            drawColor
-                                    ),
-                                    3),
-                                new Rectangle(
-                                    new Point(
-                                        (int)(obj.startPosition.X),
-                                        (int)(obj.startPosition.Y)
-                                    ),
-                                    new Size(
-                                        (int)(EmptyTexture.getSize(obj.actualTexture).X * obj.size.X), (int)(EmptyTexture.getSize(obj.actualTexture).Y * obj.size.Y))
-                                    ));
-
-                        }
-
-                        #endregion
+                        if (showObjectBorders) EmptyTexture.renderObjectBorders(g, obj);
                     }
                 }
 

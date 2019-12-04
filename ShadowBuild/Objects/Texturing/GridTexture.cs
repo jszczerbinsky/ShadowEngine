@@ -18,5 +18,30 @@ namespace ShadowBuild.Objects.Texturing
             this.xCount = xCount;
             this.yCount = yCount;
         }
+
+        public override void render(Graphics g, GameObject obj)
+        {
+            GridTexture tex = (GridTexture)obj.actualTexture;
+
+            for (int x = 0; x < tex.xCount; x++)
+            {
+                for (int y = 0; y < tex.yCount; y++)
+                {
+
+                    g.DrawImage(
+                        tex.image,
+                        new Rectangle(
+                            new Point(
+                                (int)(obj.startPosition.X + x * tex.image.Width * obj.size.X),
+                                (int)(obj.startPosition.Y + y * tex.image.Height * obj.size.Y)
+                            ), new Size(
+                                (int)(tex.image.Width * obj.size.X),
+                                (int)(tex.image.Height * obj.size.Y)
+                                )
+                            )
+                        );
+                }
+            }
+        }
     }
 }
