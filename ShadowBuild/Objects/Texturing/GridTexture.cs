@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShadowBuild.Objects.Dimensions;
 
 namespace ShadowBuild.Objects.Texturing
 {
@@ -17,6 +18,11 @@ namespace ShadowBuild.Objects.Texturing
             this.image = image;
             this.xCount = xCount;
             this.yCount = yCount;
+        }
+
+        public override _2Dsize getSize()
+        {
+            return new _2Dsize(image.Size.Width * xCount, image.Size.Height * yCount);
         }
 
         public override void render(Graphics g, GameObject obj)

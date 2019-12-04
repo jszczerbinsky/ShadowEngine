@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShadowBuild.Objects.Dimensions;
 
 namespace ShadowBuild.Objects.Texturing
 {
@@ -13,6 +14,11 @@ namespace ShadowBuild.Objects.Texturing
         public RegularTexture(Bitmap image)
         {
             this.image = image;
+        }
+
+        public override _2Dsize getSize()
+        {
+            return new _2Dsize(this.image.Width, this.image.Height);
         }
 
         public override void render(Graphics g, GameObject obj)

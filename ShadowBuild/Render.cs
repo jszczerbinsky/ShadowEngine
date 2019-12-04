@@ -54,33 +54,9 @@ namespace ShadowBuild
                     }
                 }
 
-
-                #region rendering object centers
-
                 if (showObjectBorders)
                     foreach (GameObject obj in GameObject.allGameObjects)
-                    {
-                        if (obj.isRendered)
-                        {
-                            g.FillEllipse(
-                                new SolidBrush(
-                                        Color.Red
-                                ),
-                                new Rectangle(
-                                    new Point(
-                                        (int)(obj.globalPosition.X - 2),
-                                        (int)(obj.globalPosition.Y - 2)
-                                    ),
-                                    new Size(
-                                        5, 5)
-                                    ));
-
-
-
-                        }
-                    }
-
-                #endregion
+                        EmptyTexture.renderObjectCenters(g, obj);
 
                 gameWindow.Invoke(new Action(() =>
                 {

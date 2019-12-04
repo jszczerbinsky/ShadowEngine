@@ -48,8 +48,8 @@ namespace ShadowBuild.Objects
                 }else if (actualTexture is GridTexture)
                 {
                     GridTexture tex = (GridTexture)this.actualTexture;
-                    decreseLeft -= tex.image.Width * this.size.X * tex.xCount;
-                    decreseTop -= tex.image.Height * this.size.Y * tex.yCount;
+                    decreseLeft -= tex.image.Width * this.size.X * tex.xCount/2;
+                    decreseTop -= tex.image.Height * this.size.Y * tex.yCount/2;
                 }
                 _2Dsize decrese = new _2Dsize(decreseLeft, decreseTop);
 

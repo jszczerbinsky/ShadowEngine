@@ -22,7 +22,7 @@ namespace test_app
             testObj.setPosition(300, 400);
             testObj2.setPosition(50, -20);
             testObj2.setParent(testObj);
-            testObj3 = new GameObject(new RegularTexture((Bitmap)Bitmap.FromFile("wykres.png")));
+            testObj3 = new GameObject(new GridTexture((Bitmap)Bitmap.FromFile("wykres.png"), 2, 3));
             testObj3.setPosition(0, 0);
             testObj3.setParent(testObj2);
             testObj3.setSize(1, 1);

@@ -16,6 +16,11 @@ namespace ShadowBuild.Objects.Texturing
             this.size = size;
         }
 
+        public override _2Dsize getSize()
+        {
+            return size; 
+        }
+
         public override void render(Graphics g, GameObject obj)
         {
             ColorTexture tex = (ColorTexture)obj.actualTexture;
