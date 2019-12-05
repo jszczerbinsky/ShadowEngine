@@ -3,7 +3,7 @@ using System.Drawing;
 
 namespace ShadowBuild.Objects.Texturing
 {
-    public class ColorTexture : EmptyTexture
+    public class ColorTexture : Texture
     {
         public Color color;
         public _2Dsize size;

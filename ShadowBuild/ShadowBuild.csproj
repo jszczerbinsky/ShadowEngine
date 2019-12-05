@@ -65,7 +65,7 @@
     </Compile>
     <Compile Include="Input\Keyboard.cs" />
     <Compile Include="Input\Mouse.cs" />
-    <Compile Include="Objects\Texturing\EmptyTexture.cs" />
+    <Compile Include="Objects\Texturing\Texture.cs" />
     <Compile Include="Objects\_2DobjectResizeable.cs" />
     <Compile Include="Render.cs" />
     <Compile Include="ShadowBuildProject.cs" />

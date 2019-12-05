@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShadowBuild.Objects.Texturing
 {
-    public abstract class EmptyTexture
+    public abstract class Texture
     {
         public Bitmap image;
 

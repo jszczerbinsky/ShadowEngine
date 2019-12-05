@@ -62,8 +62,8 @@ namespace ShadowBuild.Objects
 
         #region textures and animations
 
-        public EmptyTexture defaultTexture { get; private set; }
-        public EmptyTexture actualTexture
+        public Texture defaultTexture { get; private set; }
+        public Texture actualTexture
         {
             get { if (playingAnimation) return actualTexture; else return this.defaultTexture; }
             private set { this.actualTexture = value; }
@@ -75,7 +75,7 @@ namespace ShadowBuild.Objects
 
         public List<Collider> colliders { get; private set; } = new List<Collider>();
 
-        public GameObject(EmptyTexture texture)
+        public GameObject(Texture texture)
         {
             this.setPosition(0, 0);
             this.defaultTexture = texture;

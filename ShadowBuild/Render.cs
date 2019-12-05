@@ -50,13 +50,13 @@ namespace ShadowBuild
                     {
                         obj.actualTexture.render(g, obj);
 
-                        if (showObjectBorders) EmptyTexture.renderObjectBorders(g, obj);
+                        if (showObjectBorders) Texture.renderObjectBorders(g, obj);
                     }
                 }
 
                 if (showObjectBorders)
                     foreach (GameObject obj in GameObject.allGameObjects)
-                        EmptyTexture.renderObjectCenters(g, obj);
+                        Texture.renderObjectCenters(g, obj);
 
                 gameWindow.Invoke(new Action(() =>
                 {

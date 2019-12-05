@@ -8,7 +8,7 @@ using ShadowBuild.Objects.Dimensions;
 
 namespace ShadowBuild.Objects.Texturing
 {
-    public class GridTexture : EmptyTexture
+    public class GridTexture : Texture
     {
         public int xCount;
         public int yCount;

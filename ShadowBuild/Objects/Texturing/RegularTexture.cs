@@ -8,7 +8,7 @@ using ShadowBuild.Objects.Dimensions;
 
 namespace ShadowBuild.Objects.Texturing
 {
-    public class RegularTexture : EmptyTexture
+    public class RegularTexture : Texture
     {
 
         public RegularTexture(Bitmap image)
