@@ -1,5 +1,4 @@
-﻿using ShadowBuild.Objects.Collisions;
-using ShadowBuild.Objects.Dimensions;
+﻿using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
 using System;
 using System.Collections.Generic;
@@ -12,7 +11,7 @@ namespace ShadowBuild.Objects
     public class GameObject : _2DobjectResizeable
     {
         public static List<GameObject> allGameObjects { get; private set; } = new List<GameObject>();
-
+        public bool collidable = true;
         public GameObject parent { get; private set; }
 
         #region position
@@ -72,8 +71,6 @@ namespace ShadowBuild.Objects
         public bool isRendered { get; private set; }
 
         #endregion
-
-        public List<Collider> colliders { get; private set; } = new List<Collider>();
 
         public GameObject(Texture texture)
         {
