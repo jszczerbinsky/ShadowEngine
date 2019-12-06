@@ -19,7 +19,7 @@ namespace ShadowBuild
         internal static GameWindow gameWindow;
         public static Resolution resolution { get; private set; }
 
-        public static bool showObjectBorders = true;
+        public static bool showObjectBorders = false;
 
         internal static void initialize()
         {
