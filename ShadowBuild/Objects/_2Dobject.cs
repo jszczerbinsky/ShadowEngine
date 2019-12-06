@@ -9,7 +9,7 @@ namespace ShadowBuild.Objects
 {
     public class _2Dobject
     {
-        public _2Dsize position { get; private set; }
+        public _2Dsize position { get; protected set; }
 
         #region position
 

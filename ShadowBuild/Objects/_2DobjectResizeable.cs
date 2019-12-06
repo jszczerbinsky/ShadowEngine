@@ -9,7 +9,7 @@ namespace ShadowBuild.Objects
 {
     public class _2DobjectResizeable : _2Dobject
     {
-        public _2Dsize size { get; private set; }
+        public _2Dsize size { get; protected set; }
 
         #region size
 

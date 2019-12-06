@@ -13,6 +13,19 @@ namespace ShadowBuild.Objects
         public static List<GameObject> allGameObjects { get; private set; } = new List<GameObject>();
         public bool collidable = true;
         public GameObject parent { get; private set; }
+        public List<GameObject> children
+        {
+            get
+            {
+                List<GameObject> toReturn = new List<GameObject>();
+                foreach (GameObject obj in allGameObjects)
+                {
+                    if (obj.parent == this) toReturn.Add(obj);
+                }
+                return toReturn;
+            }
+            private set { }
+        }
 
         #region position
 
@@ -21,7 +34,7 @@ namespace ShadowBuild.Objects
             get
             {
                 _2Dsize tmpPosition = this.position;
-                if(this.parent != null)
+                if (this.parent != null)
                 {
                     tmpPosition = _2Dsize.add(tmpPosition, this.parent.globalPosition);
                 }
@@ -36,19 +49,21 @@ namespace ShadowBuild.Objects
                 double decreseLeft = 0;
                 double decreseTop = 0;
 
-                if(actualTexture is RegularTexture)
+                if (actualTexture is RegularTexture)
                 {
-                    decreseLeft -= this.actualTexture.image.Width*this.size.X / 2;
-                    decreseTop -= this.actualTexture.image.Height*this.size.Y / 2;
-                }else if (actualTexture is ColorTexture)
+                    decreseLeft -= this.actualTexture.image.Width * this.size.X / 2;
+                    decreseTop -= this.actualTexture.image.Height * this.size.Y / 2;
+                }
+                else if (actualTexture is ColorTexture)
                 {
-                    decreseLeft -= ((ColorTexture)this.actualTexture).size.X *this.size.X / 2;
-                    decreseTop -= ((ColorTexture)this.actualTexture).size.Y  * this.size.Y/ 2;
-                }else if (actualTexture is GridTexture)
+                    decreseLeft -= ((ColorTexture)this.actualTexture).size.X * this.size.X / 2;
+                    decreseTop -= ((ColorTexture)this.actualTexture).size.Y * this.size.Y / 2;
+                }
+                else if (actualTexture is GridTexture)
                 {
                     GridTexture tex = (GridTexture)this.actualTexture;
-                    decreseLeft -= tex.image.Width * this.size.X * tex.xCount/2;
-                    decreseTop -= tex.image.Height * this.size.Y * tex.yCount/2;
+                    decreseLeft -= tex.image.Width * this.size.X * tex.xCount / 2;
+                    decreseTop -= tex.image.Height * this.size.Y * tex.yCount / 2;
                 }
                 _2Dsize decrese = new _2Dsize(decreseLeft, decreseTop);
 
@@ -80,14 +95,69 @@ namespace ShadowBuild.Objects
             this.setSize(new _2Dsize(1, 1));
             allGameObjects.Add(this);
         }
+        private GameObject(GameObject obj)
+        {
+            this.position = obj.globalPosition;
+            this.defaultTexture = obj.actualTexture;
+            this.size = obj.size;
+            this.collidable = true;
+        }
         public void setParent(GameObject obj)
         {
             this.parent = obj;
         }
+        public List<GameObject> getAllGrandchildren()
+        {
+            List<GameObject> objs = new List<GameObject>();
+
+            foreach (GameObject child in this.children)
+            {
+                List<GameObject> toMerge = child.getAllGrandchildren();
+                toMerge.Add(child);
+                foreach (GameObject toMergeObj in toMerge)
+                    objs.Add(toMergeObj);
+
+            }
+            return objs;
+        }
+        public bool isChildOf(GameObject parent)
+        {
+            if (this.parent == parent) return true;
+            else if (this.parent == null) return false;
+            else return this.parent.isChildOf(parent);
+        }
+        private bool checkCollision(GameObject obj1, GameObject obj2)
+        {
+            if (obj1.collidable && obj2.collidable && (Collision.check(obj1, obj2) || Collision.check(obj2, obj1))) return true;
+            return false;
+        }
         public void move(double X, double Y)
         {
-            //Check collision
-            this.position.setDimensions(this.position.X + X, this.position.Y + Y);
+            if(X != 0 && Y != 0)
+            {
+                this.move(X, 0);
+                this.move(0, Y);
+                return;
+            }
+
+            List<GameObject> childrenWithThis = this.getAllGrandchildren();
+            Log.say(childrenWithThis.Count.ToString());
+            childrenWithThis.Add(this);
+
+            foreach(GameObject child in childrenWithThis)
+            {
+                GameObject tmpObject = new GameObject(child);
+                tmpObject.setPosition(_2Dsize.add(child.globalPosition, new _2Dsize(X, Y)));
+
+                foreach(GameObject obj in allGameObjects)
+                {
+                    if (obj == child ||  child.isChildOf(obj)) continue;
+
+                    if (checkCollision(tmpObject, obj)) return;
+                }
+            }
+            this.setPosition(this.position.X + X, this.position.Y + Y);
+
         }
 
     }
