@@ -6,7 +6,8 @@ namespace ShadowBuild
 {
     internal class GameWindow : Form
     {
-        internal PictureBox display;
+        private PictureBox display;
+        internal static GameWindow actualGameWindow;
 
         public GameWindow()
         {
@@ -14,13 +15,13 @@ namespace ShadowBuild
 
             this.FormClosing += onClose;
 
-            Render.gameWindow = this;
-            Render.initialize();
+            actualGameWindow = this;
+            Camera.defaultCam = new Camera(0, 0, 800, 600);
             InitializeComponent();
 
             Log.say("Initializing ticker");
-            Time.startTicker();
-            Time.onTick += Render.renderNewFrame;
+            Loop.startTicker();
+            Loop.onTick += this.renderNewFrame;
 
             this.Show();
             Log.say("Calling OnStart");
@@ -28,10 +29,19 @@ namespace ShadowBuild
 
         }
 
+        internal void renderNewFrame()
+        {
+            Camera.defaultCam.setSize(Render.resolution);
+            this.Invoke(new Action(() =>
+            {
+                this.display.Image = Render.fromCamera(Camera.defaultCam);
+            }));
+        }
+
         private void onClose(object sender, EventArgs a)
         {
             Log.say("Closing...");
-            Time.abortThread();
+            Loop.abortThread();
         }
 
         private void InitializeComponent()
@@ -45,20 +55,22 @@ namespace ShadowBuild
             this.display.Location = new System.Drawing.Point(0, 0);
             this.display.Name = "display";
             this.display.Size = new System.Drawing.Size(100, 50);
-            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.display.TabIndex = 0;
             this.display.TabStop = false;
             // 
             // GameWindow
             // 
-            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.ClientSize = new System.Drawing.Size(782, 553);
             this.Controls.Add(this.display);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "GameWindow";
+            this.TopMost = true;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
         private void OnKeyDown(object sender, KeyEventArgs e)

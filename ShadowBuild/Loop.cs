@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShadowBuild
 {
-    public static class Time
+    public static class Loop
     {
         private static Thread thread;
         public delegate void OnTickDelegateVoid();

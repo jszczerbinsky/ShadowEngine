@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShadowBuild.Objects
 {
-    public class _2DobjectResizeable : _2Dobject
+    public abstract class _2DobjectResizeable : _2Dobject
     {
         public _2Dsize size { get; protected set; }
 

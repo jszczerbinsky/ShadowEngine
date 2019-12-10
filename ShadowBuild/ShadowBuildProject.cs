@@ -18,9 +18,9 @@ namespace ShadowBuild
             project = this;
 
 
-            Render.gameWindow = new GameWindow();
-            Time.onTick += OnTick;
-            Application.Run(Render.gameWindow);
+            new GameWindow();
+            Loop.onTick += OnTick;
+            Application.Run(GameWindow.actualGameWindow);
         }
     }
 }
