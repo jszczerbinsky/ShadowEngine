@@ -3,6 +3,7 @@ using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Window;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -43,8 +44,10 @@ namespace ShadowBuild
 
             using (Graphics g = Graphics.FromImage(frame))
             {
+                SortedSet<GameObject> sortedObjects = new SortedSet<GameObject>();
 
-                foreach (GameObject obj in GameObject.allGameObjects)
+
+                foreach (GameObject obj in sortedObjects)
                 {
                     if (obj.isRendered)
                     {
@@ -55,7 +58,7 @@ namespace ShadowBuild
                 }
 
                 if (showObjectBorders)
-                    foreach (GameObject obj in GameObject.allGameObjects)
+                    foreach (GameObject obj in sortedObjects)
                         Texture.renderObjectCenters(g, obj);
 
                 gameWindow.Invoke(new Action(() =>
