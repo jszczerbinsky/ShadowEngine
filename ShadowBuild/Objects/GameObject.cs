@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace ShadowBuild.Objects
 {
-    public class GameObject : _2DobjectResizeable
+    public class GameObject : _2DobjectResizeable, IComparable<GameObject>
     {
         public static List<GameObject> allGameObjects { get; private set; } = new List<GameObject>();
+        public uint zIndex;
 
         #region constructors
 
@@ -20,6 +21,7 @@ namespace ShadowBuild.Objects
             this.defaultTexture = texture;
             this.isRendered = true;
             this.setSize(new _2Dsize(1, 1));
+            this.zIndex = 0;
             allGameObjects.Add(this);
         }
         
@@ -30,6 +32,16 @@ namespace ShadowBuild.Objects
             this.defaultTexture = obj.actualTexture;
             this.size = obj.size;
             this.collidable = true;
+        }
+
+        #endregion
+
+        #region IComparable
+
+        public int CompareTo(GameObject other)
+        {
+            if (other == null || other.zIndex == this.zIndex) return 1;
+            return this.zIndex.CompareTo(other.zIndex);
         }
 
         #endregion
@@ -157,7 +169,6 @@ namespace ShadowBuild.Objects
             }
 
             List<GameObject> childrenWithThis = this.getAllGrandchildren();
-            Log.say(childrenWithThis.Count.ToString());
             childrenWithThis.Add(this);
 
             foreach(GameObject child in childrenWithThis)
@@ -176,8 +187,10 @@ namespace ShadowBuild.Objects
 
         }
 
-        #endregion
         
+
+        #endregion
+
         #region textures and animations
 
         public Texture defaultTexture { get; private set; }
