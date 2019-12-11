@@ -1,5 +1,7 @@
 ﻿using ShadowBuild.Input;
+using ShadowBuild.Rendering;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ShadowBuild
@@ -31,10 +33,13 @@ namespace ShadowBuild
 
         internal void renderNewFrame()
         {
-            Camera.defaultCam.setSize(Render.resolution);
+            if (Camera.defaultCameraMode == DefaultCameraMode.RESIZE_WITH_WINDOW)
+                Camera.defaultCam.setSize(Render.resolution);
             this.Invoke(new Action(() =>
             {
+                Image tmp = this.display.Image;
                 this.display.Image = Render.fromCamera(Camera.defaultCam);
+                if (tmp != null) tmp.Dispose();
             }));
         }
 
@@ -52,16 +57,18 @@ namespace ShadowBuild
             // 
             // display
             // 
+            this.display.Dock = System.Windows.Forms.DockStyle.Fill;
             this.display.Location = new System.Drawing.Point(0, 0);
             this.display.Name = "display";
-            this.display.Size = new System.Drawing.Size(100, 50);
-            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.display.Size = new System.Drawing.Size(782, 553);
+            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.display.TabIndex = 0;
             this.display.TabStop = false;
             // 
             // GameWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(782, 553);
             this.Controls.Add(this.display);
             this.Name = "GameWindow";
@@ -70,7 +77,6 @@ namespace ShadowBuild
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
         private void OnKeyDown(object sender, KeyEventArgs e)

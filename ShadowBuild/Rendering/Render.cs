@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
-namespace ShadowBuild
+namespace ShadowBuild.Rendering
 {
     public static class Render
     {
@@ -38,6 +38,7 @@ namespace ShadowBuild
 
             using (Graphics g = Graphics.FromImage(frame))
             {
+                g.FillRectangle(new SolidBrush(cam.background), 0, 0, (int)cam.size.X, (int)cam.size.Y);
                 SortedSet<GameObject> sortedObjects = new SortedSet<GameObject>(GameObject.allGameObjects);
 
                 foreach (GameObject obj in sortedObjects)

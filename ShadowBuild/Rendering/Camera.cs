@@ -2,15 +2,19 @@
 using ShadowBuild.Objects.Dimensions;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowBuild
+namespace ShadowBuild.Rendering
 {
     public class Camera : _2DobjectResizeable
     {
         public static Camera defaultCam;
+        public static DefaultCameraMode defaultCameraMode;
+
+        public Color background = Color.Gray;
 
         public Camera(_2Dsize position, _2Dsize size)
         {
