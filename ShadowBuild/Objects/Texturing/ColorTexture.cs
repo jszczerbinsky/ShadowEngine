@@ -16,23 +16,23 @@ namespace ShadowBuild.Objects.Texturing
             this.size = size;
         }
 
-        public override _2Dsize getSize()
+        public override _2Dsize GetSize()
         {
             return size; 
         }
 
-        public override void render(Graphics g, GameObject obj)
+        public override void Render(Graphics g, GameObject obj)
         {
-            ColorTexture tex = (ColorTexture)obj.actualTexture;
+            ColorTexture tex = (ColorTexture)obj.ActualTexture;
             Brush brush = new SolidBrush(tex.color);
             Rectangle size = new Rectangle(
                 new Point(
-                     (int)(obj.startPosition.X),
-                     (int)(obj.startPosition.Y)
+                     (int)(obj.GetStartPosition().X),
+                     (int)(obj.GetStartPosition().Y)
                 ),
                 new Size(
-                    (int)(tex.size.X * obj.size.X),
-                    (int)(tex.size.Y * obj.size.Y)
+                    (int)(tex.size.X * obj.Size.X),
+                    (int)(tex.size.Y * obj.Size.Y)
                 )
             );
 

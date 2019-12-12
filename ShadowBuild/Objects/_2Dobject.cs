@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace ShadowBuild.Objects
 {
-    public class _2Dobject
+    public abstract class _2Dobject
     {
-        public _2Dsize position { get; protected set; }
+        public _2Dsize Position { get; protected set; }
 
         #region position
 
-        public void setPosition(_2Dsize position)
+        public void SetPosition(_2Dsize position)
         {
-            this.position = position;
+            this.Position = position;
         }
-        public void setPosition(double X, double Y)
+        public void SetPosition(double X, double Y)
         {
-            this.position = new _2Dsize(X, Y);
+            this.Position = new _2Dsize(X, Y);
         }
 
         #endregion

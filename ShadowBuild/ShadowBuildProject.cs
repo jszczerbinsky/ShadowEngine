@@ -13,14 +13,14 @@ namespace ShadowBuild
 
         public ShadowBuildProject()
         {
-            Log.say("Starting new ShadowBuild project");
+            Log.Say("Starting new ShadowBuild project");
 
             project = this;
 
 
-            Render.gameWindow = new GameWindow();
-            Time.onTick += OnTick;
-            Application.Run(Render.gameWindow);
+            new GameWindow();
+            Loop.onTick += OnTick;
+            Application.Run(GameWindow.actualGameWindow);
         }
     }
 }

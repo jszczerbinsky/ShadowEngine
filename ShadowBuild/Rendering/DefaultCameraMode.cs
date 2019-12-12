@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowBuild.Window
+namespace ShadowBuild.Rendering
 {
-    public enum WindowType
+    public enum DefaultCameraMode
     {
-        FULLSCREEN,
-        WINDOW
+        RESIZE_WITH_WINDOW,
+        STATIC_SIZE
     }
 }

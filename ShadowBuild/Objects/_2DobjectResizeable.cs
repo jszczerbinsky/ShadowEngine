@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace ShadowBuild.Objects
 {
-    public class _2DobjectResizeable : _2Dobject
+    public abstract class _2DobjectResizeable : _2Dobject
     {
-        public _2Dsize size { get; protected set; }
+        public _2Dsize Size { get; protected set; }
 
         #region size
 
-        public void setSize(_2Dsize size)
+        public void SetSize(_2Dsize size)
         {
-            this.size = size;
+            this.Size = size;
         }
-        public void setSize(double X, double Y)
+        public void SetSize(double X, double Y)
         {
-            this.size = new _2Dsize(X, Y);
+            this.Size = new _2Dsize(X, Y);
         }
         #endregion
     }

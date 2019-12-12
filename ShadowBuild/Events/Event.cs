@@ -24,7 +24,7 @@ namespace ShadowBuild.Events
             eventDelegates();
         }
 
-        public static Event getEvent(string name)
+        public static Event Get(string name)
         {
             foreach (Event ev in events)
             {
@@ -32,11 +32,11 @@ namespace ShadowBuild.Events
             }
             throw new EventNotFoundException("Cannot find event named " + name + " inside event list");
         }
-        public static void setEvent(string name)
+        public static void Setup(string name)
         {
             try
             {
-                getEvent(name);
+                Get(name);
             }
             catch (EventNotFoundException)
             {
@@ -45,11 +45,11 @@ namespace ShadowBuild.Events
             }
             throw new EventNameIsAlreadyUsedException("Event name \"" + name + "\" is already used by another event");
         }
-        public static void setEvent(string name, eventDelegateVoid delegates)
+        public static void Setup(string name, eventDelegateVoid delegates)
         {
             try
             {
-                getEvent(name);
+                Get(name);
             }
             catch (EventNotFoundException)
             {

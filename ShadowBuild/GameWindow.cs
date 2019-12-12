@@ -1,37 +1,52 @@
 ﻿using ShadowBuild.Input;
+using ShadowBuild.Rendering;
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace ShadowBuild
 {
     internal class GameWindow : Form
     {
-        internal PictureBox display;
+        private PictureBox display;
+        internal static GameWindow actualGameWindow;
 
         public GameWindow()
         {
-            Log.say("Creating new game window");
+            Log.Say("Creating new game window");
 
-            this.FormClosing += onClose;
+            this.FormClosing += OnClose;
 
-            Render.gameWindow = this;
-            Render.initialize();
+            actualGameWindow = this;
+            Camera.Default = new Camera(0, 0, 800, 600);
             InitializeComponent();
 
-            Log.say("Initializing ticker");
-            Time.startTicker();
-            Time.onTick += Render.renderNewFrame;
+            Log.Say("Initializing ticker");
+            Loop.StartTicker();
+            Loop.onTick += this.RenderNewFrame;
 
             this.Show();
-            Log.say("Calling OnStart");
+            Log.Say("Calling OnStart");
             ShadowBuildProject.project.OnStart();
 
         }
 
-        private void onClose(object sender, EventArgs a)
+        internal void RenderNewFrame()
         {
-            Log.say("Closing...");
-            Time.abortThread();
+            if (Camera.DefaultMode == DefaultCameraMode.RESIZE_WITH_WINDOW)
+                Camera.Default.SetSize(Render.Resolution);
+            this.Invoke(new Action(() =>
+            {
+                Image tmp = this.display.Image;
+                this.display.Image = Render.FromCamera(Camera.Default);
+                if (tmp != null) tmp.Dispose();
+            }));
+        }
+
+        private void OnClose(object sender, EventArgs a)
+        {
+            Log.Say("Closing...");
+            Loop.AbortThread();
         }
 
         private void InitializeComponent()
@@ -42,19 +57,22 @@ namespace ShadowBuild
             // 
             // display
             // 
+            this.display.Dock = System.Windows.Forms.DockStyle.Fill;
             this.display.Location = new System.Drawing.Point(0, 0);
             this.display.Name = "display";
-            this.display.Size = new System.Drawing.Size(100, 50);
-            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.display.Size = new System.Drawing.Size(782, 553);
+            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.display.TabIndex = 0;
             this.display.TabStop = false;
             // 
             // GameWindow
             // 
-            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.ClientSize = new System.Drawing.Size(782, 553);
             this.Controls.Add(this.display);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "GameWindow";
+            this.TopMost = true;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();
@@ -63,11 +81,11 @@ namespace ShadowBuild
         }
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            Keyboard.setKeyState(e, true);
+            Keyboard.SetKeyState(e, true);
         }
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
-            Keyboard.setKeyState(e, false);
+            Keyboard.SetKeyState(e, false);
         }
     }
 }

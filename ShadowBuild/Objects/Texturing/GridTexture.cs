@@ -15,19 +15,19 @@ namespace ShadowBuild.Objects.Texturing
 
         public GridTexture(Bitmap image, int xCount, int yCount)
         {
-            this.image = image;
+            this.Image = image;
             this.xCount = xCount;
             this.yCount = yCount;
         }
 
-        public override _2Dsize getSize()
+        public override _2Dsize GetSize()
         {
-            return new _2Dsize(image.Size.Width * xCount, image.Size.Height * yCount);
+            return new _2Dsize(Image.Size.Width * xCount, Image.Size.Height * yCount);
         }
 
-        public override void render(Graphics g, GameObject obj)
+        public override void Render(Graphics g, GameObject obj)
         {
-            GridTexture tex = (GridTexture)obj.actualTexture;
+            GridTexture tex = (GridTexture)obj.ActualTexture;
 
             for (int x = 0; x < tex.xCount; x++)
             {
@@ -35,14 +35,14 @@ namespace ShadowBuild.Objects.Texturing
                 {
 
                     g.DrawImage(
-                        tex.image,
+                        tex.Image,
                         new Rectangle(
                             new Point(
-                                (int)(obj.startPosition.X + x * tex.image.Width * obj.size.X),
-                                (int)(obj.startPosition.Y + y * tex.image.Height * obj.size.Y)
+                                (int)(obj.GetStartPosition().X + x * tex.Image.Width * obj.Size.X),
+                                (int)(obj.GetStartPosition().Y + y * tex.Image.Height * obj.Size.Y)
                             ), new Size(
-                                (int)(tex.image.Width * obj.size.X),
-                                (int)(tex.image.Height * obj.size.Y)
+                                (int)(tex.Image.Width * obj.Size.X),
+                                (int)(tex.Image.Height * obj.Size.Y)
                                 )
                             )
                         );

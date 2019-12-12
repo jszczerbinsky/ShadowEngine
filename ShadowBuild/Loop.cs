@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShadowBuild
 {
-    public static class Time
+    public static class Loop
     {
         private static Thread thread;
         public delegate void OnTickDelegateVoid();
@@ -17,7 +17,7 @@ namespace ShadowBuild
         public static double delay = 0;
 
 
-        internal static void startTicker()
+        internal static void StartTicker()
         {
             thread = new Thread(async () => {
                 while (true)
@@ -34,7 +34,7 @@ namespace ShadowBuild
             thread.Start();
 
         }
-        internal static void abortThread()
+        internal static void AbortThread()
         {
             thread.Abort();
         }

@@ -8,7 +8,7 @@ namespace ShadowBuild
 {
     public static class Log
     {
-        public static void say(string text)
+        public static void Say(string text)
         {
             Console.WriteLine(text);
         }
