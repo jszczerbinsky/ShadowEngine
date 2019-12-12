@@ -1,8 +1,4 @@
-﻿using ShadowBuild.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,11 +15,12 @@ namespace ShadowBuild
 
         internal static void StartTicker()
         {
-            thread = new Thread(async () => {
+            thread = new Thread(async () =>
+            {
                 while (true)
                 {
                     DateTime timeOnStart = DateTime.Now;
-                    await Task.Run(new Action(()=> { onTick(); }));
+                    await Task.Run(new Action(() => { onTick(); }));
                     DateTime timeOnEnd = DateTime.Now;
 
                     TimeSpan tsdelay = timeOnEnd - timeOnStart;

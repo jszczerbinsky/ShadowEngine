@@ -1,15 +1,11 @@
 ﻿using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShadowBuild.Objects
 {
-    public class GameObject : _2DobjectResizeable 
+    public class GameObject : _2DobjectResizeable
     {
         public static List<GameObject> All { get; private set; } = new List<GameObject>();
         public uint zIndex;
@@ -21,7 +17,7 @@ namespace ShadowBuild.Objects
             private set { this.ActualTexture = value; }
         }
         public bool PlayingAnimation { get; private set; }
-        public bool Visible = true; 
+        public bool Visible = true;
         public readonly Layer RenderLayer;
 
         public bool collidable = true;
@@ -70,7 +66,7 @@ namespace ShadowBuild.Objects
             this.DefaultTexture = obj.ActualTexture;
             this.Size = obj.Size;
             this.collidable = true;
-        } 
+        }
 
         private bool CheckCollision(GameObject obj1, GameObject obj2)
         {

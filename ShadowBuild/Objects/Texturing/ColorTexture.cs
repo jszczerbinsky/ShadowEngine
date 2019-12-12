@@ -18,7 +18,7 @@ namespace ShadowBuild.Objects.Texturing
 
         public override _2Dsize GetSize()
         {
-            return size; 
+            return size;
         }
 
         public override void Render(Graphics g, GameObject obj)

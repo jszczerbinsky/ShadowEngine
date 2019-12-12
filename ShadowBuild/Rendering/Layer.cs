@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ShadowBuild.Rendering
 {
-    public class Layer:IComparable<Layer>
+    public class Layer : IComparable<Layer>
     {
         public static readonly Layer Default = new Layer("default", 0);
         internal static readonly List<Layer> All = new List<Layer>() { Layer.Default };
@@ -14,7 +14,7 @@ namespace ShadowBuild.Rendering
             get
             {
                 List<GameObject> objs = new List<GameObject>();
-                foreach(GameObject obj in GameObject.All)
+                foreach (GameObject obj in GameObject.All)
                 {
                     if (obj.RenderLayer == this) objs.Add(obj);
                 }
