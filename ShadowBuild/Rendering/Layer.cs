@@ -23,8 +23,6 @@ namespace ShadowBuild.Rendering
             private set { }
         }
 
-        public bool Visible = true;
-
         public readonly int zIndex;
         public readonly string Name;
 
