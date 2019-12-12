@@ -99,7 +99,7 @@ namespace ShadowBuild.Objects
             else return this.Parent.IsChildOf(parent);
         }
 
-        public void Move(double X, double Y)
+        public override void Move(double X, double Y)
         {
             if (X != 0 && Y != 0)
             {

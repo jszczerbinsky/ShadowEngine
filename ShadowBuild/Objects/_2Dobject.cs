@@ -16,6 +16,10 @@ namespace ShadowBuild.Objects
         {
             this.Position = new _2Dsize(X, Y);
         }
+        public virtual void Move(double X, double Y)
+        {
+            this.Position = _2Dsize.Add(new _2Dsize(X, Y), this.Position);
+        }
 
         #endregion
 

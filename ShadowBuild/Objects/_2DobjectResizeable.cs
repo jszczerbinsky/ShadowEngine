@@ -6,8 +6,6 @@ namespace ShadowBuild.Objects
     {
         public _2Dsize Size { get; protected set; }
 
-        #region size
-
         public void SetSize(_2Dsize size)
         {
             this.Size = size;
@@ -16,6 +14,5 @@ namespace ShadowBuild.Objects
         {
             this.Size = new _2Dsize(X, Y);
         }
-        #endregion
     }
 }

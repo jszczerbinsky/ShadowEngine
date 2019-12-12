@@ -31,9 +31,9 @@ namespace ShadowBuild.Rendering
                     foreach (GameObject obj in l.GameObjects)
                     {
                         if (!obj.Visible) continue;
-                        obj.ActualTexture.Render(g, obj);
+                        obj.ActualTexture.Render(g, obj, startPos);
 
-                        if (showObjectBorders) Texture.RenderObjectBorders(g, obj);
+                        if (showObjectBorders) Texture.RenderObjectBorders(g, obj, startPos);
 
                     }
                 }
@@ -43,7 +43,7 @@ namespace ShadowBuild.Rendering
                         if (l.Visible)
                             foreach (GameObject obj in l.GameObjects)
                                 if (obj.Visible)
-                                    Texture.RenderObjectCenters(g, obj);
+                                    Texture.RenderObjectCenters(g, obj, startPos);
 
                 return frame;
             }
