@@ -18,13 +18,13 @@ namespace ShadowBuild.Rendering
 
         public Camera(_2Dsize position, _2Dsize size)
         {
-            this.position = position;
-            this.size = size;
+            this.Position = position;
+            this.Size = size;
         }
         public Camera(double x, double y, double width, double height)
         {
-            this.position = new _2Dsize(x, y);
-            this.size = new _2Dsize(width, height);
+            this.Position = new _2Dsize(x, y);
+            this.Size = new _2Dsize(width, height);
         }
     }
 }

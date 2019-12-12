@@ -23,12 +23,12 @@ namespace ShadowBuild.Objects.Dimensions
             this.Y = Y;
         }
 
-        public static _2Dsize add(_2Dsize size1, _2Dsize size2)
+        public static _2Dsize Add(_2Dsize size1, _2Dsize size2)
         {
             return new _2Dsize(size1.X + size2.X, size1.Y+ size2.Y);
         }
 
-        public void setDimensions(double newX, double newY)
+        public void SetDimensions(double newX, double newY)
         {
             this.X = newX;
             this.Y = newY;

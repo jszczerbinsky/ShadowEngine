@@ -13,40 +13,40 @@ namespace ShadowBuild
 
         public GameWindow()
         {
-            Log.say("Creating new game window");
+            Log.Say("Creating new game window");
 
-            this.FormClosing += onClose;
+            this.FormClosing += OnClose;
 
             actualGameWindow = this;
             Camera.defaultCam = new Camera(0, 0, 800, 600);
             InitializeComponent();
 
-            Log.say("Initializing ticker");
-            Loop.startTicker();
-            Loop.onTick += this.renderNewFrame;
+            Log.Say("Initializing ticker");
+            Loop.StartTicker();
+            Loop.onTick += this.RenderNewFrame;
 
             this.Show();
-            Log.say("Calling OnStart");
+            Log.Say("Calling OnStart");
             ShadowBuildProject.project.OnStart();
 
         }
 
-        internal void renderNewFrame()
+        internal void RenderNewFrame()
         {
             if (Camera.defaultCameraMode == DefaultCameraMode.RESIZE_WITH_WINDOW)
-                Camera.defaultCam.setSize(Render.resolution);
+                Camera.defaultCam.SetSize(Render.Resolution);
             this.Invoke(new Action(() =>
             {
                 Image tmp = this.display.Image;
-                this.display.Image = Render.fromCamera(Camera.defaultCam);
+                this.display.Image = Render.FromCamera(Camera.defaultCam);
                 if (tmp != null) tmp.Dispose();
             }));
         }
 
-        private void onClose(object sender, EventArgs a)
+        private void OnClose(object sender, EventArgs a)
         {
-            Log.say("Closing...");
-            Loop.abortThread();
+            Log.Say("Closing...");
+            Loop.AbortThread();
         }
 
         private void InitializeComponent()
@@ -81,11 +81,11 @@ namespace ShadowBuild
         }
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            Keyboard.setKeyState(e, true);
+            Keyboard.SetKeyState(e, true);
         }
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
-            Keyboard.setKeyState(e, false);
+            Keyboard.SetKeyState(e, false);
         }
     }
 }

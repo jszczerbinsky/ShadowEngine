@@ -9,24 +9,24 @@ namespace ShadowBuild.Input.Axis
 {
     public abstract class Axis
     {
-        private static List<Axis> axes = new List<Axis>();
+        private static List<Axis> Axes = new List<Axis>();
 
         public string name;
         public double value;
 
-        public static void setup(Axis axis)
+        public static void Setup(Axis axis)
         {
-            axes.Add(axis);
+            Axes.Add(axis);
         }
-        private static Axis getAxisByName(string name)
+        private static Axis Get(string name)
         {
-            foreach (Axis axis in axes)
+            foreach (Axis axis in Axes)
                 if (axis.name == name) return axis;
             return null;
         }
-        public static double getValue(string name)
+        public static double GetValue(string name)
         {
-            Axis axis = getAxisByName(name);
+            Axis axis = Get(name);
             if (axis == null) throw new AxisNotFoundException();
 
             double value = 0;
@@ -34,9 +34,9 @@ namespace ShadowBuild.Input.Axis
             if(axis is KeyboardAxis)
             {
                 KeyboardAxis ka = (KeyboardAxis)axis;
-                if (Keyboard.keyPressed(ka.minusValue))
+                if (Keyboard.KeyPressed(ka.minusValue))
                     value--;
-                if (Keyboard.keyPressed(ka.plusValue))
+                if (Keyboard.KeyPressed(ka.plusValue))
                     value++;
 
             }

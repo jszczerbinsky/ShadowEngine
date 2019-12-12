@@ -9,32 +9,32 @@ namespace ShadowBuild.Input
 {
     public static class Keyboard
     {
-        private static List<Keys> pressedKeys = new List<Keys>();
+        private static List<Keys> PressedKeys = new List<Keys>();
 
-        private static bool checkExists(Keys k)
+        private static bool CheckExists(Keys k)
         {
-            foreach (Keys k1 in pressedKeys)
+            foreach (Keys k1 in PressedKeys)
             {
                 if (k1 == k) return true;
             }
             return false;
         }
-        public static void setKeyState(KeyEventArgs a, bool pressed)
+        public static void SetKeyState(KeyEventArgs a, bool pressed)
         {
             if (pressed)
             {
-                if (!checkExists(a.KeyCode))
-                    pressedKeys.Add(a.KeyCode);
+                if (!CheckExists(a.KeyCode))
+                    PressedKeys.Add(a.KeyCode);
             }
             else
             {
-                if (checkExists(a.KeyCode))
-                    pressedKeys.Remove(a.KeyCode);
+                if (CheckExists(a.KeyCode))
+                    PressedKeys.Remove(a.KeyCode);
             }
         }
-        public static bool keyPressed(Keys k)
+        public static bool KeyPressed(Keys k)
         {
-            return checkExists(k);
+            return CheckExists(k);
         }
     }
 }

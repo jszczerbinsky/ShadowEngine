@@ -1,7 +1,6 @@
 ﻿using ShadowBuild.Objects;
 using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
-using ShadowBuild.Window;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,43 +16,36 @@ namespace ShadowBuild.Rendering
 {
     public static class Render
     {
-        public static _2Dsize resolution
-        {
-            get
-            {
-                return new _2Dsize(GameWindow.actualGameWindow.Width, GameWindow.actualGameWindow.Height);
-            }
-            private set { }
-        }
+        public static readonly _2Dsize Resolution = new _2Dsize(GameWindow.actualGameWindow.Width, GameWindow.actualGameWindow.Height);
 
         public static bool showObjectBorders = false;
 
-        public static Bitmap fromCamera(Camera cam)
+        public static Bitmap FromCamera(Camera cam)
         {
-            _2Dsize startPos = cam.position;
-            _2Dsize endPos = _2Dsize.add(cam.position, cam.size);
+            _2Dsize startPos = cam.Position;
+            _2Dsize endPos = _2Dsize.Add(cam.Position, cam.Size);
 
-            Bitmap frame = new Bitmap((int)cam.size.X, (int)cam.size.Y);
+            Bitmap frame = new Bitmap((int)cam.Size.X, (int)cam.Size.Y);
 
 
             using (Graphics g = Graphics.FromImage(frame))
             {
-                g.FillRectangle(new SolidBrush(cam.background), 0, 0, (int)cam.size.X, (int)cam.size.Y);
-                SortedSet<GameObject> sortedObjects = new SortedSet<GameObject>(GameObject.allGameObjects);
+                g.FillRectangle(new SolidBrush(cam.background), 0, 0, (int)cam.Size.X, (int)cam.Size.Y);
+                SortedSet<GameObject> sortedObjects = new SortedSet<GameObject>(GameObject.AllGameObjects);
 
                 foreach (GameObject obj in sortedObjects)
                 {
                     if (obj.isRendered)
                     {
-                        obj.actualTexture.render(g, obj);
+                        obj.ActualTexture.Render(g, obj);
 
-                        if (showObjectBorders) Texture.renderObjectBorders(g, obj);
+                        if (showObjectBorders) Texture.RenderObjectBorders(g, obj);
                     }
                 }
 
                 if (showObjectBorders)
                     foreach (GameObject obj in sortedObjects)
-                        Texture.renderObjectCenters(g, obj);
+                        Texture.RenderObjectCenters(g, obj);
 
                 return frame;
             }

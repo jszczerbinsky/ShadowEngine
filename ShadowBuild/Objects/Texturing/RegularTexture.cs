@@ -13,28 +13,28 @@ namespace ShadowBuild.Objects.Texturing
 
         public RegularTexture(Bitmap image)
         {
-            this.image = image;
+            this.Image = image;
         }
 
-        public override _2Dsize getSize()
+        public override _2Dsize GetSize()
         {
-            return new _2Dsize(this.image.Width, this.image.Height);
+            return new _2Dsize(this.Image.Width, this.Image.Height);
         }
 
-        public override void render(Graphics g, GameObject obj)
+        public override void Render(Graphics g, GameObject obj)
         {
 
-            RegularTexture tex = (RegularTexture)obj.actualTexture;
+            RegularTexture tex = (RegularTexture)obj.ActualTexture;
 
             g.DrawImage(
-                tex.image,
+                tex.Image,
                 new Rectangle(
                     new Point(
-                        (int)(obj.startPosition.X),
-                        (int)(obj.startPosition.Y)
+                        (int)(obj.GetStartPosition().X),
+                        (int)(obj.GetStartPosition().Y)
                     ), new Size(
-                        (int)(tex.image.Width * obj.size.X),
-                        (int)(tex.image.Height * obj.size.Y)
+                        (int)(tex.Image.Width * obj.Size.X),
+                        (int)(tex.Image.Height * obj.Size.Y)
                         )
                     )
                 );

@@ -10,33 +10,53 @@ namespace ShadowBuild.Objects
 {
     public class GameObject : _2DobjectResizeable, IComparable<GameObject>
     {
-        public static List<GameObject> allGameObjects { get; private set; } = new List<GameObject>();
+        public static List<GameObject> AllGameObjects { get; private set; } = new List<GameObject>();
         public uint zIndex;
 
-        #region constructors
+        public Texture DefaultTexture { get; private set; }
+        public Texture ActualTexture
+        {
+            get { if (playingAnimation) return ActualTexture; else return this.DefaultTexture; }
+            private set { this.ActualTexture = value; }
+        }
+        public bool playingAnimation { get; private set; }
+        public bool isRendered { get; private set; }
+
+        public bool collidable = true;
+
+        public GameObject Parent { get; private set; }
+        public List<GameObject> Children
+        {
+            get
+            {
+                List<GameObject> toReturn = new List<GameObject>();
+                foreach (GameObject obj in AllGameObjects)
+                {
+                    if (obj.Parent == this) toReturn.Add(obj);
+                }
+                return toReturn;
+            }
+            private set { }
+        }
 
         public GameObject(Texture texture)
         {
-            this.setPosition(0, 0);
-            this.defaultTexture = texture;
+            this.SetPosition(0, 0);
+            this.DefaultTexture = texture;
             this.isRendered = true;
-            this.setSize(new _2Dsize(1, 1));
+            this.SetSize(new _2Dsize(1, 1));
             this.zIndex = 0;
-            allGameObjects.Add(this);
+            AllGameObjects.Add(this);
         }
-        
+
         //Special constructor only for creating tmp objects for collisions calculations
         private GameObject(GameObject obj)
         {
-            this.position = obj.globalPosition;
-            this.defaultTexture = obj.actualTexture;
-            this.size = obj.size;
+            this.Position = obj.GetGlobalPosition();
+            this.DefaultTexture = obj.ActualTexture;
+            this.Size = obj.Size;
             this.collidable = true;
         }
-
-        #endregion
-
-        #region IComparable
 
         public int CompareTo(GameObject other)
         {
@@ -44,56 +64,23 @@ namespace ShadowBuild.Objects
             return this.zIndex.CompareTo(other.zIndex);
         }
 
-        #endregion
-
-        #region collisions
-
-        public bool collidable = true;
-
-        #endregion
-
-        #region collisions - methods
-
-        private bool checkCollision(GameObject obj1, GameObject obj2)
+        private bool CheckCollision(GameObject obj1, GameObject obj2)
         {
-            if (obj1.collidable && obj2.collidable && (Collision.check(obj1, obj2) || Collision.check(obj2, obj1))) return true;
+            if (obj1.collidable && obj2.collidable && (Collision.Check(obj1, obj2) || Collision.Check(obj2, obj1))) return true;
             return false;
         }
 
-        #endregion
-
-        #region parents and children
-
-        public GameObject parent { get; private set; }
-        public List<GameObject> children
+        public void SetParent(GameObject obj)
         {
-            get
-            {
-                List<GameObject> toReturn = new List<GameObject>();
-                foreach (GameObject obj in allGameObjects)
-                {
-                    if (obj.parent == this) toReturn.Add(obj);
-                }
-                return toReturn;
-            }
-            private set { }
+            this.Parent = obj;
         }
-
-        #endregion
-
-        #region parents and children - methods
-
-        public void setParent(GameObject obj)
-        {
-            this.parent = obj;
-        }
-        public List<GameObject> getAllGrandchildren()
+        public List<GameObject> GetAllGrandchildren()
         {
             List<GameObject> objs = new List<GameObject>();
 
-            foreach (GameObject child in this.children)
+            foreach (GameObject child in this.Children)
             {
-                List<GameObject> toMerge = child.getAllGrandchildren();
+                List<GameObject> toMerge = child.GetAllGrandchildren();
                 toMerge.Add(child);
                 foreach (GameObject toMergeObj in toMerge)
                     objs.Add(toMergeObj);
@@ -101,107 +88,75 @@ namespace ShadowBuild.Objects
             }
             return objs;
         }
-        public bool isChildOf(GameObject parent)
+        public bool IsChildOf(GameObject parent)
         {
-            if (this.parent == parent) return true;
-            else if (this.parent == null) return false;
-            else return this.parent.isChildOf(parent);
+            if (this.Parent == parent) return true;
+            else if (this.Parent == null) return false;
+            else return this.Parent.IsChildOf(parent);
         }
 
-        #endregion
-
-        #region position
-
-        public _2Dsize globalPosition
+        public void Move(double X, double Y)
         {
-            get
+            if (X != 0 && Y != 0)
             {
-                _2Dsize tmpPosition = this.position;
-                if (this.parent != null)
-                {
-                    tmpPosition = _2Dsize.add(tmpPosition, this.parent.globalPosition);
-                }
-                return tmpPosition;
-            }
-            private set { }
-        }
-        public _2Dsize startPosition
-        {
-            get
-            {
-                double decreseLeft = 0;
-                double decreseTop = 0;
-
-                if (actualTexture is RegularTexture)
-                {
-                    decreseLeft -= this.actualTexture.image.Width * this.size.X / 2;
-                    decreseTop -= this.actualTexture.image.Height * this.size.Y / 2;
-                }
-                else if (actualTexture is ColorTexture)
-                {
-                    decreseLeft -= ((ColorTexture)this.actualTexture).size.X * this.size.X / 2;
-                    decreseTop -= ((ColorTexture)this.actualTexture).size.Y * this.size.Y / 2;
-                }
-                else if (actualTexture is GridTexture)
-                {
-                    GridTexture tex = (GridTexture)this.actualTexture;
-                    decreseLeft -= tex.image.Width * this.size.X * tex.xCount / 2;
-                    decreseTop -= tex.image.Height * this.size.Y * tex.yCount / 2;
-                }
-                _2Dsize decrese = new _2Dsize(decreseLeft, decreseTop);
-
-                return _2Dsize.add(this.globalPosition, decrese);
-            }
-            private set { }
-        }
-
-        #endregion
-
-        #region position - methods
-
-        public void move(double X, double Y)
-        {
-            if(X != 0 && Y != 0)
-            {
-                this.move(X, 0);
-                this.move(0, Y);
+                this.Move(X, 0);
+                this.Move(0, Y);
                 return;
             }
 
-            List<GameObject> childrenWithThis = this.getAllGrandchildren();
+            List<GameObject> childrenWithThis = this.GetAllGrandchildren();
             childrenWithThis.Add(this);
 
-            foreach(GameObject child in childrenWithThis)
+            foreach (GameObject child in childrenWithThis)
             {
                 GameObject tmpObject = new GameObject(child);
-                tmpObject.setPosition(_2Dsize.add(child.globalPosition, new _2Dsize(X, Y)));
+                tmpObject.SetPosition(_2Dsize.Add(child.GetGlobalPosition(), new _2Dsize(X, Y)));
 
-                foreach(GameObject obj in allGameObjects)
+                foreach (GameObject obj in AllGameObjects)
                 {
-                    if (obj == child || obj.isChildOf(child) || child.isChildOf(obj)) continue;
+                    if (obj == child || obj.IsChildOf(child) || child.IsChildOf(obj)) continue;
 
-                    if (checkCollision(tmpObject, obj)) return;
+                    if (CheckCollision(tmpObject, obj)) return;
                 }
             }
-            this.setPosition(this.position.X + X, this.position.Y + Y);
+            this.SetPosition(this.Position.X + X, this.Position.Y + Y);
 
         }
-
-        
-
-        #endregion
-
-        #region textures and animations
-
-        public Texture defaultTexture { get; private set; }
-        public Texture actualTexture
+        public _2Dsize GetGlobalPosition()
         {
-            get { if (playingAnimation) return actualTexture; else return this.defaultTexture; }
-            private set { this.actualTexture = value; }
-        }
-        public bool playingAnimation { get; private set; }
-        public bool isRendered { get; private set; }
+            _2Dsize tmpPosition = this.Position;
+            if (this.Parent != null)
+            {
+                tmpPosition = _2Dsize.Add(tmpPosition, this.Parent.GetGlobalPosition());
+            }
+            return tmpPosition;
 
-        #endregion
+        }
+
+        public _2Dsize GetStartPosition()
+        {
+            double decreseLeft = 0;
+            double decreseTop = 0;
+
+            if (ActualTexture is RegularTexture)
+            {
+                decreseLeft -= this.ActualTexture.Image.Width * this.Size.X / 2;
+                decreseTop -= this.ActualTexture.Image.Height * this.Size.Y / 2;
+            }
+            else if (ActualTexture is ColorTexture)
+            {
+                decreseLeft -= ((ColorTexture)this.ActualTexture).size.X * this.Size.X / 2;
+                decreseTop -= ((ColorTexture)this.ActualTexture).size.Y * this.Size.Y / 2;
+            }
+            else if (ActualTexture is GridTexture)
+            {
+                GridTexture tex = (GridTexture)this.ActualTexture;
+                decreseLeft -= tex.Image.Width * this.Size.X * tex.xCount / 2;
+                decreseTop -= tex.Image.Height * this.Size.Y * tex.yCount / 2;
+            }
+            _2Dsize decrese = new _2Dsize(decreseLeft, decreseTop);
+
+            return _2Dsize.Add(this.GetGlobalPosition(), decrese);
+        }
     }
 }

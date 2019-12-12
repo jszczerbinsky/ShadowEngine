@@ -13,7 +13,7 @@ namespace ShadowBuild
 
         public ShadowBuildProject()
         {
-            Log.say("Starting new ShadowBuild project");
+            Log.Say("Starting new ShadowBuild project");
 
             project = this;
 
