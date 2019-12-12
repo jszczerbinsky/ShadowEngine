@@ -23,6 +23,12 @@ namespace ShadowBuild.Rendering
             this.Position = new _2Dsize(x, y);
             this.Size = new _2Dsize(width, height);
         }
+        public Camera(_2Dsize position, _2Dsize size, List<Layer> layers)
+        {
+            this.Position = position;
+            this.Size = size;
+            this.RenderLayers = layers;
+        }
 
         public bool IsRendering(Layer l)
         {
