@@ -1,4 +1,5 @@
 ﻿using ShadowBuild.Input;
+using ShadowBuild.Objects.Animationing;
 using ShadowBuild.Rendering;
 using System;
 using System.Drawing;
@@ -24,6 +25,7 @@ namespace ShadowBuild
             Log.Say("Initializing ticker");
             Loop.StartTicker();
             Loop.onTick += this.RenderNewFrame;
+            Loop.onTick += Animation.OnTick;
 
             this.Show();
             Log.Say("Calling OnStart");

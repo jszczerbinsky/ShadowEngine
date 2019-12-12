@@ -1,4 +1,5 @@
-﻿using ShadowBuild.Objects.Dimensions;
+﻿using ShadowBuild.Objects.Animationing;
+using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Rendering;
 using System.Collections.Generic;
@@ -15,10 +16,14 @@ namespace ShadowBuild.Objects
         public Texture DefaultTexture { get; private set; }
         public Texture ActualTexture
         {
-            get { if (PlayingAnimation) return ActualTexture; else return this.DefaultTexture; }
-            private set { this.ActualTexture = value; }
+            get
+            {
+                if (ActualAnimation != null) return ActualAnimation.ActualTexture;
+                else return this.DefaultTexture;
+            }
+            private set { }
         }
-        public bool PlayingAnimation { get; private set; }
+        public Animation ActualAnimation { get; private set; } = null;
         public bool Visible = true;
         public readonly Layer RenderLayer;
 
@@ -165,6 +170,14 @@ namespace ShadowBuild.Objects
             _2Dsize decrese = new _2Dsize(decreseLeft, decreseTop);
 
             return _2Dsize.Add(this.GetGlobalPosition(), decrese);
+        }
+        public void Play(string animName)
+        {
+            this.ActualAnimation = Animation.Get(animName);
+        }
+        public void StopPlaying()
+        {
+            this.ActualAnimation = null;
         }
     }
 }

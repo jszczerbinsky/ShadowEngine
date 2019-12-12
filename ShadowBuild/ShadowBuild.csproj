@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\LayerNameIsAlreadyUsedException.cs" />
     <Compile Include="Exceptions\LayerZIndexIsAlreadyUsedException.cs" />
+    <Compile Include="Objects\Animationing\Animation.cs" />
     <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Exceptions\AxisNotFoundException.cs" />
@@ -82,5 +83,6 @@
       <DependentUpon>GameWindow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
