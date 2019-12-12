@@ -28,6 +28,10 @@ namespace ShadowBuild
             this.Show();
             Log.Say("Calling OnStart");
             ShadowBuildProject.project.OnStart();
+            Log.Space();
+            Log.Say("------Listing Render Layers-----");
+            Log.Space();
+            Log.ListLayers();
 
         }
 
@@ -72,7 +76,6 @@ namespace ShadowBuild
             this.ClientSize = new System.Drawing.Size(782, 553);
             this.Controls.Add(this.display);
             this.Name = "GameWindow";
-            this.TopMost = true;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();

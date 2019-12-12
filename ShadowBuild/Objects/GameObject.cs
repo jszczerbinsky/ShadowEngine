@@ -10,6 +10,8 @@ namespace ShadowBuild.Objects
         public static List<GameObject> All { get; private set; } = new List<GameObject>();
         public uint zIndex;
 
+        public string Name;
+
         public Texture DefaultTexture { get; private set; }
         public Texture ActualTexture
         {
@@ -37,8 +39,9 @@ namespace ShadowBuild.Objects
             private set { }
         }
 
-        public GameObject(Texture texture)
+        public GameObject(string name, Texture texture)
         {
+            this.Name = name;
             this.RenderLayer = Layer.Default;
             this.SetPosition(0, 0);
             this.DefaultTexture = texture;
@@ -47,8 +50,9 @@ namespace ShadowBuild.Objects
             this.zIndex = 0;
             All.Add(this);
         }
-        public GameObject(Texture texture, Layer layer)
+        public GameObject(string name, Texture texture, Layer layer)
         {
+            this.Name = name;
             this.RenderLayer = layer;
             this.SetPosition(0, 0);
             this.DefaultTexture = texture;

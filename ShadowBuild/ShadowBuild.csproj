@@ -45,6 +45,8 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\LayerNameIsAlreadyUsedException.cs" />
+    <Compile Include="Exceptions\LayerZIndexIsAlreadyUsedException.cs" />
     <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Exceptions\AxisNotFoundException.cs" />
