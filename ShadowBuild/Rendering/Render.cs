@@ -1,16 +1,8 @@
 ﻿using ShadowBuild.Objects;
 using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media.Imaging;
-using System.Windows.Threading;
 
 namespace ShadowBuild.Rendering
 {
@@ -30,22 +22,28 @@ namespace ShadowBuild.Rendering
 
             using (Graphics g = Graphics.FromImage(frame))
             {
-                g.FillRectangle(new SolidBrush(cam.background), 0, 0, (int)cam.Size.X, (int)cam.Size.Y);
-                SortedSet<GameObject> sortedObjects = new SortedSet<GameObject>(GameObject.AllGameObjects);
+                g.FillRectangle(new SolidBrush(cam.Background), 0, 0, (int)cam.Size.X, (int)cam.Size.Y);
+                SortedSet<Layer> sortedLayers = new SortedSet<Layer>(Layer.All);
 
-                foreach (GameObject obj in sortedObjects)
+                foreach (Layer l in sortedLayers)
                 {
-                    if (obj.isRendered)
+                    if (!l.Visible) continue;
+                    foreach (GameObject obj in l.GameObjects)
                     {
+                        if (!obj.Visible) continue;
                         obj.ActualTexture.Render(g, obj);
 
                         if (showObjectBorders) Texture.RenderObjectBorders(g, obj);
+
                     }
                 }
 
                 if (showObjectBorders)
-                    foreach (GameObject obj in sortedObjects)
-                        Texture.RenderObjectCenters(g, obj);
+                    foreach (Layer l in sortedLayers)
+                        if (l.Visible)
+                            foreach (GameObject obj in l.GameObjects)
+                                if (obj.Visible)
+                                    Texture.RenderObjectCenters(g, obj);
 
                 return frame;
             }

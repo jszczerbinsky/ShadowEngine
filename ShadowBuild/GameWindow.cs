@@ -18,7 +18,7 @@ namespace ShadowBuild
             this.FormClosing += OnClose;
 
             actualGameWindow = this;
-            Camera.defaultCam = new Camera(0, 0, 800, 600);
+            Camera.Default = new Camera(0, 0, 800, 600);
             InitializeComponent();
 
             Log.Say("Initializing ticker");
@@ -33,12 +33,12 @@ namespace ShadowBuild
 
         internal void RenderNewFrame()
         {
-            if (Camera.defaultCameraMode == DefaultCameraMode.RESIZE_WITH_WINDOW)
-                Camera.defaultCam.SetSize(Render.Resolution);
+            if (Camera.DefaultMode == DefaultCameraMode.RESIZE_WITH_WINDOW)
+                Camera.Default.SetSize(Render.Resolution);
             this.Invoke(new Action(() =>
             {
                 Image tmp = this.display.Image;
-                this.display.Image = Render.FromCamera(Camera.defaultCam);
+                this.display.Image = Render.FromCamera(Camera.Default);
                 if (tmp != null) tmp.Dispose();
             }));
         }

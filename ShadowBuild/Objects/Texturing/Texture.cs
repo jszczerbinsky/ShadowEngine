@@ -16,7 +16,7 @@ namespace ShadowBuild.Objects.Texturing
         public abstract void Render(Graphics g, GameObject obj);
         public static void RenderObjectCenters(Graphics g, GameObject obj)
         {
-            if (obj.isRendered)
+            if (obj.Visible)
             {
                 g.FillEllipse(
                     new SolidBrush(

@@ -69,6 +69,7 @@
     <Compile Include="Objects\Texturing\Texture.cs" />
     <Compile Include="Objects\_2DobjectResizeable.cs" />
     <Compile Include="Rendering\DefaultCameraMode.cs" />
+    <Compile Include="Rendering\Layer.cs" />
     <Compile Include="Rendering\Render.cs" />
     <Compile Include="ShadowBuildProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

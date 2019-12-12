@@ -11,10 +11,11 @@ namespace ShadowBuild.Rendering
 {
     public class Camera : _2DobjectResizeable
     {
-        public static Camera defaultCam;
-        public static DefaultCameraMode defaultCameraMode;
+        public static Camera Default;
+        public static DefaultCameraMode DefaultMode;
 
-        public Color background = Color.Gray;
+        public readonly List<Layer> RenderLayers = new List<Layer>();
+        public Color Background = Color.Gray;
 
         public Camera(_2Dsize position, _2Dsize size)
         {

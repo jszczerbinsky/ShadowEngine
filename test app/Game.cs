@@ -19,7 +19,7 @@ namespace test_app
         GameObject testObj1 = new GameObject(new RegularTexture((Bitmap)Bitmap.FromFile("wykres.png")));
         public override void OnStart()
         {
-            Camera.defaultCameraMode = DefaultCameraMode.RESIZE_WITH_WINDOW;
+            Camera.DefaultMode = DefaultCameraMode.RESIZE_WITH_WINDOW;
             GameObject testObj = new GameObject(new RegularTexture((Bitmap)Bitmap.FromFile("wykres.png")));
             testObj.SetPosition(300, 400);
             testObj2.SetPosition(50, -20);
