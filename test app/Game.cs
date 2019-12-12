@@ -13,13 +13,17 @@ namespace test_app
 {
     class Game : ShadowBuildProject
     {
-        GameObject testObj2 = new GameObject(new RegularTexture((Bitmap)Bitmap.FromFile("wykres.png")));
-        GameObject child = new GameObject(new RegularTexture((Bitmap)Bitmap.FromFile("wykres.png")));
+        GameObject testObj2;
+        GameObject child; 
 
         GameObject testObj1 = new GameObject(new RegularTexture((Bitmap)Bitmap.FromFile("wykres.png")));
         public override void OnStart()
         {
             Camera.DefaultMode = DefaultCameraMode.RESIZE_WITH_WINDOW;
+            Layer.Setup(new Layer("test", 3));
+            Layer.Setup(new Layer("test2", 2));
+            testObj2 = new GameObject(new RegularTexture((Bitmap)Bitmap.FromFile("wykres.png")), Layer.Find("test2"));
+            child = new GameObject(new RegularTexture((Bitmap)Bitmap.FromFile("wykres.png")), Layer.Find("test"));
             GameObject testObj = new GameObject(new RegularTexture((Bitmap)Bitmap.FromFile("wykres.png")));
             testObj.SetPosition(300, 400);
             testObj2.SetPosition(50, -20);

@@ -42,7 +42,7 @@ namespace ShadowBuild.Rendering
             }
             return null;
         }
-        public void Setup(Layer layer)
+        public static void Setup(Layer layer)
         {
             All.Add(layer);
         }
