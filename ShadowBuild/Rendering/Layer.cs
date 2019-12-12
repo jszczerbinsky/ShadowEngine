@@ -1,4 +1,5 @@
-﻿using ShadowBuild.Objects;
+﻿using ShadowBuild.Exceptions;
+using ShadowBuild.Objects;
 using System;
 using System.Collections.Generic;
 
@@ -40,8 +41,19 @@ namespace ShadowBuild.Rendering
             }
             return null;
         }
+        public static Layer Find(int zIndex)
+        {
+            foreach (Layer l in All)
+            {
+                if (l.zIndex == zIndex)
+                    return l;
+            }
+            return null;
+        }
         public static void Setup(Layer layer)
         {
+            if (Layer.Find(layer.Name) != null) throw new LayerNameIsAlreadyUsedException();
+            if (Layer.Find(layer.zIndex) != null) throw new LayerZIndexIsAlreadyUsedException();
             All.Add(layer);
         }
         public int CompareTo(Layer obj)
