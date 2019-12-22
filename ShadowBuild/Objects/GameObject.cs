@@ -1,27 +1,30 @@
-﻿using ShadowBuild.Objects.Dimensions;
+﻿using ShadowBuild.Objects.Animationing;
+using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShadowBuild.Objects
 {
-    public class GameObject : _2DobjectResizeable 
+    public class GameObject : _2DobjectResizeable
     {
         public static List<GameObject> All { get; private set; } = new List<GameObject>();
         public uint zIndex;
 
+        public string Name;
+
         public Texture DefaultTexture { get; private set; }
         public Texture ActualTexture
         {
-            get { if (PlayingAnimation) return ActualTexture; else return this.DefaultTexture; }
-            private set { this.ActualTexture = value; }
+            get
+            {
+                if (ActualAnimation != null) return ActualAnimation.ActualTexture;
+                else return this.DefaultTexture;
+            }
+            private set { }
         }
-        public bool PlayingAnimation { get; private set; }
-        public bool Visible = true; 
+        public Animation ActualAnimation { get; private set; } = null;
+        public bool Visible = true;
         public readonly Layer RenderLayer;
 
         public bool collidable = true;
@@ -41,8 +44,9 @@ namespace ShadowBuild.Objects
             private set { }
         }
 
-        public GameObject(Texture texture)
+        public GameObject(string name, Texture texture)
         {
+            this.Name = name;
             this.RenderLayer = Layer.Default;
             this.SetPosition(0, 0);
             this.DefaultTexture = texture;
@@ -51,8 +55,9 @@ namespace ShadowBuild.Objects
             this.zIndex = 0;
             All.Add(this);
         }
-        public GameObject(Texture texture, Layer layer)
+        public GameObject(string name, Texture texture, Layer layer)
         {
+            this.Name = name;
             this.RenderLayer = layer;
             this.SetPosition(0, 0);
             this.DefaultTexture = texture;
@@ -70,7 +75,7 @@ namespace ShadowBuild.Objects
             this.DefaultTexture = obj.ActualTexture;
             this.Size = obj.Size;
             this.collidable = true;
-        } 
+        }
 
         private bool CheckCollision(GameObject obj1, GameObject obj2)
         {
@@ -103,7 +108,7 @@ namespace ShadowBuild.Objects
             else return this.Parent.IsChildOf(parent);
         }
 
-        public void Move(double X, double Y)
+        public override void Move(double X, double Y)
         {
             if (X != 0 && Y != 0)
             {
@@ -165,6 +170,14 @@ namespace ShadowBuild.Objects
             _2Dsize decrese = new _2Dsize(decreseLeft, decreseTop);
 
             return _2Dsize.Add(this.GetGlobalPosition(), decrese);
+        }
+        public void Play(string animName)
+        {
+            this.ActualAnimation = Animation.Get(animName);
+        }
+        public void StopPlaying()
+        {
+            this.ActualAnimation = null;
         }
     }
 }

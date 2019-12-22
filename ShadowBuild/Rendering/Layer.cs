@@ -1,10 +1,11 @@
-﻿using ShadowBuild.Objects;
+﻿using ShadowBuild.Exceptions;
+using ShadowBuild.Objects;
 using System;
 using System.Collections.Generic;
 
 namespace ShadowBuild.Rendering
 {
-    public class Layer:IComparable<Layer>
+    public class Layer : IComparable<Layer>
     {
         public static readonly Layer Default = new Layer("default", 0);
         internal static readonly List<Layer> All = new List<Layer>() { Layer.Default };
@@ -14,7 +15,7 @@ namespace ShadowBuild.Rendering
             get
             {
                 List<GameObject> objs = new List<GameObject>();
-                foreach(GameObject obj in GameObject.All)
+                foreach (GameObject obj in GameObject.All)
                 {
                     if (obj.RenderLayer == this) objs.Add(obj);
                 }
@@ -22,8 +23,6 @@ namespace ShadowBuild.Rendering
             }
             private set { }
         }
-
-        public bool Visible = true;
 
         public readonly int zIndex;
         public readonly string Name;
@@ -42,8 +41,19 @@ namespace ShadowBuild.Rendering
             }
             return null;
         }
+        public static Layer Find(int zIndex)
+        {
+            foreach (Layer l in All)
+            {
+                if (l.zIndex == zIndex)
+                    return l;
+            }
+            return null;
+        }
         public static void Setup(Layer layer)
         {
+            if (Layer.Find(layer.Name) != null) throw new LayerNameIsAlreadyUsedException();
+            if (Layer.Find(layer.zIndex) != null) throw new LayerZIndexIsAlreadyUsedException();
             All.Add(layer);
         }
         public int CompareTo(Layer obj)

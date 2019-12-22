@@ -1,9 +1,5 @@
 ﻿using ShadowBuild.Exceptions;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShadowBuild.Input.Axis
 {
@@ -31,7 +27,7 @@ namespace ShadowBuild.Input.Axis
 
             double value = 0;
 
-            if(axis is KeyboardAxis)
+            if (axis is KeyboardAxis)
             {
                 KeyboardAxis ka = (KeyboardAxis)axis;
                 if (Keyboard.KeyPressed(ka.minusValue))

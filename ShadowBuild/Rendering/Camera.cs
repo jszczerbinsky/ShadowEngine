@@ -1,11 +1,7 @@
 ﻿using ShadowBuild.Objects;
 using ShadowBuild.Objects.Dimensions;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShadowBuild.Rendering
 {
@@ -14,7 +10,7 @@ namespace ShadowBuild.Rendering
         public static Camera Default;
         public static DefaultCameraMode DefaultMode;
 
-        public readonly List<Layer> RenderLayers = new List<Layer>();
+        public readonly List<Layer> RenderLayers = new List<Layer>() { Layer.Default};
         public Color Background = Color.Gray;
 
         public Camera(_2Dsize position, _2Dsize size)
@@ -26,6 +22,21 @@ namespace ShadowBuild.Rendering
         {
             this.Position = new _2Dsize(x, y);
             this.Size = new _2Dsize(width, height);
+        }
+        public Camera(_2Dsize position, _2Dsize size, List<Layer> layers)
+        {
+            this.Position = position;
+            this.Size = size;
+            this.RenderLayers = layers;
+        }
+
+        public bool IsRendering(Layer l)
+        {
+            foreach(Layer l1 in RenderLayers)
+            {
+                if (l1 == l) return true;
+            }
+            return false;
         }
     }
 }

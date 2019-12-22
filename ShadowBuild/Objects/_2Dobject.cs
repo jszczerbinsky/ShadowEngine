@@ -1,9 +1,4 @@
 ﻿using ShadowBuild.Objects.Dimensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShadowBuild.Objects
 {
@@ -20,6 +15,10 @@ namespace ShadowBuild.Objects
         public void SetPosition(double X, double Y)
         {
             this.Position = new _2Dsize(X, Y);
+        }
+        public virtual void Move(double X, double Y)
+        {
+            this.Position = _2Dsize.Add(new _2Dsize(X, Y), this.Position);
         }
 
         #endregion

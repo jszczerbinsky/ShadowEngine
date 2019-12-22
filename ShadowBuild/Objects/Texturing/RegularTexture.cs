@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ShadowBuild.Objects.Dimensions;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShadowBuild.Objects.Dimensions;
 
 namespace ShadowBuild.Objects.Texturing
 {
@@ -21,7 +16,7 @@ namespace ShadowBuild.Objects.Texturing
             return new _2Dsize(this.Image.Width, this.Image.Height);
         }
 
-        public override void Render(Graphics g, GameObject obj)
+        public override void Render(Graphics g, GameObject obj, _2Dsize cameraPos)
         {
 
             RegularTexture tex = (RegularTexture)obj.ActualTexture;
@@ -30,8 +25,8 @@ namespace ShadowBuild.Objects.Texturing
                 tex.Image,
                 new Rectangle(
                     new Point(
-                        (int)(obj.GetStartPosition().X),
-                        (int)(obj.GetStartPosition().Y)
+                        (int)(obj.GetStartPosition().X-cameraPos.X),
+                        (int)(obj.GetStartPosition().Y-cameraPos.Y)
                     ), new Size(
                         (int)(tex.Image.Width * obj.Size.X),
                         (int)(tex.Image.Height * obj.Size.Y)
