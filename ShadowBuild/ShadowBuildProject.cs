@@ -9,14 +9,14 @@ namespace ShadowBuild
         public abstract void OnStart();
         public abstract void OnTick();
 
-        public ShadowBuildProject()
+        public ShadowBuildProject(string title)
         {
             Log.Say("Starting new ShadowBuild project");
 
             project = this;
 
 
-            new GameWindow();
+            new GameWindow(title);
             Loop.onTick += OnTick;
             Application.Run(GameWindow.actualGameWindow);
         }

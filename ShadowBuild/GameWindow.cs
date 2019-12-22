@@ -12,7 +12,7 @@ namespace ShadowBuild
         private PictureBox display;
         internal static GameWindow actualGameWindow;
 
-        public GameWindow()
+        public GameWindow(string title)
         {
             Log.Say("Creating new game window");
 
@@ -20,7 +20,7 @@ namespace ShadowBuild
 
             actualGameWindow = this;
             Camera.Default = new Camera(0, 0, 800, 600);
-            InitializeComponent();
+            InitializeComponent(title);
 
             Log.Say("Initializing ticker");
             Loop.StartTicker();
@@ -55,7 +55,7 @@ namespace ShadowBuild
             Loop.AbortThread();
         }
 
-        private void InitializeComponent()
+        private void InitializeComponent(string title)
         {
             this.display = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.display)).BeginInit();
@@ -78,6 +78,7 @@ namespace ShadowBuild
             this.ClientSize = new System.Drawing.Size(782, 553);
             this.Controls.Add(this.display);
             this.Name = "GameWindow";
+            this.Text = title;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();
