@@ -34,7 +34,7 @@ namespace ShadowBuild.Objects.Texturing
                         new Rectangle(
                             new Point(
                                 (int)(obj.GetStartPosition().X - cameraPos.X + x * tex.Image.Width * obj.Size.X),
-                                (int)(obj.GetStartPosition().Y -cameraPos.Y + y * tex.Image.Height * obj.Size.Y)
+                                (int)(obj.GetStartPosition().Y - cameraPos.Y + y * tex.Image.Height * obj.Size.Y)
                             ), new Size(
                                 (int)(tex.Image.Width * obj.Size.X),
                                 (int)(tex.Image.Height * obj.Size.Y)

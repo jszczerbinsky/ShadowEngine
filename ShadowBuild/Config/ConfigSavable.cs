@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShadowBuild.Config
 {
@@ -16,13 +11,14 @@ namespace ShadowBuild.Config
             FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
             if (cfgType == ConfigType.JSON)
             {
-                
+
                 StreamReader sr = new StreamReader(fs);
                 string str = sr.ReadToEnd();
                 sr.Close();
                 fs.Close();
                 return (T)JsonConvert.DeserializeAnonymousType(str, type);
-            }else
+            }
+            else
             {
                 BinaryFormatter bf = new BinaryFormatter();
                 string str = (string)bf.Deserialize(fs);
@@ -40,7 +36,8 @@ namespace ShadowBuild.Config
                 FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
                 bf.Serialize(fs, str);
                 fs.Close();
-            }else
+            }
+            else
             {
                 FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
                 StreamWriter sw = new StreamWriter(fs);

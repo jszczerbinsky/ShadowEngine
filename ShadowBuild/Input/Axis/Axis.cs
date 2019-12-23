@@ -3,7 +3,6 @@ using ShadowBuild.Config;
 using ShadowBuild.Exceptions;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace ShadowBuild.Input.Axis
 {
@@ -59,8 +58,8 @@ namespace ShadowBuild.Input.Axis
         }
         public static void SaveConfig(string path, ConfigType cfgType)
         {
-            var serialized = new { keyboard = new List<KeyboardAxis>(), mouse = new List<MouseAxis>()};
-            foreach(Axis a in Axes)
+            var serialized = new { keyboard = new List<KeyboardAxis>(), mouse = new List<MouseAxis>() };
+            foreach (Axis a in Axes)
             {
                 if (a is KeyboardAxis)
                     serialized.keyboard.Add((KeyboardAxis)a);
@@ -74,11 +73,11 @@ namespace ShadowBuild.Input.Axis
 
             deserialized = ReadConfigFile(path, deserialized, cfgType);
 
-            foreach(KeyboardAxis a in deserialized.keyboard)
+            foreach (KeyboardAxis a in deserialized.keyboard)
             {
                 Axes.Add(a);
             }
-            foreach(MouseAxis a in deserialized.mouse)
+            foreach (MouseAxis a in deserialized.mouse)
             {
                 Axes.Add(a);
             }

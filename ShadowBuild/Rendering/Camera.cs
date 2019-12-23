@@ -10,7 +10,7 @@ namespace ShadowBuild.Rendering
         public static Camera Default;
         public static DefaultCameraMode DefaultMode;
 
-        public readonly List<Layer> RenderLayers = new List<Layer>() { Layer.Default};
+        public readonly List<Layer> RenderLayers = new List<Layer>() { Layer.Default };
         public Color Background = Color.Gray;
 
         public Camera(_2Dsize position, _2Dsize size)
@@ -32,7 +32,7 @@ namespace ShadowBuild.Rendering
 
         public bool IsRendering(Layer l)
         {
-            foreach(Layer l1 in RenderLayers)
+            foreach (Layer l1 in RenderLayers)
             {
                 if (l1 == l) return true;
             }

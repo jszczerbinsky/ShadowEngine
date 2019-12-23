@@ -4,7 +4,6 @@ using ShadowBuild.Exceptions;
 using ShadowBuild.Objects;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace ShadowBuild.Rendering
 {

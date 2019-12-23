@@ -1,9 +1,5 @@
 ﻿using ShadowBuild.Objects.Texturing;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShadowBuild.Objects.Animationing
 {
@@ -41,7 +37,7 @@ namespace ShadowBuild.Objects.Animationing
                     anim.ActualTextureID++;
                     if (anim.ActualTextureID >= anim.Textures.Count)
                         anim.ActualTextureID = 0;
-                    anim.ActualOffset = anim.ActualOffset%(1/anim.Speed);
+                    anim.ActualOffset = anim.ActualOffset % (1 / anim.Speed);
                 }
             }
         }
