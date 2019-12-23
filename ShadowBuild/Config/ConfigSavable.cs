@@ -33,12 +33,20 @@ namespace ShadowBuild.Config
         }
         protected static void WriteConfigFile(string path, object o, ConfigType cfgType)
         {
-            if(cfgType == ConfigType.BINARY)
+            string str = JsonConvert.SerializeObject(o);
+            if (cfgType == ConfigType.BINARY)
             {
-                string str = JsonConvert.SerializeObject(o);
                 BinaryFormatter bf = new BinaryFormatter();
                 FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
                 bf.Serialize(fs, str);
+                fs.Close();
+            }else
+            {
+                FileStream fs = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write);
+                StreamWriter sw = new StreamWriter(fs);
+                sw.Write(str);
+                sw.Close();
+                fs.Close();
             }
         }
     }
