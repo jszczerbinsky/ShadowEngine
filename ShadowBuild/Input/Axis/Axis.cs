@@ -30,7 +30,7 @@ namespace ShadowBuild.Input.Axis
         public static double GetValue(string name)
         {
             Axis axis = Get(name);
-            if (axis == null) throw new AxisNotFoundException();
+            if (axis == null) throw new AxisException("Cannot find axis \""+name+"\"");
 
             double value = 0;
 
@@ -72,6 +72,8 @@ namespace ShadowBuild.Input.Axis
             var deserialized = new { keyboard = new List<KeyboardAxis>(), mouse = new List<MouseAxis>() };
 
             deserialized = ReadConfigFile(path, deserialized, cfgType);
+
+            Axes = new List<Axis>();
 
             foreach (KeyboardAxis a in deserialized.keyboard)
             {

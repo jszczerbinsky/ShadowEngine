@@ -42,7 +42,7 @@ namespace ShadowBuild.Rendering
                 if (l.Name == name)
                     return l;
             }
-            return null;
+            throw new LayerException("Cannot find layer \"" + name + "\"");
         }
         public static Layer Find(int zIndex)
         {
@@ -51,12 +51,12 @@ namespace ShadowBuild.Rendering
                 if (l.zIndex == zIndex)
                     return l;
             }
-            return null;
+            throw new LayerException("Cannot find layer with zIndex [" + zIndex + "]");
         }
         public static void Setup(Layer layer)
         {
-            if (Layer.Find(layer.Name) != null) throw new LayerNameIsAlreadyUsedException();
-            if (Layer.Find(layer.zIndex) != null) throw new LayerZIndexIsAlreadyUsedException();
+            if (Layer.Find(layer.Name) != null) throw new LayerException("Layer name \""+layer.Name+"\" is already in use");
+            if (Layer.Find(layer.zIndex) != null) throw new LayerException("Layer zIndex ["+layer.zIndex+"] is already in use");
             All.Add(layer);
         }
         public int CompareTo(Layer obj)
