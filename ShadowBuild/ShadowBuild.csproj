@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigSavable.cs" />
+    <Compile Include="Config\ConfigType.cs" />
     <Compile Include="Exceptions\LayerNameIsAlreadyUsedException.cs" />
     <Compile Include="Exceptions\LayerZIndexIsAlreadyUsedException.cs" />
     <Compile Include="Input\Axis\MouseAxis.cs" />

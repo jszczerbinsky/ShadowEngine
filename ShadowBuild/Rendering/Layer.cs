@@ -73,10 +73,10 @@ namespace ShadowBuild.Rendering
                     o.layers.Add(l);
             return JsonConvert.SerializeObject(o);
         }
-        public static void LoadConfig(string path)
+        public static void LoadConfig(string path, ConfigType cfgType)
         {
             var deserialized = new { layers = new List<Layer>() };
-            deserialized = ReadConfigFile(path, deserialized);
+            deserialized = ReadConfigFile(path, deserialized, cfgType);
             foreach (Layer l in deserialized.layers)
                 All.Add(l);
 

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowBuild.Input.Axis
+namespace ShadowBuild.Config
 {
-    [Serializable]
-    public class MouseAxis : Axis
+    public enum ConfigType
     {
+        JSON,
+        BINARY
     }
 }

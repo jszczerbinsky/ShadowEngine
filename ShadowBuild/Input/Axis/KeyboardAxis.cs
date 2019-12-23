@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System;
 using System.Windows.Forms;
 
 namespace ShadowBuild.Input.Axis
 {
+    [Serializable]
     public class KeyboardAxis : Axis
     {
         [JsonConverter(typeof(StringEnumConverter))]

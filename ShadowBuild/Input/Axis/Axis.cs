@@ -1,17 +1,20 @@
 ﻿using Newtonsoft.Json;
 using ShadowBuild.Config;
 using ShadowBuild.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace ShadowBuild.Input.Axis
 {
+    [Serializable]
     public abstract class Axis : ConfigSavable
     {
         private static List<Axis> Axes = new List<Axis>();
 
         public string name;
 
+        [NonSerialized]
         [JsonIgnore]
         public double value;
 
@@ -54,11 +57,22 @@ namespace ShadowBuild.Input.Axis
             var serialized = new { keyboard = k, mouse = m };
             return JsonConvert.SerializeObject(serialized);
         }
-        public static void LoadConfig(string path)
+        public static void SaveConfig(string path, ConfigType cfgType)
+        {
+            var serialized = new { keyboard = new List<KeyboardAxis>(), mouse = new List<MouseAxis>()};
+            foreach(Axis a in Axes)
+            {
+                if (a is KeyboardAxis)
+                    serialized.keyboard.Add((KeyboardAxis)a);
+                else serialized.mouse.Add((MouseAxis)a);
+            }
+            WriteConfigFile(path, serialized, cfgType);
+        }
+        public static void LoadConfig(string path, ConfigType cfgType)
         {
             var deserialized = new { keyboard = new List<KeyboardAxis>(), mouse = new List<MouseAxis>() };
 
-            deserialized = ReadConfigFile(path, deserialized);
+            deserialized = ReadConfigFile(path, deserialized, cfgType);
 
             foreach(KeyboardAxis a in deserialized.keyboard)
             {
