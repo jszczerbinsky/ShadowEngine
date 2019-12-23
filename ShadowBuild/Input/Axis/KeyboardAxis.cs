@@ -1,10 +1,16 @@
-﻿using System.Windows.Forms;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using System.Windows.Forms;
 
 namespace ShadowBuild.Input.Axis
 {
     public class KeyboardAxis : Axis
     {
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("-")]
         internal Keys minusValue;
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("+")]
         internal Keys plusValue;
 
         public KeyboardAxis(string name, Keys minusValue, Keys plusValue)

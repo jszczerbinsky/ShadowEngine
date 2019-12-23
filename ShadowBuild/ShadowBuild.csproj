@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -47,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Exceptions\LayerNameIsAlreadyUsedException.cs" />
     <Compile Include="Exceptions\LayerZIndexIsAlreadyUsedException.cs" />
+    <Compile Include="Input\Axis\MouseAxis.cs" />
     <Compile Include="Objects\Animationing\Animation.cs" />
     <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Events\Event.cs" />
@@ -83,6 +87,8 @@
       <DependentUpon>GameWindow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
