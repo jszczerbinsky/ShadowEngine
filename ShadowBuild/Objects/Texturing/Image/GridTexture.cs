@@ -1,9 +1,9 @@
 ﻿using ShadowBuild.Objects.Dimensions;
 using System.Drawing;
 
-namespace ShadowBuild.Objects.Texturing
+namespace ShadowBuild.Objects.Texturing.Image
 {
-    public class GridTexture : Texture
+    public class GridTexture : ImageTexture
     {
         public int xCount;
         public int yCount;

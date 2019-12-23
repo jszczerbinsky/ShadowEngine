@@ -6,7 +6,6 @@ namespace ShadowBuild.Objects.Texturing
 {
     public abstract class Texture
     {
-        public Bitmap Image;
 
         public abstract _2Dsize GetSize();
         public abstract void Render(Graphics g, GameObject obj, _2Dsize cameraPos);

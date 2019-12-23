@@ -1,6 +1,7 @@
 ﻿using ShadowBuild.Objects.Animationing;
 using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
+using ShadowBuild.Objects.Texturing.Image;
 using ShadowBuild.Rendering;
 using System.Collections.Generic;
 
@@ -153,8 +154,8 @@ namespace ShadowBuild.Objects
 
             if (ActualTexture is RegularTexture)
             {
-                decreseLeft -= this.ActualTexture.Image.Width * this.Size.X / 2;
-                decreseTop -= this.ActualTexture.Image.Height * this.Size.Y / 2;
+                decreseLeft -= ((RegularTexture)this.ActualTexture).Image.Width * this.Size.X / 2;
+                decreseTop -= ((RegularTexture)this.ActualTexture).Image.Height * this.Size.Y / 2;
             }
             else if (ActualTexture is ColorTexture)
             {

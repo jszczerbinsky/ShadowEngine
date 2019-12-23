@@ -54,6 +54,7 @@
     <Compile Include="Exceptions\LayerException.cs" />
     <Compile Include="Input\Axis\MouseAxis.cs" />
     <Compile Include="Objects\Animationing\Animation.cs" />
+    <Compile Include="Objects\Texturing\Image\ImageTexture.cs" />
     <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Exceptions\AxisException.cs" />
@@ -65,8 +66,8 @@
     <Compile Include="Objects\Dimensions\Shape.cs" />
     <Compile Include="Objects\Dimensions\_2Dsize.cs" />
     <Compile Include="Objects\Texturing\ColorTexture.cs" />
-    <Compile Include="Objects\Texturing\GridTexture.cs" />
-    <Compile Include="Objects\Texturing\RegularTexture.cs" />
+    <Compile Include="Objects\Texturing\Image\GridTexture.cs" />
+    <Compile Include="Objects\Texturing\Image\RegularTexture.cs" />
     <Compile Include="Objects\_2Dobject.cs" />
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="GameWindow.cs">

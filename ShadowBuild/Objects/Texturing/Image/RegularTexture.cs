@@ -1,9 +1,9 @@
 ﻿using ShadowBuild.Objects.Dimensions;
 using System.Drawing;
 
-namespace ShadowBuild.Objects.Texturing
+namespace ShadowBuild.Objects.Texturing.Image
 {
-    public class RegularTexture : Texture
+    public class RegularTexture : ImageTexture
     {
 
         public RegularTexture(Bitmap image)
