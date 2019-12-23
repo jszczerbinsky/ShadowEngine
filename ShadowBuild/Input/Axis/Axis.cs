@@ -13,10 +13,6 @@ namespace ShadowBuild.Input.Axis
 
         public string name;
 
-        [NonSerialized]
-        [JsonIgnore]
-        public double value;
-
         public static void Setup(Axis axis)
         {
             Axes.Add(axis);
