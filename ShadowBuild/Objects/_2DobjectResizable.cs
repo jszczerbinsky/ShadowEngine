@@ -2,7 +2,7 @@
 
 namespace ShadowBuild.Objects
 {
-    public abstract class _2DobjectResizeable : _2Dobject
+    public abstract class _2DobjectResizable : _2Dobject
     {
         public _2Dsize Size { get; protected set; }
 

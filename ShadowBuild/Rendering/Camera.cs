@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace ShadowBuild.Rendering
 {
-    public class Camera : _2DobjectResizeable
+    public class Camera : _2DobjectResizable
     {
         public static Camera Default;
         public static DefaultCameraMode DefaultMode;

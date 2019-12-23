@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace ShadowBuild.Objects
 {
-    public class GameObject : _2DobjectResizeable
+    public class GameObject : _2DobjectResizable
     {
         public static List<GameObject> All { get; private set; } = new List<GameObject>();
         public uint zIndex;
