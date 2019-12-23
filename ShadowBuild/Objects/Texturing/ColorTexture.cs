@@ -9,8 +9,9 @@ namespace ShadowBuild.Objects.Texturing
         public _2Dsize size;
         public Shape shape;
 
-        public ColorTexture(Color color, Shape shape, _2Dsize size)
+        public ColorTexture(string name, Color color, Shape shape, _2Dsize size)
         {
+            this.Name = name;
             this.shape = shape;
             this.color = color;
             this.size = size;

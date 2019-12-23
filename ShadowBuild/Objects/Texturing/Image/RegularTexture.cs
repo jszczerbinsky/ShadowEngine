@@ -6,9 +6,11 @@ namespace ShadowBuild.Objects.Texturing.Image
     public class RegularTexture : ImageTexture
     {
 
-        public RegularTexture(Bitmap image)
+        public RegularTexture(string name, string imgPath)
         {
-            this.Image = image;
+            this.Name = name;
+            this.ImagePath = imgPath;
+            this.Image = new Bitmap(imgPath);
         }
 
         public override _2Dsize GetSize()

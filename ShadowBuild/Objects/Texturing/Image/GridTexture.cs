@@ -8,9 +8,11 @@ namespace ShadowBuild.Objects.Texturing.Image
         public int xCount;
         public int yCount;
 
-        public GridTexture(Bitmap image, int xCount, int yCount)
+        public GridTexture(string name, string imgPath, int xCount, int yCount)
         {
-            this.Image = image;
+            this.Name = name;
+            this.ImagePath = imgPath;
+            this.Image = new Bitmap(imgPath);
             this.xCount = xCount;
             this.yCount = yCount;
         }

@@ -52,6 +52,7 @@
     <Compile Include="Config\ConfigType.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Exceptions\LayerException.cs" />
+    <Compile Include="Exceptions\TextureException.cs" />
     <Compile Include="Input\Axis\MouseAxis.cs" />
     <Compile Include="Objects\Animationing\Animation.cs" />
     <Compile Include="Objects\Texturing\Image\ImageTexture.cs" />
