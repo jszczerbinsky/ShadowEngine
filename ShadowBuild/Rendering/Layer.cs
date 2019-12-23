@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using ShadowBuild.Config;
 using ShadowBuild.Exceptions;
 using ShadowBuild.Objects;
 using System;
@@ -7,7 +8,7 @@ using System.IO;
 
 namespace ShadowBuild.Rendering
 {
-    public class Layer : IComparable<Layer>
+    public class Layer : ConfigSavable, IComparable<Layer>
     {
         public static readonly Layer Default = new Layer("default", 0);
         internal static readonly List<Layer> All = new List<Layer>() { Layer.Default };
@@ -74,14 +75,8 @@ namespace ShadowBuild.Rendering
         }
         public static void LoadConfig(string path)
         {
-            FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-            StreamReader sr = new StreamReader(fs);
-            string str = sr.ReadToEnd();
-            sr.Close();
-            fs.Close();
-
             var deserialized = new { layers = new List<Layer>() };
-            deserialized = JsonConvert.DeserializeAnonymousType(str, deserialized);
+            deserialized = ReadConfigFile(path, deserialized);
             foreach (Layer l in deserialized.layers)
                 All.Add(l);
 

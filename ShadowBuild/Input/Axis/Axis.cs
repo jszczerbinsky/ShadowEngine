@@ -1,11 +1,12 @@
 ﻿using Newtonsoft.Json;
+using ShadowBuild.Config;
 using ShadowBuild.Exceptions;
 using System.Collections.Generic;
 using System.IO;
 
 namespace ShadowBuild.Input.Axis
 {
-    public abstract class Axis
+    public abstract class Axis : ConfigSavable
     {
         private static List<Axis> Axes = new List<Axis>();
 
@@ -55,14 +56,10 @@ namespace ShadowBuild.Input.Axis
         }
         public static void LoadConfig(string path)
         {
-            FileStream f = new FileStream(path, FileMode.Open, FileAccess.Read);
-            StreamReader reader = new StreamReader(f);
-            string str = reader.ReadToEnd();
-            reader.Close();
-            f.Close();
-
             var deserialized = new { keyboard = new List<KeyboardAxis>(), mouse = new List<MouseAxis>() };
-            deserialized = JsonConvert.DeserializeAnonymousType(str, deserialized);
+
+            deserialized = ReadConfigFile(path, deserialized);
+
             foreach(KeyboardAxis a in deserialized.keyboard)
             {
                 Axes.Add(a);
