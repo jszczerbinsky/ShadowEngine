@@ -1,7 +1,9 @@
-﻿using ShadowBuild.Exceptions;
+﻿using Newtonsoft.Json;
+using ShadowBuild.Exceptions;
 using ShadowBuild.Objects;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace ShadowBuild.Rendering
 {
@@ -10,6 +12,7 @@ namespace ShadowBuild.Rendering
         public static readonly Layer Default = new Layer("default", 0);
         internal static readonly List<Layer> All = new List<Layer>() { Layer.Default };
 
+        [JsonIgnore]
         public List<GameObject> GameObjects
         {
             get
@@ -60,6 +63,28 @@ namespace ShadowBuild.Rendering
         {
             if (this.zIndex > obj.zIndex) return 1;
             return 0;
+        }
+        public static string GetActualConfig()
+        {
+            var o = new { layers = new List<Layer>() };
+            foreach (Layer l in All)
+                if (l != Layer.Default)
+                    o.layers.Add(l);
+            return JsonConvert.SerializeObject(o);
+        }
+        public static void LoadConfig(string path)
+        {
+            FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+            StreamReader sr = new StreamReader(fs);
+            string str = sr.ReadToEnd();
+            sr.Close();
+            fs.Close();
+
+            var deserialized = new { layers = new List<Layer>() };
+            deserialized = JsonConvert.DeserializeAnonymousType(str, deserialized);
+            foreach (Layer l in deserialized.layers)
+                All.Add(l);
+
         }
     }
 }
