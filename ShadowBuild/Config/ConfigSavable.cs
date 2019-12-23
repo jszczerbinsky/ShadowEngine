@@ -1,4 +1,6 @@
 ﻿using Newtonsoft.Json;
+using ShadowBuild.Exceptions;
+using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -8,7 +10,16 @@ namespace ShadowBuild.Config
     {
         protected static T ReadConfigFile<T>(string path, T type, ConfigType cfgType)
         {
-            FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+            FileStream fs;
+            try
+            {
+                fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+            }
+            catch (Exception e)
+            {
+                throw new ConfigException("Cannot open file \"" + path + "\"", e);
+            }
+
             if (cfgType == ConfigType.JSON)
             {
 
@@ -16,15 +27,33 @@ namespace ShadowBuild.Config
                 string str = sr.ReadToEnd();
                 sr.Close();
                 fs.Close();
-                return (T)JsonConvert.DeserializeAnonymousType(str, type);
+                T obj;
+                try
+                {
+                    obj = (T)JsonConvert.DeserializeAnonymousType(str, type);
+                }
+                catch (Exception e)
+                {
+                    throw new ConfigException("Cannot convert config file to object in \"" + path + "\"", e);
+                }
+                return obj;
             }
             else
             {
                 BinaryFormatter bf = new BinaryFormatter();
                 string str = (string)bf.Deserialize(fs);
                 fs.Close();
-                object o = JsonConvert.DeserializeAnonymousType(str, type);
-                return (T)o;
+                T o;
+                try
+                {
+                    o = (T)JsonConvert.DeserializeAnonymousType(str, type);
+                }
+                catch (Exception e)
+                {
+                    throw new ConfigException("Cannot convert config file to object in \"" + path + "\"", e);
+
+                }
+                return o;
             }
         }
         protected static void WriteConfigFile(string path, object o, ConfigType cfgType)
