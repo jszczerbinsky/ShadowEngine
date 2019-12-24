@@ -1,4 +1,5 @@
-﻿using ShadowBuild.Objects.Dimensions;
+﻿using ShadowBuild.Exceptions;
+using ShadowBuild.Objects.Dimensions;
 using System.Drawing;
 
 namespace ShadowBuild.Objects.Texturing.Image
@@ -8,11 +9,11 @@ namespace ShadowBuild.Objects.Texturing.Image
         public int xCount;
         public int yCount;
 
+        public GridTexture() { }
         public GridTexture(string name, string imgPath, int xCount, int yCount)
         {
             this.Name = name;
             this.ImagePath = imgPath;
-            this.Image = new Bitmap(imgPath);
             this.xCount = xCount;
             this.yCount = yCount;
         }
@@ -25,6 +26,9 @@ namespace ShadowBuild.Objects.Texturing.Image
         public override void Render(Graphics g, GameObject obj, _2Dsize cameraPos)
         {
             GridTexture tex = (GridTexture)obj.ActualTexture;
+
+            if (tex.Image == null) throw new RenderException("Image was not initialized in texture \"" + tex.Name);
+
 
             for (int x = 0; x < tex.xCount; x++)
             {

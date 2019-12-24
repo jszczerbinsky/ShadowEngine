@@ -1,4 +1,6 @@
-﻿using ShadowBuild.Objects.Dimensions;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using ShadowBuild.Objects.Dimensions;
 using System.Drawing;
 
 namespace ShadowBuild.Objects.Texturing
@@ -7,6 +9,8 @@ namespace ShadowBuild.Objects.Texturing
     {
         public Color color;
         public _2Dsize size;
+        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonProperty("Shape")]
         public Shape shape;
 
         public ColorTexture(string name, Color color, Shape shape, _2Dsize size)

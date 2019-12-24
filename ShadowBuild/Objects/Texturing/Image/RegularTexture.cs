@@ -1,16 +1,17 @@
-﻿using ShadowBuild.Objects.Dimensions;
+﻿using ShadowBuild.Exceptions;
+using ShadowBuild.Objects.Dimensions;
 using System.Drawing;
 
 namespace ShadowBuild.Objects.Texturing.Image
 {
     public class RegularTexture : ImageTexture
     {
-
+        public RegularTexture() { }
         public RegularTexture(string name, string imgPath)
         {
             this.Name = name;
             this.ImagePath = imgPath;
-            this.Image = new Bitmap(imgPath);
+            InitializeImage();
         }
 
         public override _2Dsize GetSize()
@@ -22,6 +23,8 @@ namespace ShadowBuild.Objects.Texturing.Image
         {
 
             RegularTexture tex = (RegularTexture)obj.ActualTexture;
+
+            if (tex.Image == null) throw new RenderException("Image was not initialized in texture \""+tex.Name);
 
             g.DrawImage(
                 tex.Image,

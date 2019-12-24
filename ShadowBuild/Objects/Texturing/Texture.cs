@@ -1,6 +1,8 @@
-﻿using ShadowBuild.Config;
+﻿using Newtonsoft.Json;
+using ShadowBuild.Config;
 using ShadowBuild.Exceptions;
 using ShadowBuild.Objects.Dimensions;
+using ShadowBuild.Objects.Texturing.Image;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -83,6 +85,83 @@ namespace ShadowBuild.Objects.Texturing
                     new Size(
                         (int)(obj.ActualTexture.GetSize().X * obj.Size.X), (int)(obj.ActualTexture.GetSize().Y * obj.Size.Y))
                     ));
+        }
+
+        public static string GetActualConfig()
+        {
+            List<ColorTexture> c = new List<ColorTexture>();
+            List<RegularTexture> r = new List<RegularTexture>();
+            List<GridTexture> g = new List<GridTexture>();
+            foreach (Texture t in All)
+                if (t is ColorTexture) c.Add((ColorTexture)t);
+                else if (t is RegularTexture) r.Add((RegularTexture)t);
+                else g.Add((GridTexture)t);
+
+            var serialized = new {
+                image = new
+                {
+                    regular = r,
+                    grid = g
+                },
+                other = new
+                {
+                    color = c
+                }
+            };
+            return JsonConvert.SerializeObject(serialized);
+        }
+        public static void SaveConfig(string path, ConfigType cfgType)
+        {
+            List<ColorTexture> c = new List<ColorTexture>();
+            List<RegularTexture> r = new List<RegularTexture>();
+            List<GridTexture> g = new List<GridTexture>();
+            foreach (Texture t in All)
+                if (t is ColorTexture) c.Add((ColorTexture)t);
+                else if (t is RegularTexture) r.Add((RegularTexture)t);
+                else g.Add((GridTexture)t);
+
+            var serialized = new
+            {
+                image = new
+                {
+                    regular = r,
+                    grid = g
+                },
+                other = new
+                {
+                    color = c
+                }
+            };
+            WriteConfigFile(path, serialized, cfgType);
+        }
+        public static void LoadConfig(string path, ConfigType cfgType)
+        {
+            var deserialized = new
+            {
+                image = new
+                {
+                    regular = new List<RegularTexture>(),
+                    grid = new List<GridTexture>()
+                },
+                other = new
+                {
+                    color = new List<ColorTexture>()
+                }
+            };
+
+            deserialized = ReadConfigFile(path, deserialized, cfgType);
+
+            All = new List<Texture>();
+            foreach (RegularTexture t in deserialized.image.regular)
+                All.Add(t);
+            foreach (GridTexture t in deserialized.image.grid)
+                All.Add(t);
+            foreach (ColorTexture t in deserialized.other.color)
+                All.Add(t);
+
+            foreach (Texture t in All)
+                if (t is ImageTexture)
+                    ((ImageTexture)t).InitializeImage();
         }
     }
 }

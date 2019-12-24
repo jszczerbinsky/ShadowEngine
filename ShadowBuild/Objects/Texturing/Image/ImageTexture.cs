@@ -13,5 +13,10 @@ namespace ShadowBuild.Objects.Texturing.Image
         [JsonIgnore]
         public Bitmap Image;
         public string ImagePath;
+
+        public void InitializeImage()
+        {
+            this.Image = new Bitmap(ImagePath);
+        }
     }
 }
