@@ -39,10 +39,13 @@ namespace ShadowBuild
 
         internal void RenderNewFrame()
         {
-            if (Camera.DefaultMode == DefaultCameraMode.RESIZE_WITH_WINDOW)
+            if (Camera.DefaultSizeMode == SizeMode.Fill)
                 Camera.Default.SetSize(Render.Resolution);
             this.Invoke(new Action(() =>
             {
+                if (Camera.DefaultSizeMode == SizeMode.Fill)
+                    this.display.SizeMode = PictureBoxSizeMode.Normal;
+                else this.display.SizeMode = PictureBoxSizeMode.Zoom;
                 Image tmp = this.display.Image;
                 this.display.Image = Render.FromCamera(Camera.Default);
                 if (tmp != null) tmp.Dispose();

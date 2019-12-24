@@ -8,14 +8,14 @@ namespace ShadowBuild.Rendering
 {
     public static class Render
     {
-        public static readonly _2Dsize Resolution = new _2Dsize(GameWindow.actualGameWindow.Width, GameWindow.actualGameWindow.Height);
+        public static _2Dsize Resolution { get { return new _2Dsize(GameWindow.actualGameWindow.Width, GameWindow.actualGameWindow.Height); } }
 
         public static bool showObjectBorders = false;
 
         public static Bitmap FromCamera(Camera cam)
         {
-            _2Dsize startPos = cam.Position;
-            _2Dsize endPos = _2Dsize.Add(cam.Position, cam.Size);
+            _2Dsize startPos = new _2Dsize(cam.Position.X-cam.Size.X/2, cam.Position.Y- cam.Size.Y/2);
+            _2Dsize endPos = new _2Dsize(cam.Position.X+cam.Size.X/2, cam.Position.Y + cam.Size.Y/2);
 
             Bitmap frame = new Bitmap((int)cam.Size.X, (int)cam.Size.Y);
 

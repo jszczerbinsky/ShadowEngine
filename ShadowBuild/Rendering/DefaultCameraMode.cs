@@ -1,8 +1,8 @@
 ﻿namespace ShadowBuild.Rendering
 {
-    public enum DefaultCameraMode
+    public enum SizeMode
     {
-        RESIZE_WITH_WINDOW,
-        STATIC_SIZE
+        Fill,
+        Static
     }
 }
