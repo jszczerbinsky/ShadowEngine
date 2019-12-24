@@ -2,6 +2,7 @@
 using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace ShadowBuild.Rendering
@@ -15,7 +16,6 @@ namespace ShadowBuild.Rendering
         public static Bitmap FromCamera(Camera cam)
         {
             _2Dsize startPos = new _2Dsize(cam.Position.X-cam.Size.X/2, cam.Position.Y- cam.Size.Y/2);
-            _2Dsize endPos = new _2Dsize(cam.Position.X+cam.Size.X/2, cam.Position.Y + cam.Size.Y/2);
 
             Bitmap frame = new Bitmap((int)cam.Size.X, (int)cam.Size.Y);
 
