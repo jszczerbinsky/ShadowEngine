@@ -26,7 +26,7 @@ namespace ShadowBuild.Events
             {
                 if (ev.name.Equals(name)) return ev;
             }
-            throw new EventException("There is no event \""+name+"\"in event list");
+            throw new EventException("There is no event \"" + name + "\"in event list");
         }
         public static void Setup(string name)
         {

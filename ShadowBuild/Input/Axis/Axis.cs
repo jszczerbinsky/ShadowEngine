@@ -26,7 +26,7 @@ namespace ShadowBuild.Input.Axis
         public static double GetValue(string name)
         {
             Axis axis = Get(name);
-            if (axis == null) throw new AxisException("Cannot find axis \""+name+"\"");
+            if (axis == null) throw new AxisException("Cannot find axis \"" + name + "\"");
 
             double value = 0;
 

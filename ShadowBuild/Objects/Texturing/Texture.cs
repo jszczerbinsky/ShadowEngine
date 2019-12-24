@@ -97,7 +97,8 @@ namespace ShadowBuild.Objects.Texturing
                 else if (t is RegularTexture) r.Add((RegularTexture)t);
                 else g.Add((GridTexture)t);
 
-            var serialized = new {
+            var serialized = new
+            {
                 image = new
                 {
                     regular = r,

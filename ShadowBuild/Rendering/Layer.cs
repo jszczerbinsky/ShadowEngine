@@ -55,8 +55,8 @@ namespace ShadowBuild.Rendering
         }
         public static void Setup(Layer layer)
         {
-            if (Layer.Find(layer.Name) != null) throw new LayerException("Layer name \""+layer.Name+"\" is already in use");
-            if (Layer.Find(layer.zIndex) != null) throw new LayerException("Layer zIndex ["+layer.zIndex+"] is already in use");
+            if (Layer.Find(layer.Name) != null) throw new LayerException("Layer name \"" + layer.Name + "\" is already in use");
+            if (Layer.Find(layer.zIndex) != null) throw new LayerException("Layer zIndex [" + layer.zIndex + "] is already in use");
             All.Add(layer);
         }
         public int CompareTo(Layer obj)

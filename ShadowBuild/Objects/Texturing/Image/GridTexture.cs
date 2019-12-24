@@ -9,6 +9,7 @@ namespace ShadowBuild.Objects.Texturing.Image
         public int xCount;
         public int yCount;
 
+        //Empty constructor for deserialization
         public GridTexture() { }
         public GridTexture(string name, string imgPath, int xCount, int yCount)
         {

@@ -6,6 +6,7 @@ namespace ShadowBuild.Objects.Texturing.Image
 {
     public class RegularTexture : ImageTexture
     {
+        //Empty constructor for deserialization
         public RegularTexture() { }
         public RegularTexture(string name, string imgPath)
         {
@@ -24,7 +25,7 @@ namespace ShadowBuild.Objects.Texturing.Image
 
             RegularTexture tex = (RegularTexture)obj.ActualTexture;
 
-            if (tex.Image == null) throw new RenderException("Image was not initialized in texture \""+tex.Name);
+            if (tex.Image == null) throw new RenderException("Image was not initialized in texture \"" + tex.Name);
 
             g.DrawImage(
                 tex.Image,
