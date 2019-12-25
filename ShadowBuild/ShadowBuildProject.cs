@@ -17,7 +17,7 @@ namespace ShadowBuild
 
 
             new GameWindow();
-            Loop.onTick += OnTick;
+            Loop.OnTick += OnTick;
             Application.Run(GameWindow.actualGameWindow);
         }
     }

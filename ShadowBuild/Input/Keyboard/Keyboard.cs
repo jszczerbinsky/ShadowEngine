@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace ShadowBuild.Input
+namespace ShadowBuild.Input.Keyboard
 {
     public static class Keyboard
     {

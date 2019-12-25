@@ -56,15 +56,15 @@
     <Compile Include="Exceptions\LayerException.cs" />
     <Compile Include="Exceptions\RenderException.cs" />
     <Compile Include="Exceptions\TextureException.cs" />
-    <Compile Include="Input\Axis\MouseAxis.cs" />
+    <Compile Include="Input\Mouse\MouseAxesValues.cs" />
+    <Compile Include="Input\Mouse\MouseAxis.cs" />
     <Compile Include="Objects\Animationing\Animation.cs" />
     <Compile Include="Objects\Texturing\Image\ImageTexture.cs" />
     <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Exceptions\AxisException.cs" />
     <Compile Include="Exceptions\EventException.cs" />
-    <Compile Include="Input\Axis\Axis.cs" />
-    <Compile Include="Input\Axis\KeyboardAxis.cs" />
+    <Compile Include="Input\Keyboard\Axis.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Objects\Collision.cs" />
     <Compile Include="Objects\Texturing\Shape.cs" />
@@ -76,8 +76,8 @@
     <Compile Include="GameWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Input\Keyboard.cs" />
-    <Compile Include="Input\Mouse.cs" />
+    <Compile Include="Input\Keyboard\Keyboard.cs" />
+    <Compile Include="Input\Mouse\Mouse.cs" />
     <Compile Include="Objects\Texturing\Texture.cs" />
     <Compile Include="Objects\_2DobjectResizable.cs" />
     <Compile Include="Rendering\DefaultCameraMode.cs" />
