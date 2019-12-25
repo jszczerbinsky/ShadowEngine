@@ -1,4 +1,4 @@
-﻿namespace ShadowBuild.Objects
+﻿namespace ShadowBuild.Objects.Texturing
 {
     public enum Shape
     {

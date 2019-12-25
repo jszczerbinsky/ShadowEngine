@@ -1,47 +1,46 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using ShadowBuild.Objects.Dimensions;
 using System.Drawing;
 
 namespace ShadowBuild.Objects.Texturing
 {
     public class ColorTexture : Texture
     {
-        public Color color;
-        public _2Dsize size;
+        public Color Color;
+        public System.Windows.Point Size;
         [JsonConverter(typeof(StringEnumConverter))]
         [JsonProperty("Shape")]
-        public Shape shape;
+        public Shape Shape;
 
-        public ColorTexture(string name, Color color, Shape shape, _2Dsize size)
+        public ColorTexture(string name, Color color, Shape shape, System.Windows.Point size)
         {
             this.Name = name;
-            this.shape = shape;
-            this.color = color;
-            this.size = size;
+            this.Shape = shape;
+            this.Color = color;
+            this.Size = size;
         }
 
-        public override _2Dsize GetSize()
+        public override System.Windows.Point GetSize()
         {
-            return size;
+            return Size;
         }
 
-        public override void Render(Graphics g, GameObject obj, _2Dsize cameraPos)
+        public override void Render(Graphics g, GameObject obj, System.Windows.Point cameraPos)
         {
             ColorTexture tex = (ColorTexture)obj.ActualTexture;
-            Brush brush = new SolidBrush(tex.color);
+            Brush brush = new SolidBrush(tex.Color);
             Rectangle size = new Rectangle(
-                new Point(
+                new System.Drawing.Point(
                      (int)(obj.GetStartPosition().X - cameraPos.X),
                      (int)(obj.GetStartPosition().Y - cameraPos.Y)
                 ),
                 new Size(
-                    (int)(tex.size.X * obj.Size.X),
-                    (int)(tex.size.Y * obj.Size.Y)
+                    (int)(tex.Size.X * obj.Size.X),
+                    (int)(tex.Size.Y * obj.Size.Y)
                 )
             );
 
-            if (tex.shape == Shape.ELLIPSE)
+            if (tex.Shape == Shape.ELLIPSE)
                 g.FillEllipse(brush, size);
             else g.FillRectangle(brush, size);
         }

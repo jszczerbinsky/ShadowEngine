@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using ShadowBuild.Config;
 using ShadowBuild.Exceptions;
-using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing.Image;
 using System;
 using System.Collections.Generic;
@@ -15,8 +14,8 @@ namespace ShadowBuild.Objects.Texturing
 
         public string Name;
 
-        public abstract _2Dsize GetSize();
-        public abstract void Render(Graphics g, GameObject obj, _2Dsize cameraPos);
+        public abstract System.Windows.Point GetSize();
+        public abstract void Render(Graphics g, GameObject obj, System.Windows.Point cameraPos);
 
         public static void Setup(Texture t)
         {
@@ -33,7 +32,7 @@ namespace ShadowBuild.Objects.Texturing
             throw new TextureException("Cannot find texture \"" + name);
         }
 
-        public static void RenderObjectCenters(Graphics g, GameObject obj, _2Dsize cameraPos)
+        public static void RenderObjectCenters(Graphics g, GameObject obj, System.Windows.Point cameraPos)
         {
             if (obj.Visible)
             {
@@ -51,7 +50,7 @@ namespace ShadowBuild.Objects.Texturing
                         ));
             }
         }
-        public static void RenderObjectBorders(Graphics g, GameObject obj, _2Dsize cameraPos)
+        public static void RenderObjectBorders(Graphics g, GameObject obj, System.Windows.Point cameraPos)
         {
             Random rand = new Random();
             Color fillColor = Color.FromArgb(100, rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));

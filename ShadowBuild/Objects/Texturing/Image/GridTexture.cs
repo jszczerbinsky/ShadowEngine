@@ -1,5 +1,4 @@
 ﻿using ShadowBuild.Exceptions;
-using ShadowBuild.Objects.Dimensions;
 using System.Drawing;
 
 namespace ShadowBuild.Objects.Texturing.Image
@@ -17,14 +16,15 @@ namespace ShadowBuild.Objects.Texturing.Image
             this.ImagePath = imgPath;
             this.xCount = xCount;
             this.yCount = yCount;
+            InitializeImage();
         }
 
-        public override _2Dsize GetSize()
+        public override System.Windows.Point GetSize()
         {
-            return new _2Dsize(Image.Size.Width * xCount, Image.Size.Height * yCount);
+            return new System.Windows.Point(Image.Size.Width * xCount, Image.Size.Height * yCount);
         }
 
-        public override void Render(Graphics g, GameObject obj, _2Dsize cameraPos)
+        public override void Render(Graphics g, GameObject obj, System.Windows.Point cameraPos)
         {
             GridTexture tex = (GridTexture)obj.ActualTexture;
 

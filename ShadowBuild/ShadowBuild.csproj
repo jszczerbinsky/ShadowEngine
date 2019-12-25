@@ -67,8 +67,7 @@
     <Compile Include="Input\Axis\KeyboardAxis.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Objects\Collision.cs" />
-    <Compile Include="Objects\Dimensions\Shape.cs" />
-    <Compile Include="Objects\Dimensions\_2Dsize.cs" />
+    <Compile Include="Objects\Texturing\Shape.cs" />
     <Compile Include="Objects\Texturing\ColorTexture.cs" />
     <Compile Include="Objects\Texturing\Image\GridTexture.cs" />
     <Compile Include="Objects\Texturing\Image\RegularTexture.cs" />

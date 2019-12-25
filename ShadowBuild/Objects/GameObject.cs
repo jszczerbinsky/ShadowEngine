@@ -1,9 +1,9 @@
 ﻿using ShadowBuild.Objects.Animationing;
-using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Objects.Texturing.Image;
 using ShadowBuild.Rendering;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace ShadowBuild.Objects
 {
@@ -52,7 +52,7 @@ namespace ShadowBuild.Objects
             this.SetPosition(0, 0);
             this.DefaultTexture = texture;
             this.Visible = true;
-            this.SetSize(new _2Dsize(1, 1));
+            this.SetSize(new Point(1, 1));
             this.zIndex = 0;
             All.Add(this);
         }
@@ -63,7 +63,7 @@ namespace ShadowBuild.Objects
             this.SetPosition(0, 0);
             this.DefaultTexture = texture;
             this.Visible = true;
-            this.SetSize(new _2Dsize(1, 1));
+            this.SetSize(new Point(1, 1));
             this.zIndex = 0;
             All.Add(this);
 
@@ -124,7 +124,7 @@ namespace ShadowBuild.Objects
             foreach (GameObject child in childrenWithThis)
             {
                 GameObject tmpObject = new GameObject(child);
-                tmpObject.SetPosition(_2Dsize.Add(child.GetGlobalPosition(), new _2Dsize(X, Y)));
+                tmpObject.SetPosition(new Point(child.GetGlobalPosition().X + X, child.GetGlobalPosition().Y + Y));
 
                 foreach (GameObject obj in All)
                 {
@@ -136,18 +136,18 @@ namespace ShadowBuild.Objects
             this.SetPosition(this.Position.X + X, this.Position.Y + Y);
 
         }
-        public _2Dsize GetGlobalPosition()
+        public Point GetGlobalPosition()
         {
-            _2Dsize tmpPosition = this.Position;
+            Point tmpPosition = this.Position;
             if (this.Parent != null)
             {
-                tmpPosition = _2Dsize.Add(tmpPosition, this.Parent.GetGlobalPosition());
+                tmpPosition = new Point(tmpPosition.X + this.Parent.GetGlobalPosition().X, tmpPosition.Y + this.Parent.GetGlobalPosition().Y);
             }
             return tmpPosition;
 
         }
 
-        public _2Dsize GetStartPosition()
+        public Point GetStartPosition()
         {
             double decreseLeft = 0;
             double decreseTop = 0;
@@ -159,8 +159,8 @@ namespace ShadowBuild.Objects
             }
             else if (ActualTexture is ColorTexture)
             {
-                decreseLeft -= ((ColorTexture)this.ActualTexture).size.X * this.Size.X / 2;
-                decreseTop -= ((ColorTexture)this.ActualTexture).size.Y * this.Size.Y / 2;
+                decreseLeft -= ((ColorTexture)this.ActualTexture).Size.X * this.Size.X / 2;
+                decreseTop -= ((ColorTexture)this.ActualTexture).Size.Y * this.Size.Y / 2;
             }
             else if (ActualTexture is GridTexture)
             {
@@ -168,9 +168,9 @@ namespace ShadowBuild.Objects
                 decreseLeft -= tex.Image.Width * this.Size.X * tex.xCount / 2;
                 decreseTop -= tex.Image.Height * this.Size.Y * tex.yCount / 2;
             }
-            _2Dsize decrese = new _2Dsize(decreseLeft, decreseTop);
+            Point decrese = new Point(decreseLeft, decreseTop);
 
-            return _2Dsize.Add(this.GetGlobalPosition(), decrese);
+            return new Point(this.GetGlobalPosition().X + decrese.X, this.GetGlobalPosition().Y + decrese.Y);
         }
         public void Play(string animName)
         {

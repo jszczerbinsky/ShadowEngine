@@ -1,7 +1,6 @@
 ﻿using ShadowBuild.Objects;
-using ShadowBuild.Objects.Dimensions;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Windows;
 
 namespace ShadowBuild.Rendering
 {
@@ -11,19 +10,19 @@ namespace ShadowBuild.Rendering
         public static SizeMode DefaultSizeMode;
 
         public readonly List<Layer> RenderLayers = new List<Layer>() { Layer.Default };
-        public Color Background = Color.Gray;
+        public System.Drawing.Color Background = System.Drawing.Color.Gray;
 
-        public Camera(_2Dsize position, _2Dsize size)
+        public Camera(Point position, Point size)
         {
             this.Position = position;
             this.Size = size;
         }
         public Camera(double x, double y, double width, double height)
         {
-            this.Position = new _2Dsize(x, y);
-            this.Size = new _2Dsize(width, height);
+            this.Position = new Point(x, y);
+            this.Size = new Point(width, height);
         }
-        public Camera(_2Dsize position, _2Dsize size, List<Layer> layers)
+        public Camera(Point position, Point size, List<Layer> layers)
         {
             this.Position = position;
             this.Size = size;

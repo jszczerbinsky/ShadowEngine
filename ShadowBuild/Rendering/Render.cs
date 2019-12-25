@@ -1,5 +1,4 @@
 ﻿using ShadowBuild.Objects;
-using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,13 +8,13 @@ namespace ShadowBuild.Rendering
 {
     public static class Render
     {
-        public static _2Dsize Resolution { get { return new _2Dsize(GameWindow.actualGameWindow.Width, GameWindow.actualGameWindow.Height); } }
+        public static System.Windows.Point Resolution { get { return new System.Windows.Point(GameWindow.actualGameWindow.Width, GameWindow.actualGameWindow.Height); } }
 
         public static bool showObjectBorders = false;
 
         public static Bitmap FromCamera(Camera cam)
         {
-            _2Dsize startPos = new _2Dsize(cam.Position.X-cam.Size.X/2, cam.Position.Y- cam.Size.Y/2);
+            System.Windows.Point startPos = new System.Windows.Point(cam.Position.X- cam.Size.X/2, cam.Position.Y- cam.Size.Y/2);
 
             Bitmap frame = new Bitmap((int)cam.Size.X, (int)cam.Size.Y);
 

@@ -1,5 +1,4 @@
 ﻿using ShadowBuild.Exceptions;
-using ShadowBuild.Objects.Dimensions;
 using System.Drawing;
 
 namespace ShadowBuild.Objects.Texturing.Image
@@ -15,12 +14,12 @@ namespace ShadowBuild.Objects.Texturing.Image
             InitializeImage();
         }
 
-        public override _2Dsize GetSize()
+        public override System.Windows.Point GetSize()
         {
-            return new _2Dsize(this.Image.Width, this.Image.Height);
+            return new System.Windows.Point(this.Image.Width, this.Image.Height);
         }
 
-        public override void Render(Graphics g, GameObject obj, _2Dsize cameraPos)
+        public override void Render(Graphics g, GameObject obj, System.Windows.Point cameraPos)
         {
 
             RegularTexture tex = (RegularTexture)obj.ActualTexture;

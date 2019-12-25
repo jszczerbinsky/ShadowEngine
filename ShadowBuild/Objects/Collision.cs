@@ -1,4 +1,4 @@
-﻿using ShadowBuild.Objects.Dimensions;
+﻿using System.Windows;
 
 namespace ShadowBuild.Objects
 {
@@ -6,11 +6,22 @@ namespace ShadowBuild.Objects
     {
         public static bool Check(GameObject obj1, GameObject obj2)
         {
-            _2Dsize start1 = obj1.GetStartPosition();
-            _2Dsize start2 = obj2.GetStartPosition();
+            Point start1 = obj1.GetStartPosition();
+            Point start2 = obj2.GetStartPosition();
 
-            _2Dsize end1 = _2Dsize.Add(obj1.GetStartPosition(), new _2Dsize(obj1.ActualTexture.GetSize().X * obj1.Size.X, obj1.ActualTexture.GetSize().Y * obj1.Size.Y));
-            _2Dsize end2 = _2Dsize.Add(obj2.GetStartPosition(), new _2Dsize(obj2.ActualTexture.GetSize().X * obj2.Size.X, obj2.ActualTexture.GetSize().Y * obj2.Size.Y));
+            Point tmp;
+
+            tmp = new Point(obj1.ActualTexture.GetSize().X * obj1.Size.X, obj1.ActualTexture.GetSize().Y * obj1.Size.Y);
+
+            Point end1 = new Point(
+                obj1.GetStartPosition().X + tmp.X,
+                obj1.GetStartPosition().Y + tmp.Y);
+
+            tmp = new Point(obj2.ActualTexture.GetSize().X * obj2.Size.X, obj2.ActualTexture.GetSize().Y * obj2.Size.Y);
+
+            Point end2 = new Point(
+                obj2.GetStartPosition().X + tmp.X,
+                obj2.GetStartPosition().Y + tmp.Y);
 
             if (
              (end1.X > start2.X
