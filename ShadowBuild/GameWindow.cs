@@ -43,13 +43,9 @@ namespace ShadowBuild
 
         internal void RenderNewFrame()
         {
-            if (Camera.DefaultSizeMode == SizeMode.Fill)
-                Camera.Default.SetSize(Render.Resolution);
+            Camera.Default.SetSize(Render.Resolution);
             this.Invoke(new Action(() =>
             {
-                if (Camera.DefaultSizeMode == SizeMode.Fill)
-                    this.display.SizeMode = PictureBoxSizeMode.Normal;
-                else this.display.SizeMode = PictureBoxSizeMode.Zoom;
                 Image tmp = this.display.Image;
                 this.display.Image = Render.FromCamera(Camera.Default);
                 if (tmp != null) tmp.Dispose();
@@ -74,7 +70,7 @@ namespace ShadowBuild
             this.display.Location = new System.Drawing.Point(0, 0);
             this.display.Name = "display";
             this.display.Size = new System.Drawing.Size(782, 553);
-            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal;
             this.display.TabIndex = 0;
             this.display.TabStop = false;
             // 

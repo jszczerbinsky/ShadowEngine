@@ -7,7 +7,6 @@ namespace ShadowBuild.Rendering
     public class Camera : _2DobjectResizable
     {
         public static Camera Default;
-        public static SizeMode DefaultSizeMode;
 
         public readonly List<Layer> RenderLayers = new List<Layer>() { Layer.Default };
         public System.Drawing.Color Background = System.Drawing.Color.Gray;
