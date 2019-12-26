@@ -11,6 +11,20 @@ namespace ShadowBuild.Rendering
 
         public readonly List<Layer> RenderLayers = new List<Layer>() { Layer.Default };
         public System.Drawing.Color Background = System.Drawing.Color.Gray;
+        public Point StartPosition
+        {
+            get
+            {
+                return new Point(this.Position.X - this.Size.X / 2, this.Position.Y - this.Size.Y / 2);
+            }
+        }
+        public Point EndPosition
+        {
+            get
+            {
+                return new Point(this.Position.X + this.Size.X / 2, this.Position.Y + this.Size.Y / 2);
+            }
+        }
 
         public Camera(Point position, Point size)
         {

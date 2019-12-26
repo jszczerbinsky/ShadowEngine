@@ -1,4 +1,5 @@
-﻿using ShadowBuild.Objects.Animationing;
+﻿using ShadowBuild.Input.Mouse;
+using ShadowBuild.Objects.Animationing;
 using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Objects.Texturing.Image;
 using ShadowBuild.Rendering;
@@ -45,6 +46,17 @@ namespace ShadowBuild.Objects
             }
             private set { }
         }
+        public bool MouseOver
+        {
+            get{
+                Point p = new Point(
+                    Mouse.Position.X + Camera.Default.StartPosition.X,
+                    Mouse.Position.Y + Camera.Default.StartPosition.Y
+                );
+                return CheckPointInside(p);
+            }
+        }
+
 
         public RenderableObject(string name, Texture texture)
         {
@@ -93,7 +105,7 @@ namespace ShadowBuild.Objects
             else if (this.Parent == null) return false;
             else return this.Parent.IsChildOf(parent);
         }
-        
+
         public Point GetGlobalPosition()
         {
             Point tmpPosition = this.Position;
@@ -129,6 +141,27 @@ namespace ShadowBuild.Objects
             Point decrese = new Point(decreseLeft, decreseTop);
 
             return new Point(this.GetGlobalPosition().X + decrese.X, this.GetGlobalPosition().Y + decrese.Y);
+        }
+        public bool CheckPointInside(Point p)
+        {
+            Point start = this.GetStartPosition();
+
+            Point tmp;
+
+            tmp = new Point(this.ActualTexture.GetSize().X * this.Size.X, this.ActualTexture.GetSize().Y * this.Size.Y);
+
+            Point end = new Point(
+                this.GetStartPosition().X + tmp.X,
+                this.GetStartPosition().Y + tmp.Y);
+
+            if (
+                p.X > start.X &&
+                p.X < end.X &&
+                p.Y > start.Y &&
+                p.Y < end.Y
+             )
+                return true;
+            return false;
         }
         public void Play(string animName)
         {
