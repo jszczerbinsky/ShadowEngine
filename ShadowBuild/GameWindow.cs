@@ -83,9 +83,19 @@ namespace ShadowBuild
             this.Name = "GameWindow";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
+            display.MouseDown += new MouseEventHandler(this.OnMouseDown);
+            display.MouseUp += new MouseEventHandler(this.OnMouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();
             this.ResumeLayout(false);
 
+        }
+        private void OnMouseDown(object sender, MouseEventArgs e)
+        {
+            Mouse.SetMouseButtonState(e, true);
+        }
+        private void OnMouseUp(object sender, MouseEventArgs e)
+        {
+            Mouse.SetMouseButtonState(e, false);
         }
         private void OnKeyDown(object sender, KeyEventArgs e)
         {

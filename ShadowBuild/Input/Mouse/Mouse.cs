@@ -1,6 +1,7 @@
 ﻿using ShadowBuild.Exceptions;
 using ShadowBuild.Rendering;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
 
@@ -8,6 +9,9 @@ namespace ShadowBuild.Input.Mouse
 {
     public static class Mouse
     {
+        private static List<MouseButtons> PressedButtons = new List<MouseButtons>();
+        private static List<MouseButtons> ClickedButtons = new List<MouseButtons>();
+
         private static bool lockCursor = false;
         public static bool LockCurosr
         {
@@ -29,7 +33,7 @@ namespace ShadowBuild.Input.Mouse
                 GameWindow.actualGameWindow.Invoke(
                     new Action(() =>
                     {
-                        p = GameWindow.actualGameWindow.PointToClient(Cursor.Position);
+                        p = GameWindow.actualGameWindow.PointToClient(System.Windows.Forms.Cursor.Position);
                     })
                 );
 
@@ -40,7 +44,7 @@ namespace ShadowBuild.Input.Mouse
         {
             get
             {
-                return new Point(Cursor.Position.X, Cursor.Position.Y);
+                return new Point(System.Windows.Forms.Cursor.Position.X, System.Windows.Forms.Cursor.Position.Y);
             }
         }
         private static System.Drawing.Point screenCenter
@@ -83,9 +87,47 @@ namespace ShadowBuild.Input.Mouse
         }
         private static void CenterCursor()
         {
-            Cursor.Position = screenCenter;
+            System.Windows.Forms.Cursor.Position = screenCenter;
 
         }
+
+        private static bool CheckExists(MouseButtons k, List<MouseButtons> where)
+        {
+            foreach (MouseButtons k1 in where)
+            {
+                if (k1 == k) return true;
+            }
+            return false;
+        }
+        public static void SetMouseButtonState(System.Windows.Forms.MouseEventArgs a, bool pressed)
+        {
+
+            if (pressed)
+            {
+                if (!CheckExists(a.Button, PressedButtons))
+                    PressedButtons.Add(a.Button);
+                if (!CheckExists(a.Button, ClickedButtons))
+                    ClickedButtons.Add(a.Button);
+            }
+            else
+            {
+                if (CheckExists(a.Button, PressedButtons))
+                    PressedButtons.Remove(a.Button);
+                if (!CheckExists(a.Button, ClickedButtons))
+                    ClickedButtons.Remove(a.Button);
+            }
+        }
+        public static bool ButtonPressed(MouseButtons k)
+        {
+            return CheckExists(k, PressedButtons);
+        }
+        public static bool ButtonClick(MouseButtons k)
+        {
+            bool check = CheckExists(k, ClickedButtons);
+            if (check) ClickedButtons.Remove(k);
+            return check;
+        }
+
         public static void OnStart()
         {
             CenterCursor();
