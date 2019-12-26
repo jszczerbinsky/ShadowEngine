@@ -70,9 +70,16 @@ namespace ShadowBuild.Input.Mouse
         }
         private static void CountValues()
         {
-            MouseAxesValues.X = GlobalPosition.X - screenCenter.X;
-            MouseAxesValues.Y = GlobalPosition.Y - screenCenter.Y;
-            CenterCursor();
+            if (lockCursor)
+            {
+                MouseAxesValues.X = GlobalPosition.X - screenCenter.X;
+                MouseAxesValues.Y = GlobalPosition.Y - screenCenter.Y;
+                CenterCursor();
+            }else
+            {
+                MouseAxesValues.X = 0;
+                MouseAxesValues.Y = 0;
+            }
         }
         private static void CenterCursor()
         {
@@ -85,7 +92,6 @@ namespace ShadowBuild.Input.Mouse
         }
         public static void OnTick()
         {
-            if (lockCursor)
                 CountValues();
         }
     }
