@@ -8,6 +8,19 @@ namespace ShadowBuild.Input.Mouse
 {
     public static class Mouse
     {
+        private static bool lockCursor = false;
+        public static bool LockCurosr
+        {
+            get
+            {
+                return lockCursor;
+            }
+            set
+            {
+                CenterCursor();
+                lockCursor = value;
+            }
+        }
         public static Point Position
         {
             get
@@ -36,7 +49,7 @@ namespace ShadowBuild.Input.Mouse
             {
                 return new System.Drawing.Point(
                     Screen.PrimaryScreen.Bounds.Width / 2,
-                    Screen.PrimaryScreen.Bounds.Height/2
+                    Screen.PrimaryScreen.Bounds.Height / 2
                 );
             }
         }
@@ -69,12 +82,11 @@ namespace ShadowBuild.Input.Mouse
         public static void OnStart()
         {
             CenterCursor();
-
-
         }
         public static void OnTick()
         {
-            CountValues();
+            if (lockCursor)
+                CountValues();
         }
     }
 }
