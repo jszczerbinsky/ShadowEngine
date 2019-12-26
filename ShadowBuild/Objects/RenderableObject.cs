@@ -49,6 +49,7 @@ namespace ShadowBuild.Objects
         public bool MouseOver
         {
             get{
+                if (Mouse.LockCurosr) return false;
                 Point p = new Point(
                     Mouse.Position.X + Camera.Default.StartPosition.X,
                     Mouse.Position.Y + Camera.Default.StartPosition.Y
