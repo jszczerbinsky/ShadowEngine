@@ -26,7 +26,7 @@ namespace ShadowBuild.Events
             {
                 if (ev.name.Equals(name)) return ev;
             }
-            throw new EventNotFoundException("Cannot find event named " + name + " inside event list");
+            throw new EventException("There is no event \"" + name + "\"in event list");
         }
         public static void Setup(string name)
         {
@@ -34,12 +34,12 @@ namespace ShadowBuild.Events
             {
                 Get(name);
             }
-            catch (EventNotFoundException)
+            catch (EventException)
             {
                 events.Add(new Event(name));
                 return;
             }
-            throw new EventNameIsAlreadyUsedException("Event name \"" + name + "\" is already used by another event");
+            throw new EventException("Event name \"" + name + "\" is already in use");
         }
         public static void Setup(string name, eventDelegateVoid delegates)
         {
@@ -47,14 +47,14 @@ namespace ShadowBuild.Events
             {
                 Get(name);
             }
-            catch (EventNotFoundException)
+            catch (EventException)
             {
                 Event e = new Event(name);
                 e.eventDelegates = delegates;
                 events.Add(e);
                 return;
             }
-            throw new EventNameIsAlreadyUsedException("Event name \"" + name + "\" is already used by another event");
+            throw new EventException("Event name \"" + name + "\" is already in use");
         }
     }
 }

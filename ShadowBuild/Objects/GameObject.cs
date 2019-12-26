@@ -1,81 +1,19 @@
 ﻿using ShadowBuild.Objects.Animationing;
-using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
+using ShadowBuild.Objects.Texturing.Image;
 using ShadowBuild.Rendering;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace ShadowBuild.Objects
 {
-    public class GameObject : _2DobjectResizeable
+    public class GameObject : RenderableObject
     {
-        public static List<GameObject> All { get; private set; } = new List<GameObject>();
-        public uint zIndex;
-
-        public string Name;
-
-        public Texture DefaultTexture { get; private set; }
-        public Texture ActualTexture
-        {
-            get
-            {
-                if (ActualAnimation != null) return ActualAnimation.ActualTexture;
-                else return this.DefaultTexture;
-            }
-            private set { }
-        }
-        public Animation ActualAnimation { get; private set; } = null;
-        public bool Visible = true;
-        public readonly Layer RenderLayer;
-
         public bool collidable = true;
 
-        public GameObject Parent { get; private set; }
-        public List<GameObject> Children
-        {
-            get
-            {
-                List<GameObject> toReturn = new List<GameObject>();
-                foreach (GameObject obj in All)
-                {
-                    if (obj.Parent == this) toReturn.Add(obj);
-                }
-                return toReturn;
-            }
-            private set { }
-        }
-
-        public GameObject(string name, Texture texture)
-        {
-            this.Name = name;
-            this.RenderLayer = Layer.Default;
-            this.SetPosition(0, 0);
-            this.DefaultTexture = texture;
-            this.Visible = true;
-            this.SetSize(new _2Dsize(1, 1));
-            this.zIndex = 0;
-            All.Add(this);
-        }
-        public GameObject(string name, Texture texture, Layer layer)
-        {
-            this.Name = name;
-            this.RenderLayer = layer;
-            this.SetPosition(0, 0);
-            this.DefaultTexture = texture;
-            this.Visible = true;
-            this.SetSize(new _2Dsize(1, 1));
-            this.zIndex = 0;
-            All.Add(this);
-
-        }
-
-        //Special constructor only for creating tmp objects for collisions calculations
-        private GameObject(GameObject obj)
-        {
-            this.Position = obj.GetGlobalPosition();
-            this.DefaultTexture = obj.ActualTexture;
-            this.Size = obj.Size;
-            this.collidable = true;
-        }
+        public GameObject(string name, Texture texture) : base(name, texture) { }
+        public GameObject(string name, Texture texture, Layer layer) : base(name, texture, layer) { }
+        private GameObject() : base() { }
 
         private bool CheckCollision(GameObject obj1, GameObject obj2)
         {
@@ -83,29 +21,15 @@ namespace ShadowBuild.Objects
             return false;
         }
 
-        public void SetParent(GameObject obj)
+        //This method is only for collision calculations
+        private GameObject GetClone(GameObject obj)
         {
-            this.Parent = obj;
-        }
-        public List<GameObject> GetAllGrandchildren()
-        {
-            List<GameObject> objs = new List<GameObject>();
-
-            foreach (GameObject child in this.Children)
-            {
-                List<GameObject> toMerge = child.GetAllGrandchildren();
-                toMerge.Add(child);
-                foreach (GameObject toMergeObj in toMerge)
-                    objs.Add(toMergeObj);
-
-            }
-            return objs;
-        }
-        public bool IsChildOf(GameObject parent)
-        {
-            if (this.Parent == parent) return true;
-            else if (this.Parent == null) return false;
-            else return this.Parent.IsChildOf(parent);
+            GameObject clone = new GameObject();
+            clone.Position = obj.GetGlobalPosition();
+            clone.DefaultTexture = obj.ActualTexture;
+            clone.Size = obj.Size;
+            clone.collidable = true;
+            return clone;
         }
 
         public override void Move(double X, double Y)
@@ -117,17 +41,19 @@ namespace ShadowBuild.Objects
                 return;
             }
 
-            List<GameObject> childrenWithThis = this.GetAllGrandchildren();
+            List<RenderableObject> childrenWithThis = this.GetAllGrandchildren();
             childrenWithThis.Add(this);
 
-            foreach (GameObject child in childrenWithThis)
+            foreach (RenderableObject child in childrenWithThis)
             {
-                GameObject tmpObject = new GameObject(child);
-                tmpObject.SetPosition(_2Dsize.Add(child.GetGlobalPosition(), new _2Dsize(X, Y)));
+                if (!(child is GameObject)) continue;
+                GameObject childG = (GameObject)child;
+                GameObject tmpObject = GetClone(childG);
+                tmpObject.SetPosition(new Point(childG.GetGlobalPosition().X + X, childG.GetGlobalPosition().Y + Y));
 
                 foreach (GameObject obj in All)
                 {
-                    if (obj == child || obj.IsChildOf(child) || child.IsChildOf(obj)) continue;
+                    if (obj == childG || obj.IsChildOf(childG) || childG.IsChildOf(obj)) continue;
 
                     if (CheckCollision(tmpObject, obj)) return;
                 }
@@ -135,49 +61,9 @@ namespace ShadowBuild.Objects
             this.SetPosition(this.Position.X + X, this.Position.Y + Y);
 
         }
-        public _2Dsize GetGlobalPosition()
-        {
-            _2Dsize tmpPosition = this.Position;
-            if (this.Parent != null)
-            {
-                tmpPosition = _2Dsize.Add(tmpPosition, this.Parent.GetGlobalPosition());
-            }
-            return tmpPosition;
 
-        }
 
-        public _2Dsize GetStartPosition()
-        {
-            double decreseLeft = 0;
-            double decreseTop = 0;
 
-            if (ActualTexture is RegularTexture)
-            {
-                decreseLeft -= this.ActualTexture.Image.Width * this.Size.X / 2;
-                decreseTop -= this.ActualTexture.Image.Height * this.Size.Y / 2;
-            }
-            else if (ActualTexture is ColorTexture)
-            {
-                decreseLeft -= ((ColorTexture)this.ActualTexture).size.X * this.Size.X / 2;
-                decreseTop -= ((ColorTexture)this.ActualTexture).size.Y * this.Size.Y / 2;
-            }
-            else if (ActualTexture is GridTexture)
-            {
-                GridTexture tex = (GridTexture)this.ActualTexture;
-                decreseLeft -= tex.Image.Width * this.Size.X * tex.xCount / 2;
-                decreseTop -= tex.Image.Height * this.Size.Y * tex.yCount / 2;
-            }
-            _2Dsize decrese = new _2Dsize(decreseLeft, decreseTop);
 
-            return _2Dsize.Add(this.GetGlobalPosition(), decrese);
-        }
-        public void Play(string animName)
-        {
-            this.ActualAnimation = Animation.Get(animName);
-        }
-        public void StopPlaying()
-        {
-            this.ActualAnimation = null;
-        }
     }
 }

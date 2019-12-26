@@ -1,4 +1,6 @@
 ﻿using ShadowBuild.Input;
+using ShadowBuild.Input.Keyboard;
+using ShadowBuild.Input.Mouse;
 using ShadowBuild.Objects.Animationing;
 using ShadowBuild.Rendering;
 using System;
@@ -24,8 +26,10 @@ namespace ShadowBuild
 
             Log.Say("Initializing ticker");
             Loop.StartTicker();
-            Loop.onTick += this.RenderNewFrame;
-            Loop.onTick += Animation.OnTick;
+            Loop.OnTick += this.RenderNewFrame;
+            Loop.OnTick += Animation.OnTick;
+            Mouse.OnStart();
+            Loop.OnTick += Mouse.OnTick;
 
             this.Show();
             Log.Say("Calling OnStart");
@@ -39,8 +43,7 @@ namespace ShadowBuild
 
         internal void RenderNewFrame()
         {
-            if (Camera.DefaultMode == DefaultCameraMode.RESIZE_WITH_WINDOW)
-                Camera.Default.SetSize(Render.Resolution);
+            Camera.Default.SetSize(Render.Resolution);
             this.Invoke(new Action(() =>
             {
                 Image tmp = this.display.Image;
@@ -67,7 +70,7 @@ namespace ShadowBuild
             this.display.Location = new System.Drawing.Point(0, 0);
             this.display.Name = "display";
             this.display.Size = new System.Drawing.Size(782, 553);
-            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal;
             this.display.TabIndex = 0;
             this.display.TabStop = false;
             // 

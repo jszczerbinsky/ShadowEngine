@@ -1,21 +1,20 @@
 ﻿using ShadowBuild.Objects;
-using ShadowBuild.Objects.Dimensions;
 using ShadowBuild.Objects.Texturing;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace ShadowBuild.Rendering
 {
     public static class Render
     {
-        public static readonly _2Dsize Resolution = new _2Dsize(GameWindow.actualGameWindow.Width, GameWindow.actualGameWindow.Height);
+        public static System.Windows.Point Resolution { get { return new System.Windows.Point(GameWindow.actualGameWindow.Width, GameWindow.actualGameWindow.Height); } }
 
         public static bool showObjectBorders = false;
 
         public static Bitmap FromCamera(Camera cam)
         {
-            _2Dsize startPos = cam.Position;
-            _2Dsize endPos = _2Dsize.Add(cam.Position, cam.Size);
+            System.Windows.Point startPos = new System.Windows.Point(cam.Position.X- cam.Size.X/2, cam.Position.Y- cam.Size.Y/2);
 
             Bitmap frame = new Bitmap((int)cam.Size.X, (int)cam.Size.Y);
 
@@ -28,7 +27,7 @@ namespace ShadowBuild.Rendering
                 foreach (Layer l in sortedLayers)
                 {
                     if (!cam.IsRendering(l)) continue;
-                    foreach (GameObject obj in l.GameObjects)
+                    foreach (RenderableObject obj in l.Objects)
                     {
                         if (!obj.Visible) continue;
                         obj.ActualTexture.Render(g, obj, startPos);
@@ -41,7 +40,7 @@ namespace ShadowBuild.Rendering
                 if (showObjectBorders)
                     foreach (Layer l in sortedLayers)
                         if (cam.IsRendering(l))
-                            foreach (GameObject obj in l.GameObjects)
+                            foreach (RenderableObject obj in l.Objects)
                                 if (obj.Visible)
                                     Texture.RenderObjectCenters(g, obj, startPos);
 

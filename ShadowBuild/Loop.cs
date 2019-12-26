@@ -8,7 +8,7 @@ namespace ShadowBuild
     {
         private static Thread thread;
         public delegate void OnTickDelegateVoid();
-        public static OnTickDelegateVoid onTick;
+        public static OnTickDelegateVoid OnTick;
         public static long currentFPS { get; private set; } = 0;
         public static double delay = 0;
 
@@ -20,7 +20,7 @@ namespace ShadowBuild
                 while (true)
                 {
                     DateTime timeOnStart = DateTime.Now;
-                    await Task.Run(new Action(() => { onTick(); }));
+                    await Task.Run(new Action(() => { OnTick(); }));
                     DateTime timeOnEnd = DateTime.Now;
 
                     TimeSpan tsdelay = timeOnEnd - timeOnStart;

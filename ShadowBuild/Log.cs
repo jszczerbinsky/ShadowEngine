@@ -18,10 +18,10 @@ namespace ShadowBuild
         public static void ListLayers()
         {
             SortedSet<Layer> layers = new SortedSet<Layer>(Layer.All);
-            foreach(Layer l in layers)
+            foreach (Layer l in layers)
             {
                 Console.WriteLine(" * " + l.Name);
-                foreach (GameObject obj in l.GameObjects)
+                foreach (GameObject obj in l.Objects)
                 {
                     Console.WriteLine("    - " + obj.Name);
                 }
