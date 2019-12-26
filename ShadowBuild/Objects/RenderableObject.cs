@@ -15,8 +15,6 @@ namespace ShadowBuild.Objects
     {
         public static List<RenderableObject> All { get; private set; } = new List<RenderableObject>();
 
-        public uint zIndex;
-
         public string Name;
 
         public Texture DefaultTexture { get; protected set; }
@@ -56,7 +54,6 @@ namespace ShadowBuild.Objects
             this.DefaultTexture = texture;
             this.Visible = true;
             this.SetSize(new Point(1, 1));
-            this.zIndex = 0;
             All.Add(this);
         }
         public RenderableObject(string name, Texture texture, Layer layer)
@@ -67,7 +64,6 @@ namespace ShadowBuild.Objects
             this.DefaultTexture = texture;
             this.Visible = true;
             this.SetSize(new Point(1, 1));
-            this.zIndex = 0;
             All.Add(this);
 
         }
