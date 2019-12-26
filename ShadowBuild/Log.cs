@@ -21,7 +21,7 @@ namespace ShadowBuild
             foreach (Layer l in layers)
             {
                 Console.WriteLine(" * " + l.Name);
-                foreach (GameObject obj in l.GameObjects)
+                foreach (GameObject obj in l.Objects)
                 {
                     Console.WriteLine("    - " + obj.Name);
                 }

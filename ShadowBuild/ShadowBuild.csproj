@@ -59,6 +59,7 @@
     <Compile Include="Input\Mouse\MouseAxesValues.cs" />
     <Compile Include="Input\Mouse\MouseAxis.cs" />
     <Compile Include="Objects\Animationing\Animation.cs" />
+    <Compile Include="Objects\RenderableObject.cs" />
     <Compile Include="Objects\Texturing\Image\ImageTexture.cs" />
     <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Events\Event.cs" />

@@ -27,7 +27,7 @@ namespace ShadowBuild.Rendering
                 foreach (Layer l in sortedLayers)
                 {
                     if (!cam.IsRendering(l)) continue;
-                    foreach (GameObject obj in l.GameObjects)
+                    foreach (RenderableObject obj in l.Objects)
                     {
                         if (!obj.Visible) continue;
                         obj.ActualTexture.Render(g, obj, startPos);
@@ -40,7 +40,7 @@ namespace ShadowBuild.Rendering
                 if (showObjectBorders)
                     foreach (Layer l in sortedLayers)
                         if (cam.IsRendering(l))
-                            foreach (GameObject obj in l.GameObjects)
+                            foreach (RenderableObject obj in l.Objects)
                                 if (obj.Visible)
                                     Texture.RenderObjectCenters(g, obj, startPos);
 

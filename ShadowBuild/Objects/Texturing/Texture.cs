@@ -15,7 +15,7 @@ namespace ShadowBuild.Objects.Texturing
         public string Name;
 
         public abstract System.Windows.Point GetSize();
-        public abstract void Render(Graphics g, GameObject obj, System.Windows.Point cameraPos);
+        public abstract void Render(Graphics g, RenderableObject obj, System.Windows.Point cameraPos);
 
         public static void Setup(Texture t)
         {
@@ -32,7 +32,7 @@ namespace ShadowBuild.Objects.Texturing
             throw new TextureException("Cannot find texture \"" + name);
         }
 
-        public static void RenderObjectCenters(Graphics g, GameObject obj, System.Windows.Point cameraPos)
+        public static void RenderObjectCenters(Graphics g, RenderableObject obj, System.Windows.Point cameraPos)
         {
             if (obj.Visible)
             {
@@ -50,7 +50,7 @@ namespace ShadowBuild.Objects.Texturing
                         ));
             }
         }
-        public static void RenderObjectBorders(Graphics g, GameObject obj, System.Windows.Point cameraPos)
+        public static void RenderObjectBorders(Graphics g, RenderableObject obj, System.Windows.Point cameraPos)
         {
             Random rand = new Random();
             Color fillColor = Color.FromArgb(100, rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));

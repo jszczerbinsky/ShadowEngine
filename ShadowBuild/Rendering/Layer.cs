@@ -13,12 +13,12 @@ namespace ShadowBuild.Rendering
         internal static readonly List<Layer> All = new List<Layer>() { Layer.Default };
 
         [JsonIgnore]
-        public List<GameObject> GameObjects
+        public List<RenderableObject> Objects
         {
             get
             {
-                List<GameObject> objs = new List<GameObject>();
-                foreach (GameObject obj in GameObject.All)
+                List<RenderableObject> objs = new List<RenderableObject>();
+                foreach (RenderableObject obj in RenderableObject.All)
                 {
                     if (obj.RenderLayer == this) objs.Add(obj);
                 }

@@ -25,7 +25,7 @@ namespace ShadowBuild.Objects.Texturing
             return Size;
         }
 
-        public override void Render(Graphics g, GameObject obj, System.Windows.Point cameraPos)
+        public override void Render(Graphics g, RenderableObject obj, System.Windows.Point cameraPos)
         {
             ColorTexture tex = (ColorTexture)obj.ActualTexture;
             Brush brush = new SolidBrush(tex.Color);
