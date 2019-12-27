@@ -54,6 +54,7 @@
     <Compile Include="Config\ConfigType.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Exceptions\LayerException.cs" />
+    <Compile Include="Exceptions\ObjectException.cs" />
     <Compile Include="Exceptions\RenderException.cs" />
     <Compile Include="Exceptions\TextureException.cs" />
     <Compile Include="Input\Mouse\MouseAxesValues.cs" />

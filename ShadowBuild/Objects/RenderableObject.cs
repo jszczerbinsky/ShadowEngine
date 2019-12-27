@@ -1,4 +1,5 @@
-﻿using ShadowBuild.Input.Mouse;
+﻿using ShadowBuild.Exceptions;
+using ShadowBuild.Input.Mouse;
 using ShadowBuild.Objects.Animationing;
 using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Objects.Texturing.Image;
@@ -82,6 +83,18 @@ namespace ShadowBuild.Objects
         }
         protected RenderableObject() { }
 
+        public static RenderableObject Get(string name)
+        {
+            foreach (RenderableObject o in All)
+                if (o.Name == name) return o;
+            throw new ObjectException("Could not find object \"" + name + "\"");
+        }
+        public static T Get<T> (string name) where T : RenderableObject
+        {
+            foreach (RenderableObject o in All)
+                if (o.Name == name && o is T) return (T)o;
+            throw new ObjectException("Could not find object \"" + name + "\" with type \""+typeof(T).FullName+"\"");
+        }
         public void SetParent(RenderableObject obj)
         {
             this.Parent = obj;
