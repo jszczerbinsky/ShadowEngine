@@ -22,6 +22,12 @@ namespace ShadowBuild.Input.Mouse
             set
             {
                 CenterCursor();
+                GameWindow.actualGameWindow.Invoke(new Action(() =>
+                {
+                    if (value == true) Cursor.Hide();
+                    else Cursor.Show();
+                }));
+
                 lockCursor = value;
             }
         }
@@ -79,7 +85,8 @@ namespace ShadowBuild.Input.Mouse
                 MouseAxesValues.X = GlobalPosition.X - screenCenter.X;
                 MouseAxesValues.Y = GlobalPosition.Y - screenCenter.Y;
                 CenterCursor();
-            }else
+            }
+            else
             {
                 MouseAxesValues.X = 0;
                 MouseAxesValues.Y = 0;
@@ -134,7 +141,7 @@ namespace ShadowBuild.Input.Mouse
         }
         public static void OnTick()
         {
-                CountValues();
+            CountValues();
         }
     }
 }
