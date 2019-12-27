@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace ShadowBuild.Objects
 {
@@ -19,6 +20,13 @@ namespace ShadowBuild.Objects
         public virtual void Move(double X, double Y)
         {
             this.Position = new Point(X+ this.Position.X, Y+this.Position.Y);
+        }
+        public double DistanceFrom(_2Dobject o)
+        {
+            double x = Math.Abs(o.Position.X - this.Position.X);
+            double y = Math.Abs(o.Position.Y - this.Position.Y);
+
+            return Math.Sqrt(y * y + x * x);
         }
 
         #endregion
