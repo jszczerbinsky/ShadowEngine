@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using ShadowBuild.Config;
+﻿using ShadowBuild.Config;
 using ShadowBuild.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -14,12 +12,18 @@ namespace ShadowBuild.Input.Keyboard
         private static List<Axis> Axes = new List<Axis>();
 
         public string name;
-        [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("-")]
         internal Keys minusValue;
-        [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("+")]
         internal Keys plusValue;
+        public string minusValueString
+        {
+            get { return minusValue.ToString(); }
+            set { minusValue = (Keys)Enum.Parse(typeof(Keys), value); }
+        }
+        public string plusValueString
+        {
+            get { return plusValue.ToString(); }
+            set { plusValue = (Keys)Enum.Parse(typeof(Keys), value); }
+        }
 
         public Axis(string name, Keys minusValue, Keys plusValue)
         {
@@ -52,32 +56,26 @@ namespace ShadowBuild.Input.Keyboard
 
             return value;
         }
-        public static string GetActualConfig()
+        public static void SaveConfig(string path)
         {
-            List<Axis> k = new List<Axis>();
+            var serialized = new { axes = new List<Axis>() };
             foreach (Axis a in Axes)
-                k.Add(a);
+                serialized.axes.Add(a);
 
-            return JsonConvert.SerializeObject(k);
+            WriteConfigFile(path, serialized);
         }
-        public static void SaveConfig(string path, ConfigType cfgType)
+        public static void LoadConfig(string path)
         {
-            var serialized = new List<Axis>();
-            foreach (Axis a in Axes)
-                serialized.Add(a);
+            dynamic val = ReadConfigFile(path);
 
-            WriteConfigFile(path, serialized, cfgType);
-        }
-        public static void LoadConfig(string path, ConfigType cfgType)
-        {
-            var deserialized = new List<Axis>();
-
-            deserialized = ReadConfigFile(path, deserialized, cfgType);
-
-            Axes = new List<Axis>();
-
-            foreach (Axis a in deserialized)
-                Axes.Add(a);
+            foreach (Dictionary<string, object> dict in val["axes"])
+            {
+                Axis a = new Axis(
+                    (string)dict["name"],
+                    (Keys)Enum.Parse(typeof(Keys), (string)dict["minusValueString"]),
+                    (Keys)Enum.Parse(typeof(Keys), (string)dict["plusValueString"]));
+                Axis.Setup(a);
+            }
 
         }
     }

@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
+﻿using System;
 using System.Drawing;
+using System.Web.Script.Serialization;
 
 namespace ShadowBuild.Objects.Texturing
 {
@@ -8,9 +8,13 @@ namespace ShadowBuild.Objects.Texturing
     {
         public Color Color;
         public System.Windows.Point Size;
-        [JsonConverter(typeof(StringEnumConverter))]
-        [JsonProperty("Shape")]
+        [ScriptIgnore]
         public Shape Shape;
+        public string ShapeString
+        {
+            get { return Shape.ToString(); }
+            set { Shape = (Shape)Enum.Parse(typeof(Shape), value); }
+        }
 
         public ColorTexture(string name, Color color, Shape shape, System.Windows.Point size)
         {

@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using ShadowBuild.Config;
+﻿using ShadowBuild.Config;
 using ShadowBuild.Exceptions;
 using ShadowBuild.Objects;
 using System;
 using System.Collections.Generic;
+using System.Web.Script.Serialization;
 
 namespace ShadowBuild.Rendering
 {
@@ -12,7 +12,7 @@ namespace ShadowBuild.Rendering
         public static readonly Layer Default = new Layer("default", 0);
         internal static readonly List<Layer> All = new List<Layer>() { Layer.Default };
 
-        [JsonIgnore]
+        [ScriptIgnore]
         public List<RenderableObject> Objects
         {
             get
@@ -37,26 +37,40 @@ namespace ShadowBuild.Rendering
         }
         public static Layer Find(string name)
         {
+            Layer l = FindWithoutException(name);
+            if(l == null)
+            throw new LayerException("Cannot find layer \"" + name + "\"");
+            return l;
+        }
+        public static Layer Find(int zIndex)
+        {
+            Layer l = FindWithoutException(zIndex);
+            if (l == null)
+                throw new LayerException("Cannot find layer with zIndex " + zIndex);
+            return l;
+        }
+        private static Layer FindWithoutException(string name)
+        {
             foreach (Layer l in All)
             {
                 if (l.Name == name)
                     return l;
-            }
-            throw new LayerException("Cannot find layer \"" + name + "\"");
+            }return null;
         }
-        public static Layer Find(int zIndex)
+        private static Layer FindWithoutException(int zIndex)
         {
             foreach (Layer l in All)
             {
                 if (l.zIndex == zIndex)
                     return l;
-            }
-            throw new LayerException("Cannot find layer with zIndex [" + zIndex + "]");
+            }return null;
         }
+
+
         public static void Setup(Layer layer)
         {
-            if (Layer.Find(layer.Name) != null) throw new LayerException("Layer name \"" + layer.Name + "\" is already in use");
-            if (Layer.Find(layer.zIndex) != null) throw new LayerException("Layer zIndex [" + layer.zIndex + "] is already in use");
+            if (Layer.FindWithoutException(layer.Name) != null) throw new LayerException("Layer name \"" + layer.Name + "\" is already in use");
+            if (Layer.FindWithoutException(layer.zIndex) != null) throw new LayerException("Layer zIndex [" + layer.zIndex + "] is already in use");
             All.Add(layer);
         }
         public int CompareTo(Layer obj)
@@ -64,20 +78,19 @@ namespace ShadowBuild.Rendering
             if (this.zIndex > obj.zIndex) return 1;
             return 0;
         }
-        public static string GetActualConfig()
+        public static void SaveConfig(string path)
         {
-            var o = new { layers = new List<Layer>() };
-            foreach (Layer l in All)
-                if (l != Layer.Default)
-                    o.layers.Add(l);
-            return JsonConvert.SerializeObject(o);
+            var serialized = new { layers = new List<Layer>(All) };
+            serialized.layers.Remove(Layer.Find("default"));
+            WriteConfigFile(path, serialized);
         }
-        public static void LoadConfig(string path, ConfigType cfgType)
+        public static void LoadConfig(string path)
         {
-            var deserialized = new { layers = new List<Layer>() };
-            deserialized = ReadConfigFile(path, deserialized, cfgType);
-            foreach (Layer l in deserialized.layers)
-                All.Add(l);
+            dynamic val = ReadConfigFile(path);
+            foreach (Dictionary<string, object> dict in val["layers"])
+            {
+                All.Add(new Layer((string)dict["Name"], (int)dict["zIndex"]));
+            }
 
         }
     }

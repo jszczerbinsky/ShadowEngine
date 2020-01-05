@@ -1,14 +1,13 @@
-﻿using Newtonsoft.Json;
-using ShadowBuild.Exceptions;
+﻿using ShadowBuild.Exceptions;
 using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.Web.Script.Serialization;
 
 namespace ShadowBuild.Config
 {
     public abstract class ConfigSavable
     {
-        protected static T ReadConfigFile<T>(string path, T type, ConfigType cfgType)
+        protected static dynamic ReadConfigFile(string path)
         {
             FileStream fs;
             try
@@ -20,61 +19,34 @@ namespace ShadowBuild.Config
                 throw new ConfigException("Cannot open file \"" + path + "\"", e);
             }
 
-            if (cfgType == ConfigType.JSON)
-            {
 
-                StreamReader sr = new StreamReader(fs);
-                string str = sr.ReadToEnd();
-                sr.Close();
-                fs.Close();
-                T obj;
-                try
-                {
-                    obj = (T)JsonConvert.DeserializeAnonymousType(str, type);
-                }
-                catch (Exception e)
-                {
-                    throw new ConfigException("Cannot convert config file to object in \"" + path + "\"", e);
-                }
-                return obj;
-            }
-            else
+            StreamReader sr = new StreamReader(fs);
+            string str = sr.ReadToEnd();
+            sr.Close();
+            fs.Close();
+            object obj;
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            try
             {
-                BinaryFormatter bf = new BinaryFormatter();
-                string str = (string)bf.Deserialize(fs);
-                fs.Close();
-                T o;
-                try
-                {
-                    o = (T)JsonConvert.DeserializeAnonymousType(str, type);
-                }
-                catch (Exception e)
-                {
-                    throw new ConfigException("Cannot convert config file to object in \"" + path + "\"", e);
-
-                }
-                return o;
+                obj = jss.Deserialize<dynamic>(str);
             }
+            catch (Exception e)
+            {
+                throw new ConfigException("Cannot convert config file to object in \"" + path + "\"", e);
+            }
+            return obj;
+
+
         }
-        protected static void WriteConfigFile(string path, object o, ConfigType cfgType)
+        protected static void WriteConfigFile(string path, object o)
         {
-            string str = JsonConvert.SerializeObject(o);
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            string str = jss.Serialize(o);
             FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);
-
-
-            if (cfgType == ConfigType.BINARY)
-            {
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(fs, str);
-                fs.Close();
-            }
-            else
-            {
-                StreamWriter sw = new StreamWriter(fs);
-                sw.Write(str);
-                sw.Close();
-                fs.Close();
-            }
+            StreamWriter sw = new StreamWriter(fs);
+            sw.Write(str);
+            sw.Close();
+            fs.Close();
         }
     }
 }

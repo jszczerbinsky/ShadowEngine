@@ -1,11 +1,11 @@
-﻿using Newtonsoft.Json;
-using System.Drawing;
+﻿using System.Drawing;
+using System.Web.Script.Serialization;
 
 namespace ShadowBuild.Objects.Texturing.Image
 {
     public abstract class ImageTexture : Texture
     {
-        [JsonIgnore]
+        [ScriptIgnore]
         public Bitmap Image;
         public string ImagePath;
 

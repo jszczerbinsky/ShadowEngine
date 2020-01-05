@@ -33,13 +33,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -51,7 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigSavable.cs" />
-    <Compile Include="Config\ConfigType.cs" />
     <Compile Include="Exceptions\ConfigException.cs" />
     <Compile Include="Exceptions\LayerException.cs" />
     <Compile Include="Exceptions\ObjectException.cs" />
@@ -62,6 +59,7 @@
     <Compile Include="Objects\Animationing\Animation.cs" />
     <Compile Include="Objects\RenderableObject.cs" />
     <Compile Include="Objects\Texturing\Image\ImageTexture.cs" />
+    <Compile Include="Objects\UI\UIObject.cs" />
     <Compile Include="Rendering\Camera.cs" />
     <Compile Include="Events\Event.cs" />
     <Compile Include="Exceptions\AxisException.cs" />
@@ -87,6 +85,7 @@
     <Compile Include="ShadowBuildProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Loop.cs" />
+    <Compile Include="ShadowBuildProjectConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GameWindow.resx">
