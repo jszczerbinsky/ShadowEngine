@@ -80,16 +80,36 @@ namespace ShadowBuild.Rendering
         }
         public static void SaveConfig(string path)
         {
-            var serialized = new { layers = new List<Layer>(All) };
-            serialized.layers.Remove(Layer.Find("default"));
+            var serialized = new { Layers = new List<Layer>(All) };
+            serialized.Layers.Remove(Layer.Find("default"));
             WriteConfigFile(path, serialized);
         }
         public static void LoadConfig(string path)
         {
             dynamic val = ReadConfigFile(path);
-            foreach (Dictionary<string, object> dict in val["layers"])
+
+            try
             {
-                All.Add(new Layer((string)dict["Name"], (int)dict["zIndex"]));
+                var i = val["Layers"];
+            }
+            catch (Exception e)
+            {
+                throw new ConfigException(ShadowBuildProject.ConfigFiles.LayerConfigPath + " config file is incorrect", e);
+            }
+            foreach (Dictionary<string, object> dict in val["Layers"])
+            {
+                string name = "";
+                int zi;
+                try
+                {
+                    name = (string)dict["Name"];
+                    zi = (int)dict["zIndex"];
+                }
+                catch (Exception e)
+                {
+                    throw new ConfigException(ShadowBuildProject.ConfigFiles.LayerConfigPath + " config file is incorrect", e);
+                }
+                All.Add(new Layer(name, zi));
             }
 
         }

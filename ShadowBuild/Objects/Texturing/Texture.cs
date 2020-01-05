@@ -85,7 +85,7 @@ namespace ShadowBuild.Objects.Texturing
                     ));
         }
 
-        
+
         public static void SaveConfig(string path)
         {
             List<ColorTexture> c = new List<ColorTexture>();
@@ -98,14 +98,14 @@ namespace ShadowBuild.Objects.Texturing
 
             var serialized = new
             {
-                image = new
+                Image = new
                 {
-                    regular = r,
-                    grid = g
+                    Regular = r,
+                    Grid = g
                 },
-                other = new
+                Other = new
                 {
-                    color = c
+                    Color = c
                 }
             };
             WriteConfigFile(path, serialized);
@@ -114,17 +114,71 @@ namespace ShadowBuild.Objects.Texturing
         {
             dynamic val = ReadConfigFile(path);
 
-            foreach (Dictionary<string, object> dict in val["image"]["regular"])
-                All.Add(new RegularTexture((string)dict["Name"], (string)dict["ImagePath"]));
-            foreach (Dictionary<string, object> dict in val["image"]["grid"])
-                All.Add(new GridTexture((string)dict["Name"], (string)dict["ImagePath"], (int)dict["xCount"], (int)dict["yCount"]));
-            foreach (Dictionary<string, object> dict in val["other"]["color"])
+            try
             {
-                Dictionary<string, object> cd = (Dictionary<string, object>)dict["Color"];
-                Color c = Color.FromArgb((int)cd["A"], (int)cd["R"], (int)cd["G"], (int)cd["B"]);
-                Dictionary<string, object>sd = (Dictionary<string, object>) dict["Size"];
-                System.Windows.Point p = new System.Windows.Point((int)sd["X"], (int)sd["Y"]);
-                All.Add(new ColorTexture((string)dict["Name"], c, (Shape)Enum.Parse(typeof(Shape), (string)dict["ShapeString"]), p));
+                var a = val["Image"]["Regular"];
+                var b = val["Image"]["Grid"];
+                var c = val["Other"]["Color"];
+            }
+            catch (Exception e)
+            {
+                throw new ConfigException(ShadowBuildProject.ConfigFiles.TextureConfigPath + " config file is incorrect", e);
+            }
+
+            foreach (Dictionary<string, object> dict in val["Image"]["Regular"])
+            {
+                string name;
+                string p;
+                try
+                {
+                    name = (string)dict["Name"];
+                    p = (string)dict["ImagePath"];
+                }
+                catch (Exception e)
+                {
+                    throw new ConfigException(ShadowBuildProject.ConfigFiles.TextureConfigPath + " config file is incorrect", e);
+                }
+                All.Add(new RegularTexture(name, p));
+            }
+            foreach (Dictionary<string, object> dict in val["Image"]["Grid"])
+            {
+                string name;
+                string p;
+                int xc;
+                int yc;
+                try
+                {
+                    name = (string)dict["Name"];
+                    p = (string)dict["ImagePath"];
+                    xc = (int)dict["xCount"];
+                    yc = (int)dict["yCount"];
+                }
+                catch (Exception e)
+                {
+                    throw new ConfigException(ShadowBuildProject.ConfigFiles.TextureConfigPath + " config file is incorrect", e);
+                }
+                All.Add(new GridTexture(name, p, xc, yc));
+            }
+            foreach (Dictionary<string, object> dict in val["Other"]["Color"])
+            {
+                string name;
+                string hex;
+                System.Windows.Point p;
+                Shape shape;
+                try
+                {
+                    name = (string)dict["Name"];
+                    hex = (string)dict["HexColor"];
+                    Dictionary<string, object> sd = (Dictionary<string, object>)dict["Size"];
+                    p = new System.Windows.Point((int)sd["X"], (int)sd["Y"]);
+                    shape = (Shape)Enum.Parse(typeof(Shape), (string)dict["ShapeString"]);
+                }catch(Exception e)
+                {
+                    throw new ConfigException(ShadowBuildProject.ConfigFiles.TextureConfigPath + " config file is incorrect", e);
+                }
+                ColorConverter cc = new ColorConverter();
+                Color c = (Color)cc.ConvertFromString(hex);
+                All.Add(new ColorTexture(name, c, shape, p));
             }
 
             foreach (Texture t in All)

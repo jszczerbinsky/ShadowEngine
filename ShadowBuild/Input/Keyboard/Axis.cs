@@ -6,74 +6,91 @@ using System.Windows.Forms;
 
 namespace ShadowBuild.Input.Keyboard
 {
-    [Serializable]
     public class Axis : ConfigSavable
     {
         private static List<Axis> Axes = new List<Axis>();
 
-        public string name;
-        internal Keys minusValue;
-        internal Keys plusValue;
-        public string minusValueString
+        public string Name;
+        internal Keys Negative;
+        internal Keys Positive;
+        public string NegativeName
         {
-            get { return minusValue.ToString(); }
-            set { minusValue = (Keys)Enum.Parse(typeof(Keys), value); }
+            get { return Negative.ToString(); }
         }
-        public string plusValueString
+        public string PositiveName
         {
-            get { return plusValue.ToString(); }
-            set { plusValue = (Keys)Enum.Parse(typeof(Keys), value); }
+            get { return Positive.ToString(); }
         }
 
         public Axis(string name, Keys minusValue, Keys plusValue)
         {
-            this.minusValue = minusValue;
-            this.plusValue = plusValue;
-            this.name = name;
+            this.Negative = minusValue;
+            this.Positive = plusValue;
+            this.Name = name;
         }
 
         public static void Setup(Axis axis)
         {
+            if (Axis.Find(axis.Name) != null) throw new AxisException("Axis name \"" + axis.Name + "\" is already used");
             Axes.Add(axis);
         }
-        private static Axis Get(string name)
+        public static Axis Find(string name)
         {
             foreach (Axis axis in Axes)
-                if (axis.name == name) return axis;
+                if (axis.Name == name) return axis;
             return null;
         }
         public static double GetValue(string name)
         {
-            Axis axis = Get(name);
+            Axis axis = Find(name);
             if (axis == null) throw new AxisException("Cannot find axis \"" + name + "\"");
 
             double value = 0;
 
-            if (Keyboard.KeyPressed(axis.minusValue))
+            if (Keyboard.KeyPressed(axis.Negative))
                 value--;
-            if (Keyboard.KeyPressed(axis.plusValue))
+            if (Keyboard.KeyPressed(axis.Positive))
                 value++;
 
             return value;
         }
         public static void SaveConfig(string path)
         {
-            var serialized = new { axes = new List<Axis>() };
+            var serialized = new { Axes = new List<Axis>() };
             foreach (Axis a in Axes)
-                serialized.axes.Add(a);
+                serialized.Axes.Add(a);
 
             WriteConfigFile(path, serialized);
         }
         public static void LoadConfig(string path)
         {
+            Axes = new List<Axis>();
             dynamic val = ReadConfigFile(path);
 
-            foreach (Dictionary<string, object> dict in val["axes"])
+
+            try
             {
-                Axis a = new Axis(
-                    (string)dict["name"],
-                    (Keys)Enum.Parse(typeof(Keys), (string)dict["minusValueString"]),
-                    (Keys)Enum.Parse(typeof(Keys), (string)dict["plusValueString"]));
+                var i = val["Axes"];
+            }catch(Exception e)
+            {
+                throw new ConfigException(ShadowBuildProject.ConfigFiles.AxisConfigPath+" config file is incorrect",e);
+            }
+            foreach (Dictionary<string, object> dict in val["Axes"])
+            {
+                string name = "";
+                Keys pos;
+                Keys neg;
+                try
+                {
+                    name = (string)dict["Name"];
+                    pos = (Keys)Enum.Parse(typeof(Keys), (string)dict["PositiveName"]);
+                    neg = (Keys)Enum.Parse(typeof(Keys), (string)dict["NegativeName"]);
+                }
+                catch (Exception e)
+                {
+                    throw new ConfigException(ShadowBuildProject.ConfigFiles.AxisConfigPath+" config file is incorrect", e);
+                }
+                Axis a = new Axis(name, neg, pos);
                 Axis.Setup(a);
             }
 

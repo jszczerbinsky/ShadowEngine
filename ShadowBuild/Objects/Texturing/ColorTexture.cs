@@ -6,7 +6,12 @@ namespace ShadowBuild.Objects.Texturing
 {
     public class ColorTexture : Texture
     {
+        [ScriptIgnore]
         public Color Color;
+        public string HexColor
+        {
+            get { return "#" + Color.R.ToString("X2") + Color.G.ToString("X2") + Color.B.ToString("X2") + Color.A.ToString("X2"); }
+        }
         public System.Windows.Point Size;
         [ScriptIgnore]
         public Shape Shape;
