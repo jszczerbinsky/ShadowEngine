@@ -94,7 +94,7 @@ namespace ShadowBuild.Rendering
             }
             catch (Exception e)
             {
-                throw new ConfigException(ShadowBuildProject.ConfigFiles.LayerConfigPath + " config file is incorrect", e);
+                throw new ConfigException(path + " config file is incorrect", e);
             }
             foreach (Dictionary<string, object> dict in val["Layers"])
             {
@@ -107,7 +107,7 @@ namespace ShadowBuild.Rendering
                 }
                 catch (Exception e)
                 {
-                    throw new ConfigException(ShadowBuildProject.ConfigFiles.LayerConfigPath + " config file is incorrect", e);
+                    throw new ConfigException(path + " config file is incorrect", e);
                 }
                 All.Add(new Layer(name, zi));
             }

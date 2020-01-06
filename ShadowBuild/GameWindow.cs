@@ -33,7 +33,7 @@ namespace ShadowBuild
 
             this.Show();
             Log.Say("Calling OnStart");
-            ShadowBuildProject.project.OnStart();
+            ShadowBuildProject.Project.OnStart();
             Log.Space();
             Log.Say("------Listing Render Layers-----");
             Log.Space();

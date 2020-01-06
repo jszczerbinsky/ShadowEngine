@@ -122,7 +122,7 @@ namespace ShadowBuild.Objects.Texturing
             }
             catch (Exception e)
             {
-                throw new ConfigException(ShadowBuildProject.ConfigFiles.TextureConfigPath + " config file is incorrect", e);
+                throw new ConfigException(path + " config file is incorrect", e);
             }
 
             foreach (Dictionary<string, object> dict in val["Image"]["Regular"])
@@ -136,7 +136,7 @@ namespace ShadowBuild.Objects.Texturing
                 }
                 catch (Exception e)
                 {
-                    throw new ConfigException(ShadowBuildProject.ConfigFiles.TextureConfigPath + " config file is incorrect", e);
+                    throw new ConfigException(path + " config file is incorrect", e);
                 }
                 All.Add(new RegularTexture(name, p));
             }
@@ -155,7 +155,7 @@ namespace ShadowBuild.Objects.Texturing
                 }
                 catch (Exception e)
                 {
-                    throw new ConfigException(ShadowBuildProject.ConfigFiles.TextureConfigPath + " config file is incorrect", e);
+                    throw new ConfigException(path + " config file is incorrect", e);
                 }
                 All.Add(new GridTexture(name, p, xc, yc));
             }
@@ -174,7 +174,7 @@ namespace ShadowBuild.Objects.Texturing
                     shape = (Shape)Enum.Parse(typeof(Shape), (string)dict["ShapeString"]);
                 }catch(Exception e)
                 {
-                    throw new ConfigException(ShadowBuildProject.ConfigFiles.TextureConfigPath + " config file is incorrect", e);
+                    throw new ConfigException(path + " config file is incorrect", e);
                 }
                 ColorConverter cc = new ColorConverter();
                 Color c = (Color)cc.ConvertFromString(hex);
