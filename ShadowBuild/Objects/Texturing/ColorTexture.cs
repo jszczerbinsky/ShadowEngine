@@ -12,7 +12,7 @@ namespace ShadowBuild.Objects.Texturing
         {
             get { return "#" + Color.R.ToString("X2") + Color.G.ToString("X2") + Color.B.ToString("X2") + Color.A.ToString("X2"); }
         }
-        public System.Windows.Point Size;
+        public System.Windows.Size Size;
         [ScriptIgnore]
         public Shape Shape;
         public string ShapeString
@@ -21,7 +21,7 @@ namespace ShadowBuild.Objects.Texturing
             set { Shape = (Shape)Enum.Parse(typeof(Shape), value); }
         }
 
-        public ColorTexture(string name, Color color, Shape shape, System.Windows.Point size)
+        public ColorTexture(string name, Color color, Shape shape, System.Windows.Size size)
         {
             this.Name = name;
             this.Shape = shape;
@@ -29,7 +29,7 @@ namespace ShadowBuild.Objects.Texturing
             this.Size = size;
         }
 
-        public override System.Windows.Point GetSize()
+        public override System.Windows.Size GetSize()
         {
             return Size;
         }
@@ -44,8 +44,8 @@ namespace ShadowBuild.Objects.Texturing
                      (int)(obj.GetStartPosition().Y - cameraPos.Y)
                 ),
                 new Size(
-                    (int)(tex.Size.X * obj.Size.X),
-                    (int)(tex.Size.Y * obj.Size.Y)
+                    (int)(tex.Size.Width * obj.Size.Width),
+                    (int)(tex.Size.Height * obj.Size.Height)
                 )
             );
 

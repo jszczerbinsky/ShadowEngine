@@ -14,9 +14,9 @@ namespace ShadowBuild.Objects.Texturing.Image
             InitializeImage();
         }
 
-        public override System.Windows.Point GetSize()
+        public override System.Windows.Size GetSize()
         {
-            return new System.Windows.Point(this.Image.Width, this.Image.Height);
+            return new System.Windows.Size(this.Image.Width, this.Image.Height);
         }
 
         public override void Render(Graphics g, RenderableObject obj, System.Windows.Point cameraPos)
@@ -33,8 +33,8 @@ namespace ShadowBuild.Objects.Texturing.Image
                         (int)(obj.GetStartPosition().X - cameraPos.X),
                         (int)(obj.GetStartPosition().Y - cameraPos.Y)
                     ), new Size(
-                        (int)(tex.Image.Width * obj.Size.X),
-                        (int)(tex.Image.Height * obj.Size.Y)
+                        (int)(tex.Image.Width * obj.Size.Width),
+                        (int)(tex.Image.Height * obj.Size.Height)
                         )
                     )
                 );

@@ -1,27 +1,32 @@
 ﻿using ShadowBuild.Objects;
 using ShadowBuild.Objects.Texturing;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
 
 namespace ShadowBuild.Rendering
 {
     public static class Render
     {
-        public static System.Windows.Point Resolution { get { return new System.Windows.Point(GameWindow.actualGameWindow.Width, GameWindow.actualGameWindow.Height); } }
+        public static System.Windows.Size Resolution =
+            new System.Windows.Size(
+                GameWindow.actualGameWindow.Size.Width,
+                GameWindow.actualGameWindow.Size.Height);
 
         public static bool showObjectBorders = false;
 
         public static Bitmap FromCamera(Camera cam)
         {
-            System.Windows.Point startPos = new System.Windows.Point(cam.Position.X- cam.Size.X/2, cam.Position.Y- cam.Size.Y/2);
+            System.Windows.Point startPos =
+                new System.Windows.Point(
+                    cam.Position.X - cam.Size.Width / 2,
+                    cam.Position.Y - cam.Size.Height / 2);
 
-            Bitmap frame = new Bitmap((int)cam.Size.X, (int)cam.Size.Y);
+            Bitmap frame = new Bitmap((int)cam.Size.Width, (int)cam.Size.Height);
 
 
             using (Graphics g = Graphics.FromImage(frame))
             {
-                g.FillRectangle(new SolidBrush(cam.Background), 0, 0, (int)cam.Size.X, (int)cam.Size.Y);
+                g.FillRectangle(new SolidBrush(cam.Background), 0, 0, (int)cam.Size.Width, (int)cam.Size.Height);
                 SortedSet<Layer> sortedLayers = new SortedSet<Layer>(Layer.All);
 
                 foreach (Layer l in sortedLayers)

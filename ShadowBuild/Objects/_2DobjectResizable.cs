@@ -4,15 +4,15 @@ namespace ShadowBuild.Objects
 {
     public abstract class _2DobjectResizable : _2Dobject
     {
-        public Point Size { get; protected set; }
+        public Size Size { get; protected set; }
 
-        public void SetSize(Point size)
+        public void SetSize(Size size)
         {
             this.Size = size;
         }
         public void SetSize(double X, double Y)
         {
-            this.Size = new Point(X, Y);
+            this.Size = new Size(X, Y);
         }
     }
 }

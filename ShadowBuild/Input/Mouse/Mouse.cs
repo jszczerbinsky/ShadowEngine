@@ -1,5 +1,4 @@
 ﻿using ShadowBuild.Exceptions;
-using ShadowBuild.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Windows;

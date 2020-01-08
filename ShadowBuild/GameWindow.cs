@@ -1,5 +1,4 @@
-﻿using ShadowBuild.Input;
-using ShadowBuild.Input.Keyboard;
+﻿using ShadowBuild.Input.Keyboard;
 using ShadowBuild.Input.Mouse;
 using ShadowBuild.Objects.Animationing;
 using ShadowBuild.Rendering;
@@ -70,9 +69,10 @@ namespace ShadowBuild
             this.display.Location = new System.Drawing.Point(0, 0);
             this.display.Name = "display";
             this.display.Size = new System.Drawing.Size(782, 553);
-            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Normal;
             this.display.TabIndex = 0;
             this.display.TabStop = false;
+            this.display.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnMouseDown);
+            this.display.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OnMouseUp);
             // 
             // GameWindow
             // 
@@ -83,9 +83,11 @@ namespace ShadowBuild
             this.Name = "GameWindow";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
-            display.MouseDown += new MouseEventHandler(this.OnMouseDown);
-            display.MouseUp += new MouseEventHandler(this.OnMouseUp);
             ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();
+            if (ShadowBuildProject.Project.Config.StartFullscreen)
+                this.WindowState = FormWindowState.Maximized;
+            else
+                this.WindowState = FormWindowState.Normal;
             this.ResumeLayout(false);
 
         }

@@ -19,7 +19,7 @@ namespace ShadowBuild.Objects
         }
         public virtual void Move(double X, double Y)
         {
-            this.Position = new Point(X+ this.Position.X, Y+this.Position.Y);
+            this.Position = new Point(X + this.Position.X, Y + this.Position.Y);
         }
         public double DistanceFrom(_2Dobject o)
         {

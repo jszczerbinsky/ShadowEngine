@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿
+using System.Drawing;
 
 namespace ShadowBuild
 {
@@ -12,13 +13,13 @@ namespace ShadowBuild
         public string ProjectVersion { get; internal set; }
         public string ShadowBuildVersion { get; internal set; }
 
-        public Point StartResolution { get; internal set; }
+        public Size StartResolution { get; internal set; }
         public bool StartFullscreen { get; internal set; }
 
         public string AxisConfigPath { get; internal set; }
         public bool AxisConfigAutoLoad { get; internal set; }
         public string LayerConfigPath { get; internal set; }
-        public bool LayerConfigAutoLoad { get; internal set; } 
+        public bool LayerConfigAutoLoad { get; internal set; }
         public string TextureConfigPath { get; internal set; }
         public bool TextureConfigAutoLoad { get; internal set; }
 

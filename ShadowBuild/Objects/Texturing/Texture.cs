@@ -13,7 +13,7 @@ namespace ShadowBuild.Objects.Texturing
 
         public string Name;
 
-        public abstract System.Windows.Point GetSize();
+        public abstract System.Windows.Size GetSize();
         public abstract void Render(Graphics g, RenderableObject obj, System.Windows.Point cameraPos);
 
         public static void Setup(Texture t)
@@ -64,7 +64,8 @@ namespace ShadowBuild.Objects.Texturing
                         (int)(obj.GetStartPosition().Y - cameraPos.Y)
                     ),
                     new Size(
-                        (int)(obj.ActualTexture.GetSize().X * obj.Size.X), (int)(obj.ActualTexture.GetSize().Y * obj.Size.Y))
+                        (int)(obj.ActualTexture.GetSize().Width * obj.Size.Width),
+                        (int)(obj.ActualTexture.GetSize().Height * obj.Size.Height))
                     ));
 
             Color drawColor = Color.FromArgb(100, rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
@@ -81,7 +82,8 @@ namespace ShadowBuild.Objects.Texturing
                         (int)(obj.GetStartPosition().Y - cameraPos.Y)
                     ),
                     new Size(
-                        (int)(obj.ActualTexture.GetSize().X * obj.Size.X), (int)(obj.ActualTexture.GetSize().Y * obj.Size.Y))
+                        (int)(obj.ActualTexture.GetSize().Width * obj.Size.Width),
+                        (int)(obj.ActualTexture.GetSize().Height * obj.Size.Height))
                     ));
         }
 
@@ -163,16 +165,17 @@ namespace ShadowBuild.Objects.Texturing
             {
                 string name;
                 string hex;
-                System.Windows.Point p;
+                System.Windows.Size p;
                 Shape shape;
                 try
                 {
                     name = (string)dict["Name"];
                     hex = (string)dict["HexColor"];
                     Dictionary<string, object> sd = (Dictionary<string, object>)dict["Size"];
-                    p = new System.Windows.Point((int)sd["X"], (int)sd["Y"]);
+                    p = new System.Windows.Size((int)sd["Width"], (int)sd["Height"]);
                     shape = (Shape)Enum.Parse(typeof(Shape), (string)dict["ShapeString"]);
-                }catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     throw new ConfigException(path + " config file is incorrect", e);
                 }

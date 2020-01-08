@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ShadowBuild.Input.Mouse
+﻿namespace ShadowBuild.Input.Mouse
 {
     public enum MouseAxis
     {

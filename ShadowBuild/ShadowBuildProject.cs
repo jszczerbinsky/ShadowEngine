@@ -4,7 +4,6 @@ using ShadowBuild.Input.Keyboard;
 using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Rendering;
 using System;
-using System.Windows;
 using System.Windows.Forms;
 
 namespace ShadowBuild
@@ -44,7 +43,7 @@ namespace ShadowBuild
                 pc.ProjectVersion = val["ProjectVersion"];
                 pc.ShadowBuildVersion = val["ShadowBuildVersion"];
                 dynamic sr = val["StartResolution"];
-                pc.StartResolution = new Point(sr["X"], sr["Y"]);
+                pc.StartResolution = new System.Drawing.Size(sr["Width"], sr["Height"]);
                 pc.StartFullscreen = val["StartFullscreen"];
                 pc.AxisConfigPath = val["AxisConfigPath"];
                 pc.AxisConfigAutoLoad = val["AxisConfigAutoLoad"];
@@ -65,5 +64,6 @@ namespace ShadowBuild
             if (this.Config.TextureConfigAutoLoad)
                 Texture.LoadConfig(this.Config.TextureConfigPath);
         }
+
     }
 }

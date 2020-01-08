@@ -71,9 +71,10 @@ namespace ShadowBuild.Input.Keyboard
             try
             {
                 var i = val["Axes"];
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
-                throw new ConfigException(path+" config file is incorrect",e);
+                throw new ConfigException(path + " config file is incorrect", e);
             }
             foreach (Dictionary<string, object> dict in val["Axes"])
             {
@@ -88,7 +89,7 @@ namespace ShadowBuild.Input.Keyboard
                 }
                 catch (Exception e)
                 {
-                    throw new ConfigException(path+" config file is incorrect", e);
+                    throw new ConfigException(path + " config file is incorrect", e);
                 }
                 Axis a = new Axis(name, neg, pos);
                 Axis.Setup(a);

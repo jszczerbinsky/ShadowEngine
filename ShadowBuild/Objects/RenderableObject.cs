@@ -4,11 +4,7 @@ using ShadowBuild.Objects.Animationing;
 using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Objects.Texturing.Image;
 using ShadowBuild.Rendering;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ShadowBuild.Objects
@@ -49,7 +45,8 @@ namespace ShadowBuild.Objects
         }
         public bool MouseOver
         {
-            get{
+            get
+            {
                 if (Mouse.LockCurosr) return false;
                 Point p = new Point(
                     Mouse.Position.X + Camera.Default.StartPosition.X,
@@ -67,7 +64,7 @@ namespace ShadowBuild.Objects
             this.SetPosition(0, 0);
             this.DefaultTexture = texture;
             this.Visible = true;
-            this.SetSize(new Point(1, 1));
+            this.SetSize(new Size(1, 1));
             All.Add(this);
         }
         public RenderableObject(string name, Texture texture, Layer layer)
@@ -77,7 +74,7 @@ namespace ShadowBuild.Objects
             this.SetPosition(0, 0);
             this.DefaultTexture = texture;
             this.Visible = true;
-            this.SetSize(new Point(1, 1));
+            this.SetSize(new Size(1, 1));
             All.Add(this);
 
         }
@@ -89,11 +86,11 @@ namespace ShadowBuild.Objects
                 if (o.Name == name) return o;
             throw new ObjectException("Could not find object \"" + name + "\"");
         }
-        public static T Get<T> (string name) where T : RenderableObject
+        public static T Get<T>(string name) where T : RenderableObject
         {
             foreach (RenderableObject o in All)
                 if (o.Name == name && o is T) return (T)o;
-            throw new ObjectException("Could not find object \"" + name + "\" with type \""+typeof(T).FullName+"\"");
+            throw new ObjectException("Could not find object \"" + name + "\" with type \"" + typeof(T).FullName + "\"");
         }
         public void SetParent(RenderableObject obj)
         {
@@ -138,19 +135,19 @@ namespace ShadowBuild.Objects
 
             if (ActualTexture is RegularTexture)
             {
-                decreseLeft -= ((RegularTexture)this.ActualTexture).Image.Width * this.Size.X / 2;
-                decreseTop -= ((RegularTexture)this.ActualTexture).Image.Height * this.Size.Y / 2;
+                decreseLeft -= ((RegularTexture)this.ActualTexture).Image.Width * this.Size.Width / 2;
+                decreseTop -= ((RegularTexture)this.ActualTexture).Image.Height * this.Size.Height / 2;
             }
             else if (ActualTexture is ColorTexture)
             {
-                decreseLeft -= ((ColorTexture)this.ActualTexture).Size.X * this.Size.X / 2;
-                decreseTop -= ((ColorTexture)this.ActualTexture).Size.Y * this.Size.Y / 2;
+                decreseLeft -= ((ColorTexture)this.ActualTexture).Size.Width * this.Size.Width / 2;
+                decreseTop -= ((ColorTexture)this.ActualTexture).Size.Height * this.Size.Height / 2;
             }
             else if (ActualTexture is GridTexture)
             {
                 GridTexture tex = (GridTexture)this.ActualTexture;
-                decreseLeft -= tex.Image.Width * this.Size.X * tex.xCount / 2;
-                decreseTop -= tex.Image.Height * this.Size.Y * tex.yCount / 2;
+                decreseLeft -= tex.Image.Width * this.Size.Width * tex.xCount / 2;
+                decreseTop -= tex.Image.Height * this.Size.Height * tex.yCount / 2;
             }
             Point decrese = new Point(decreseLeft, decreseTop);
 
@@ -162,7 +159,9 @@ namespace ShadowBuild.Objects
 
             Point tmp;
 
-            tmp = new Point(this.ActualTexture.GetSize().X * this.Size.X, this.ActualTexture.GetSize().Y * this.Size.Y);
+            tmp = new Point(
+                this.ActualTexture.GetSize().Width * this.Size.Width,
+                this.ActualTexture.GetSize().Height * this.Size.Height);
 
             Point end = new Point(
                 this.GetStartPosition().X + tmp.X,

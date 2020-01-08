@@ -38,8 +38,8 @@ namespace ShadowBuild.Rendering
         public static Layer Find(string name)
         {
             Layer l = FindWithoutException(name);
-            if(l == null)
-            throw new LayerException("Cannot find layer \"" + name + "\"");
+            if (l == null)
+                throw new LayerException("Cannot find layer \"" + name + "\"");
             return l;
         }
         public static Layer Find(int zIndex)
@@ -55,7 +55,8 @@ namespace ShadowBuild.Rendering
             {
                 if (l.Name == name)
                     return l;
-            }return null;
+            }
+            return null;
         }
         private static Layer FindWithoutException(int zIndex)
         {
@@ -63,7 +64,8 @@ namespace ShadowBuild.Rendering
             {
                 if (l.zIndex == zIndex)
                     return l;
-            }return null;
+            }
+            return null;
         }
 
 

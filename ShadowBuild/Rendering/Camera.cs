@@ -14,18 +14,18 @@ namespace ShadowBuild.Rendering
         {
             get
             {
-                return new Point(this.Position.X - this.Size.X / 2, this.Position.Y - this.Size.Y / 2);
+                return new Point(this.Position.X - this.Size.Width / 2, this.Position.Y - this.Size.Height / 2);
             }
         }
         public Point EndPosition
         {
             get
             {
-                return new Point(this.Position.X + this.Size.X / 2, this.Position.Y + this.Size.Y / 2);
+                return new Point(this.Position.X + this.Size.Width / 2, this.Position.Y + this.Size.Height / 2);
             }
         }
 
-        public Camera(Point position, Point size)
+        public Camera(Point position, Size size)
         {
             this.Position = position;
             this.Size = size;
@@ -33,9 +33,9 @@ namespace ShadowBuild.Rendering
         public Camera(double x, double y, double width, double height)
         {
             this.Position = new Point(x, y);
-            this.Size = new Point(width, height);
+            this.Size = new Size(width, height);
         }
-        public Camera(Point position, Point size, List<Layer> layers)
+        public Camera(Point position, Size size, List<Layer> layers)
         {
             this.Position = position;
             this.Size = size;

@@ -1,6 +1,4 @@
-﻿using ShadowBuild.Objects.Animationing;
-using ShadowBuild.Objects.Texturing;
-using ShadowBuild.Objects.Texturing.Image;
+﻿using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Rendering;
 using System.Collections.Generic;
 using System.Windows;
