@@ -23,7 +23,16 @@ namespace ShadowBuild
             Camera.Default = new Camera(0, 0, 800, 600);
             InitializeComponent();
 
-            Log.Say("Initializing ticker");
+            this.Size = new Size(
+                ShadowBuildProject.Project.Config.StartResolution.Width,
+                ShadowBuildProject.Project.Config.StartResolution.Height);
+            if (ShadowBuildProject.Project.Config.StartFullscreen)
+            {
+                this.WindowState = FormWindowState.Maximized;
+                this.FormBorderStyle = FormBorderStyle.None;
+            }
+
+            Log.Say("Initializing GameLoop");
             Loop.StartTicker();
             Loop.OnTick += this.RenderNewFrame;
             Loop.OnTick += Animation.OnTick;
@@ -69,6 +78,7 @@ namespace ShadowBuild
             this.display.Location = new System.Drawing.Point(0, 0);
             this.display.Name = "display";
             this.display.Size = new System.Drawing.Size(782, 553);
+            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.display.TabIndex = 0;
             this.display.TabStop = false;
             this.display.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnMouseDown);
@@ -84,11 +94,8 @@ namespace ShadowBuild
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();
-            if (ShadowBuildProject.Project.Config.StartFullscreen)
-                this.WindowState = FormWindowState.Maximized;
-            else
-                this.WindowState = FormWindowState.Normal;
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
         private void OnMouseDown(object sender, MouseEventArgs e)

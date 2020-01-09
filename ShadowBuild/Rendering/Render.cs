@@ -7,10 +7,16 @@ namespace ShadowBuild.Rendering
 {
     public static class Render
     {
-        public static System.Windows.Size Resolution =
-            new System.Windows.Size(
-                GameWindow.actualGameWindow.Size.Width,
-                GameWindow.actualGameWindow.Size.Height);
+        public static System.Windows.Size Resolution
+        {
+            get
+            {
+                return new System.Windows.Size(
+                    GameWindow.actualGameWindow.Size.Width,
+                    GameWindow.actualGameWindow.Size.Height
+                    );
+            }
+        }
 
         public static bool showObjectBorders = false;
 
