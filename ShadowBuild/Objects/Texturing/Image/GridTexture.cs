@@ -24,7 +24,7 @@ namespace ShadowBuild.Objects.Texturing.Image
             return new System.Windows.Size(Image.Size.Width * xCount, Image.Size.Height * yCount);
         }
 
-        public override void Render(Graphics g, RenderableObject obj, System.Windows.Point cameraPos)
+        public override void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
         {
             GridTexture tex = (GridTexture)obj.ActualTexture;
 

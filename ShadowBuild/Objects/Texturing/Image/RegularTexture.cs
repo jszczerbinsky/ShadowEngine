@@ -19,7 +19,7 @@ namespace ShadowBuild.Objects.Texturing.Image
             return new System.Windows.Size(this.Image.Width, this.Image.Height);
         }
 
-        public override void Render(Graphics g, RenderableObject obj, System.Windows.Point cameraPos)
+        public override void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
         {
 
             RegularTexture tex = (RegularTexture)obj.ActualTexture;

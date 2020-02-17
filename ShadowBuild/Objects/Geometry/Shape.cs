@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShadowBuild.Objects.Texturing
+namespace ShadowBuild.Objects.Geometry
 {
-    public enum ColorTextureShape
+    public enum Shape
     {
         Ellipse,
-        Rectangle
+        Rectangle,
+        Line
     }
 }

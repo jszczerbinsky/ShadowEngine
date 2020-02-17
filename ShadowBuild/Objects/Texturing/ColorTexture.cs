@@ -14,14 +14,14 @@ namespace ShadowBuild.Objects.Texturing
         }
         public System.Windows.Size Size;
         [ScriptIgnore]
-        public Shape Shape;
+        public ColorTextureShape Shape;
         public string ShapeString
         {
             get { return Shape.ToString(); }
-            set { Shape = (Shape)Enum.Parse(typeof(Shape), value); }
+            set { Shape = (ColorTextureShape)Enum.Parse(typeof(ColorTextureShape), value); }
         }
 
-        public ColorTexture(string name, Color color, Shape shape, System.Windows.Size size)
+        public ColorTexture(string name, Color color, ColorTextureShape shape, System.Windows.Size size)
         {
             this.Name = name;
             this.Shape = shape;
@@ -34,7 +34,7 @@ namespace ShadowBuild.Objects.Texturing
             return Size;
         }
 
-        public override void Render(Graphics g, RenderableObject obj, System.Windows.Point cameraPos)
+        public override void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
         {
             ColorTexture tex = (ColorTexture)obj.ActualTexture;
             Brush brush = new SolidBrush(tex.Color);
@@ -49,7 +49,7 @@ namespace ShadowBuild.Objects.Texturing
                 )
             );
 
-            if (tex.Shape == Shape.ELLIPSE)
+            if (tex.Shape == ColorTextureShape.Ellipse)
                 g.FillEllipse(brush, size);
             else g.FillRectangle(brush, size);
         }

@@ -14,7 +14,7 @@ namespace ShadowBuild.Objects.Texturing
         public string Name;
 
         public abstract System.Windows.Size GetSize();
-        public abstract void Render(Graphics g, RenderableObject obj, System.Windows.Point cameraPos);
+        public abstract void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos);
 
         public static void Setup(Texture t)
         {
@@ -31,7 +31,7 @@ namespace ShadowBuild.Objects.Texturing
             throw new TextureException("Cannot find texture \"" + name);
         }
 
-        public static void RenderObjectCenters(Graphics g, RenderableObject obj, System.Windows.Point cameraPos)
+        public static void RenderObjectCenters(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
         {
             if (obj.Visible)
             {
@@ -49,7 +49,7 @@ namespace ShadowBuild.Objects.Texturing
                         ));
             }
         }
-        public static void RenderObjectBorders(Graphics g, RenderableObject obj, System.Windows.Point cameraPos)
+        public static void RenderObjectBorders(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
         {
             Random rand = new Random();
             Color fillColor = Color.FromArgb(100, rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
@@ -166,14 +166,14 @@ namespace ShadowBuild.Objects.Texturing
                 string name;
                 string hex;
                 System.Windows.Size p;
-                Shape shape;
+                ColorTextureShape shape;
                 try
                 {
                     name = (string)dict["Name"];
                     hex = (string)dict["HexColor"];
                     Dictionary<string, object> sd = (Dictionary<string, object>)dict["Size"];
                     p = new System.Windows.Size((int)sd["Width"], (int)sd["Height"]);
-                    shape = (Shape)Enum.Parse(typeof(Shape), (string)dict["ShapeString"]);
+                    shape = (ColorTextureShape)Enum.Parse(typeof(ColorTextureShape), (string)dict["ShapeString"]);
                 }
                 catch (Exception e)
                 {

@@ -1,5 +1,4 @@
 ﻿using ShadowBuild.Objects;
-using ShadowBuild.Objects.Texturing;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -17,8 +16,6 @@ namespace ShadowBuild.Rendering
                     );
             }
         }
-
-        public static bool showObjectBorders = false;
 
         public static Bitmap FromCamera(Camera cam)
         {
@@ -41,19 +38,11 @@ namespace ShadowBuild.Rendering
                     foreach (RenderableObject obj in l.Objects)
                     {
                         if (!obj.Visible) continue;
-                        obj.ActualTexture.Render(g, obj, startPos);
-
-                        if (showObjectBorders) Texture.RenderObjectBorders(g, obj, startPos);
+                        obj.Render(g, startPos);
 
                     }
                 }
 
-                if (showObjectBorders)
-                    foreach (Layer l in sortedLayers)
-                        if (cam.IsRendering(l))
-                            foreach (RenderableObject obj in l.Objects)
-                                if (obj.Visible)
-                                    Texture.RenderObjectCenters(g, obj, startPos);
 
                 return frame;
             }

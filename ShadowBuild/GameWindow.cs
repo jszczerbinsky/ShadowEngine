@@ -33,19 +33,18 @@ namespace ShadowBuild
             }
 
             Log.Say("Initializing GameLoop");
-            Loop.StartTicker();
             Loop.OnTick += this.RenderNewFrame;
             Loop.OnTick += Animation.OnTick;
             Mouse.OnStart();
             Loop.OnTick += Mouse.OnTick;
 
             this.Show();
+            Loop.StartTicker();
             Log.Say("Calling OnStart");
             ShadowBuildProject.Project.OnStart();
             Log.Space();
             Log.Say("------Listing Render Layers-----");
             Log.Space();
-            Log.ListLayers();
 
         }
 

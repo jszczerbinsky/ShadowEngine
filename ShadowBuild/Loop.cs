@@ -15,12 +15,12 @@ namespace ShadowBuild
 
         internal static void StartTicker()
         {
-            thread = new Thread(async () =>
+            thread = new Thread(() =>
             {
                 while (true)
                 {
                     DateTime timeOnStart = DateTime.Now;
-                    await Task.Run(new Action(() => { OnTick(); }));
+                    OnTick();
                     DateTime timeOnEnd = DateTime.Now;
 
                     TimeSpan tsdelay = timeOnEnd - timeOnStart;

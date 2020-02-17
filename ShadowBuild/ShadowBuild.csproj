@@ -57,8 +57,12 @@
     <Compile Include="Input\Mouse\MouseAxesValues.cs" />
     <Compile Include="Input\Mouse\MouseAxis.cs" />
     <Compile Include="Objects\Animationing\Animation.cs" />
+    <Compile Include="Objects\Geometry\GeometryObject.cs" />
+    <Compile Include="Objects\Geometry\Shape.cs" />
     <Compile Include="Objects\RenderableObject.cs" />
     <Compile Include="Objects\Texturing\Image\ImageTexture.cs" />
+    <Compile Include="Objects\Texturing\Shape.cs" />
+    <Compile Include="Objects\Texturing\TexturedObject.cs" />
     <Compile Include="Objects\UI\UIObject.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -72,7 +76,6 @@
     <Compile Include="Input\Keyboard\Axis.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Objects\Collision.cs" />
-    <Compile Include="Objects\Texturing\Shape.cs" />
     <Compile Include="Objects\Texturing\ColorTexture.cs" />
     <Compile Include="Objects\Texturing\Image\GridTexture.cs" />
     <Compile Include="Objects\Texturing\Image\RegularTexture.cs" />

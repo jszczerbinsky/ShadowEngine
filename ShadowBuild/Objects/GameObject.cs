@@ -5,7 +5,7 @@ using System.Windows;
 
 namespace ShadowBuild.Objects
 {
-    public class GameObject : RenderableObject
+    public class GameObject : TexturedObject
     {
         public bool collidable = true;
 
@@ -49,8 +49,10 @@ namespace ShadowBuild.Objects
                 GameObject tmpObject = GetClone(childG);
                 tmpObject.SetPosition(new Point(childG.GetGlobalPosition().X + X, childG.GetGlobalPosition().Y + Y));
 
-                foreach (GameObject obj in All)
+                foreach (RenderableObject robj in All)
                 {
+                    if (!(robj is GameObject)) continue;
+                    GameObject obj = (GameObject)robj;
                     if (obj == childG || obj.IsChildOf(childG) || childG.IsChildOf(obj)) continue;
 
                     if (CheckCollision(tmpObject, obj)) return;
@@ -60,8 +62,9 @@ namespace ShadowBuild.Objects
 
         }
 
-
-
-
+        public override void Render(System.Drawing.Graphics g, Point camPos)
+        {
+            this.ActualTexture.Render(g, this, camPos);
+        }
     }
 }
