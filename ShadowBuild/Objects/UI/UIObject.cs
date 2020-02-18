@@ -22,10 +22,10 @@ namespace ShadowBuild.Objects.UI
         private void RenderContent(Graphics g, System.Windows.Point camPos)
         {
             Rectangle rect = new Rectangle(
-                    (int)(this.GetGlobalPosition().X - camPos.X),
-                    (int)(this.GetGlobalPosition().Y - camPos.Y),
-                    (int)this.ContentSize.Width,
-                    (int)this.ContentSize.Height
+                    (int)(this.GetStartPosition().X - camPos.X),
+                    (int)(this.GetStartPosition().Y - camPos.Y),
+                    (int)(this.ContentSize.Width),
+                    (int)(this.ContentSize.Height)
                     );
             g.DrawString(this.Content, SystemFonts.MenuFont, new SolidBrush(Color.Black),rect);
         }
