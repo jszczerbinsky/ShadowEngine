@@ -17,15 +17,22 @@ namespace ShadowBuild
         {
             thread = new Thread(() =>
             {
+                double waitForCount = 0;
                 while (true)
                 {
+                    
                     DateTime timeOnStart = DateTime.Now;
                     OnTick();
                     DateTime timeOnEnd = DateTime.Now;
 
                     TimeSpan tsdelay = timeOnEnd - timeOnStart;
                     delay = tsdelay.TotalSeconds;
-                    currentFPS = (int)(1000 / tsdelay.TotalMilliseconds);
+                    waitForCount += delay;
+                    if (waitForCount >= 0.5)
+                    {
+                        currentFPS = (int)(1000 / tsdelay.TotalMilliseconds);
+                        waitForCount = 0;
+                    }
                 }
             });
             thread.Start();

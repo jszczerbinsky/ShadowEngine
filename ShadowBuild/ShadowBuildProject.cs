@@ -4,6 +4,7 @@ using ShadowBuild.Input.Keyboard;
 using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Rendering;
 using System;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace ShadowBuild
@@ -17,17 +18,44 @@ namespace ShadowBuild
         public abstract void OnStart();
         public abstract void OnTick();
 
-        public ShadowBuildProject()
+        [DllImport("kernel32.dll")]
+        static extern IntPtr GetConsoleWindow();
+
+        [DllImport("user32.dll")]
+        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+        const int SW_HIDE = 0;
+        const int SW_SHOW = 5;
+
+        public ShadowBuildProject(string[] args)
         {
+            ShowWindow(GetConsoleWindow(), SW_HIDE);
             Project = this;
 
             Log.Say("Loading project config");
             LoadConfig();
             Log.Say("Config file loaded");
 
+            CheckArgs(args);
+
             new GameWindow();
             Loop.OnTick += OnTick;
             Application.Run(GameWindow.actualGameWindow);
+        }
+        private bool CheckArg(string arg, string content)
+        {
+            if (arg.Equals(content)) return true;
+            return false;
+        }
+        private void CheckArgs(string[] args)
+        {
+            foreach (string arg in args)
+            {
+                if (CheckArg(arg, "console"))
+                    ShowWindow(GetConsoleWindow(), SW_SHOW);
+                else if (CheckArg(arg, "showfps"))
+                    Render.ShowFPS = true;
+            }
         }
         private void LoadConfig()
         {

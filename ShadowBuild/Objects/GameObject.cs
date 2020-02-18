@@ -64,7 +64,8 @@ namespace ShadowBuild.Objects
 
         public override void Render(System.Drawing.Graphics g, Point camPos)
         {
-            this.ActualTexture.Render(g, this, camPos);
+            if(this.ActualTexture != null)
+                this.ActualTexture.Render(g, this, camPos);
         }
     }
 }

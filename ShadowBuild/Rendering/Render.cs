@@ -16,6 +16,7 @@ namespace ShadowBuild.Rendering
                     );
             }
         }
+        public static bool ShowFPS = false;
 
         public static Bitmap FromCamera(Camera cam)
         {
@@ -30,6 +31,19 @@ namespace ShadowBuild.Rendering
             using (Graphics g = Graphics.FromImage(frame))
             {
                 g.FillRectangle(new SolidBrush(cam.Background), 0, 0, (int)cam.Size.Width, (int)cam.Size.Height);
+
+                if (ShowFPS)
+                {
+                    Rectangle r = new Rectangle((int)(Resolution.Width - 100), 20, 80, 20);
+                    g.FillRectangle(new SolidBrush(Color.Black), r);
+                    g.DrawString(
+                        Loop.currentFPS.ToString("D3") + " FPS",
+                        new Font(FontFamily.GenericMonospace, 12),
+                        new SolidBrush(Color.White),
+                        r
+                    );
+                }
+
                 SortedSet<Layer> sortedLayers = new SortedSet<Layer>(Layer.All);
 
                 foreach (Layer l in sortedLayers)
