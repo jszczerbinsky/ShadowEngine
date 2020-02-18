@@ -31,7 +31,7 @@ namespace ShadowBuild.Objects.UI
         }
         public override void Render(Graphics g, System.Windows.Point camPos)
         {
-            if (this.ActualAnimation != null)
+            if (this.ActualTexture != null)
                 this.ActualTexture.Render(g, this, camPos);
             this.RenderContent(g, camPos);
         }
