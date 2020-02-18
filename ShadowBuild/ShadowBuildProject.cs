@@ -51,9 +51,9 @@ namespace ShadowBuild
         {
             foreach (string arg in args)
             {
-                if (CheckArg(arg, "console"))
+                if (CheckArg(arg, "-console"))
                     ShowWindow(GetConsoleWindow(), SW_SHOW);
-                else if (CheckArg(arg, "showfps"))
+                else if (CheckArg(arg, "-showfps"))
                     Render.ShowFPS = true;
             }
         }
