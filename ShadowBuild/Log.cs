@@ -9,7 +9,13 @@ namespace ShadowBuild
     {
         public static void Say(string text)
         {
-            Console.WriteLine(text);
+            Console.Write("[");
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.Write("ShadowBuild");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.Write("] " +text+"\n");
         }
         public static void Space()
         {
