@@ -8,15 +8,20 @@ namespace ShadowBuild.Objects.UI
     {
 
         public string Content;
-        public System.Windows.Size ContentSize = new System.Windows.Size(100,100);
+        public System.Windows.Size ContentSize = new System.Windows.Size(100, 100);
+        public StringFormat contentFormat = new StringFormat();
 
         public UIObject(string name, Texture texture, string content) : base(name, texture)
         {
             this.Content = content;
+            contentFormat.LineAlignment = StringAlignment.Center;
+            contentFormat.Alignment = StringAlignment.Center;
         }
         public UIObject(string name, Texture texture, Layer layer, string content) : base(name, texture, layer)
         {
             this.Content = content;
+            contentFormat.LineAlignment = StringAlignment.Center;
+            contentFormat.Alignment = StringAlignment.Center;
         }
 
         private void RenderContent(Graphics g, System.Windows.Point camPos)
@@ -27,7 +32,7 @@ namespace ShadowBuild.Objects.UI
                     (int)(this.ContentSize.Width * this.Size.Width),
                     (int)(this.ContentSize.Height * this.Size.Height)
                     );
-            g.DrawString(this.Content, SystemFonts.MenuFont, new SolidBrush(Color.Black),rect);
+            g.DrawString(this.Content, SystemFonts.MenuFont, new SolidBrush(Color.Black), rect, contentFormat);
         }
         public override void Render(Graphics g, System.Windows.Point camPos)
         {
