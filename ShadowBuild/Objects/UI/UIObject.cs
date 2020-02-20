@@ -24,8 +24,8 @@ namespace ShadowBuild.Objects.UI
             Rectangle rect = new Rectangle(
                     (int)(this.GetStartPosition().X - camPos.X),
                     (int)(this.GetStartPosition().Y - camPos.Y),
-                    (int)(this.ContentSize.Width),
-                    (int)(this.ContentSize.Height)
+                    (int)(this.ContentSize.Width * this.Size.Width),
+                    (int)(this.ContentSize.Height * this.Size.Height)
                     );
             g.DrawString(this.Content, SystemFonts.MenuFont, new SolidBrush(Color.Black),rect);
         }
