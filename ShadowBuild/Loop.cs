@@ -20,7 +20,7 @@ namespace ShadowBuild
                 double waitForCount = 0;
                 while (true)
                 {
-                    
+                    Thread.Sleep(10); 
                     DateTime timeOnStart = DateTime.Now;
                     OnTick();
                     DateTime timeOnEnd = DateTime.Now;
