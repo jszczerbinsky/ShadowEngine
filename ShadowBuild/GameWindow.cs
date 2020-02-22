@@ -42,6 +42,7 @@ namespace ShadowBuild
             Loop.StartTicker();
             Log.Say("Calling OnStart");
             ShadowBuildProject.Project.OnStart();
+            Render.SortLayers();
             Log.Space();
             Log.Say("------Listing Render Layers-----");
             Log.Space();

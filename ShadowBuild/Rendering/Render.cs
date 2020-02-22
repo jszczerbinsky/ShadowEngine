@@ -17,7 +17,17 @@ namespace ShadowBuild.Rendering
             }
         }
         public static bool ShowFPS = false;
+        private static SortedSet<Layer> SortedLayers;
 
+        private static readonly Brush FPSForeground = new SolidBrush(Color.White);
+        private static readonly Brush FPSBackground = new SolidBrush(Color.Black);
+        private static readonly Font FPSFont = new Font(FontFamily.GenericMonospace, 12);
+        private static readonly Rectangle FPSRectangle = new Rectangle(20, 20, 80, 20);
+
+        public static void SortLayers()
+        {
+            SortedLayers = new SortedSet<Layer>(Layer.All);
+        }
         public static Bitmap FromCamera(Camera cam)
         {
             System.Windows.Point startPos =
@@ -34,19 +44,16 @@ namespace ShadowBuild.Rendering
 
                 if (ShowFPS)
                 {
-                    Rectangle r = new Rectangle((int)(Resolution.Width - 100), 20, 80, 20);
-                    g.FillRectangle(new SolidBrush(Color.Black), r);
+                    g.FillRectangle(FPSBackground, FPSRectangle);
                     g.DrawString(
                         Loop.currentFPS.ToString("D3") + " FPS",
-                        new Font(FontFamily.GenericMonospace, 12),
-                        new SolidBrush(Color.White),
-                        r
+                        FPSFont,
+                        FPSForeground, 
+                        FPSRectangle
                     );
                 }
 
-                SortedSet<Layer> sortedLayers = new SortedSet<Layer>(Layer.All);
-
-                foreach (Layer l in sortedLayers)
+                foreach (Layer l in SortedLayers)
                 {
                     if (!cam.IsRendering(l)) continue;
                     foreach (RenderableObject obj in l.Objects)
