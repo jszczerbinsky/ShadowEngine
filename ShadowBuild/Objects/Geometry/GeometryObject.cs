@@ -16,7 +16,7 @@ namespace ShadowBuild.Objects.Geometry
         {
             this.Shape = shape;
             this.Position = position;
-            this.Size = size;
+            this.BaseSize = size;
             this.Color = color;
             this.Fill = fill;
             this.BorderThickness = borderThickness;
@@ -26,7 +26,7 @@ namespace ShadowBuild.Objects.Geometry
         {
             this.Shape = shape;
             this.Position = position;
-            this.Size = new System.Windows.Size(endPosition.X - position.X, endPosition.Y - position.Y);
+            this.BaseSize = new System.Windows.Size(endPosition.X - position.X, endPosition.Y - position.Y);
             this.Color = color;
             this.Fill = fill;
             this.BorderThickness = borderThickness;
@@ -37,7 +37,7 @@ namespace ShadowBuild.Objects.Geometry
         {
             this.Shape = shape;
             this.Position = position;
-            this.Size = size;
+            this.BaseSize = size;
             this.Name = name;
 
         }
@@ -52,7 +52,7 @@ namespace ShadowBuild.Objects.Geometry
         {
             this.Shape = shape;
             this.Position = position;
-            this.Size = size;
+            this.BaseSize = size;
             this.Color = color;
             this.Fill = fill;
             this.BorderThickness = borderThickness;
@@ -75,7 +75,7 @@ namespace ShadowBuild.Objects.Geometry
         {
             this.Shape = shape;
             this.Position = position;
-            this.Size = size;
+            this.BaseSize = size;
             this.Name = name;
             this.RenderLayer = layer;
 
@@ -100,7 +100,7 @@ namespace ShadowBuild.Objects.Geometry
             else { bX = p2.Y; sX = p1.Y; } 
 
             this.Position = new System.Windows.Point(sX, sY);
-            this.Size = new System.Windows.Size(bX - sX, bY - sY);
+            this.BaseSize = new System.Windows.Size(bX - sX, bY - sY);
         }
         public void SetEndPosition(System.Windows.Point endPosition)
         {
@@ -124,8 +124,8 @@ namespace ShadowBuild.Objects.Geometry
                 (int)(this.GetStartPosition().Y - camPos.Y)
                 );
             System.Drawing.Size size = new System.Drawing.Size(
-                (int)this.Size.Width,
-                (int)this.Size.Height);
+                (int)this.BaseSize.Width,
+                (int)this.BaseSize.Height);
 
             Rectangle rect = new Rectangle(pos, size);
 

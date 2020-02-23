@@ -53,7 +53,6 @@ namespace ShadowBuild.Objects
             this.RenderLayer = Layer.Default;
             this.SetPosition(0, 0);
             this.Visible = true;
-            this.SetSize(new Size(1, 1));
             All.Add(this);
         }
         public RenderableObject(string name, Layer layer)
@@ -62,7 +61,6 @@ namespace ShadowBuild.Objects
             this.RenderLayer = layer;
             this.SetPosition(0, 0);
             this.Visible = true;
-            this.SetSize(new Size(1, 1));
             All.Add(this);
 
         }

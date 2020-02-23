@@ -12,7 +12,6 @@ namespace ShadowBuild.Objects.Texturing
         {
             get { return "#" + Color.R.ToString("X2") + Color.G.ToString("X2") + Color.B.ToString("X2") + Color.A.ToString("X2"); }
         }
-        public System.Windows.Size Size;
         [ScriptIgnore]
         public ColorTextureShape Shape;
         public string ShapeString
@@ -26,12 +25,6 @@ namespace ShadowBuild.Objects.Texturing
             this.Name = name;
             this.Shape = shape;
             this.Color = color;
-            this.Size = size;
-        }
-
-        public override System.Windows.Size GetSize()
-        {
-            return Size;
         }
 
         public override void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
@@ -44,8 +37,8 @@ namespace ShadowBuild.Objects.Texturing
                      (int)(obj.GetStartPosition().Y - cameraPos.Y)
                 ),
                 new Size(
-                    (int)(tex.Size.Width * obj.Size.Width),
-                    (int)(tex.Size.Height * obj.Size.Height)
+                    (int)(obj.SizeMultipler.Width * obj.BaseSize.Width),
+                    (int)(obj.SizeMultipler.Height * obj.BaseSize.Height)
                 )
             );
 

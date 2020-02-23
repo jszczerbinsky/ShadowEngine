@@ -19,11 +19,6 @@ namespace ShadowBuild.Objects.Texturing.Image
             InitializeImage();
         }
 
-        public override System.Windows.Size GetSize()
-        {
-            return new System.Windows.Size(Image.Size.Width * xCount, Image.Size.Height * yCount);
-        }
-
         public override void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
         {
             GridTexture tex = (GridTexture)obj.ActualTexture;
@@ -40,11 +35,11 @@ namespace ShadowBuild.Objects.Texturing.Image
                         tex.Image,
                         new Rectangle(
                             new Point(
-                                (int)(obj.GetStartPosition().X - cameraPos.X + x * tex.Image.Width * obj.Size.Width),
-                                (int)(obj.GetStartPosition().Y - cameraPos.Y + y * tex.Image.Height * obj.Size.Height)
+                                (int)(obj.GetStartPosition().X - cameraPos.X + x * obj.SizeMultipler.Width * obj.BaseSize.Width),
+                                (int)(obj.GetStartPosition().Y - cameraPos.Y + y * obj.SizeMultipler.Height * obj.BaseSize.Height)
                             ), new Size(
-                                (int)(tex.Image.Width * obj.Size.Width),
-                                (int)(tex.Image.Height * obj.Size.Height)
+                                (int)(obj.SizeMultipler.Width * obj.BaseSize.Width),
+                                (int)(obj.SizeMultipler.Height * obj.BaseSize.Height)
                                 )
                             )
                         );

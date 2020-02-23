@@ -34,26 +34,32 @@ namespace ShadowBuild.Objects.Texturing
             this.DefaultTexture = texture;
         }
 
+        public override Size GetRealSize()
+        {
+            if (this.ActualTexture is GridTexture)
+            {
+                GridTexture tex = (GridTexture)this.ActualTexture;
+                return new Size(
+                    this.BaseSize.Width * this.SizeMultipler.Height * tex.xCount,
+                    this.BaseSize.Height * this.SizeMultipler.Height * tex.yCount);
+            }
+            return base.GetRealSize();
+        }
         public override Point GetStartPosition()
         {
             double decreseLeft = 0;
             double decreseTop = 0;
 
-            if (ActualTexture is RegularTexture)
+            if (ActualTexture is RegularTexture || ActualTexture is ColorTexture)
             {
-                decreseLeft -= ((RegularTexture)this.ActualTexture).Image.Width * this.Size.Width / 2;
-                decreseTop -= ((RegularTexture)this.ActualTexture).Image.Height * this.Size.Height / 2;
-            }
-            else if (ActualTexture is ColorTexture)
-            {
-                decreseLeft -= ((ColorTexture)this.ActualTexture).Size.Width * this.Size.Width / 2;
-                decreseTop -= ((ColorTexture)this.ActualTexture).Size.Height * this.Size.Height / 2;
+                decreseLeft -= this.SizeMultipler.Width * this.BaseSize.Width / 2;
+                decreseTop -= this.SizeMultipler.Height * this.BaseSize.Height / 2;
             }
             else if (ActualTexture is GridTexture)
             {
                 GridTexture tex = (GridTexture)this.ActualTexture;
-                decreseLeft -= tex.Image.Width * this.Size.Width * tex.xCount / 2;
-                decreseTop -= tex.Image.Height * this.Size.Height * tex.yCount / 2;
+                decreseLeft -= this.SizeMultipler.Width * this.BaseSize.Width * tex.xCount / 2;
+                decreseTop -= this.SizeMultipler.Height * this.BaseSize.Height * tex.yCount / 2;
             }
             Point decrese = new Point(decreseLeft, decreseTop);
 
@@ -66,8 +72,8 @@ namespace ShadowBuild.Objects.Texturing
             Point tmp;
 
             tmp = new Point(
-                this.ActualTexture.GetSize().Width * this.Size.Width,
-                this.ActualTexture.GetSize().Height * this.Size.Height);
+                this.GetRealSize().Width * this.BaseSize.Width,
+                this.GetRealSize().Height * this.BaseSize.Height);
 
             Point end = new Point(
                 this.GetStartPosition().X + tmp.X,

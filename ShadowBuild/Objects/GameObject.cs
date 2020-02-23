@@ -25,7 +25,7 @@ namespace ShadowBuild.Objects
             GameObject clone = new GameObject();
             clone.Position = obj.GetGlobalPosition();
             clone.DefaultTexture = obj.ActualTexture;
-            clone.Size = obj.Size;
+            clone.BaseSize = obj.BaseSize;
             clone.collidable = true;
             return clone;
         }

@@ -14,31 +14,31 @@ namespace ShadowBuild.Rendering
         {
             get
             {
-                return new Point(this.Position.X - this.Size.Width / 2, this.Position.Y - this.Size.Height / 2);
+                return new Point(this.Position.X - this.BaseSize.Width / 2, this.Position.Y - this.BaseSize.Height / 2);
             }
         }
         public Point EndPosition
         {
             get
             {
-                return new Point(this.Position.X + this.Size.Width / 2, this.Position.Y + this.Size.Height / 2);
+                return new Point(this.Position.X + this.BaseSize.Width / 2, this.Position.Y + this.BaseSize.Height / 2);
             }
         }
 
         public Camera(Point position, Size size)
         {
             this.Position = position;
-            this.Size = size;
+            this.BaseSize = size;
         }
         public Camera(double x, double y, double width, double height)
         {
             this.Position = new Point(x, y);
-            this.Size = new Size(width, height);
+            this.BaseSize = new Size(width, height);
         }
         public Camera(Point position, Size size, List<Layer> layers)
         {
             this.Position = position;
-            this.Size = size;
+            this.BaseSize = size;
             this.RenderLayers = layers;
         }
 

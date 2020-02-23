@@ -32,15 +32,15 @@ namespace ShadowBuild.Rendering
         {
             System.Windows.Point startPos =
                 new System.Windows.Point(
-                    cam.Position.X - cam.Size.Width / 2,
-                    cam.Position.Y - cam.Size.Height / 2);
+                    cam.Position.X - cam.BaseSize.Width / 2,
+                    cam.Position.Y - cam.BaseSize.Height / 2);
 
-            Bitmap frame = new Bitmap((int)cam.Size.Width, (int)cam.Size.Height);
+            Bitmap frame = new Bitmap((int)cam.BaseSize.Width, (int)cam.BaseSize.Height);
 
 
             using (Graphics g = Graphics.FromImage(frame))
             {
-                g.FillRectangle(new SolidBrush(cam.Background), 0, 0, (int)cam.Size.Width, (int)cam.Size.Height);
+                g.FillRectangle(new SolidBrush(cam.Background), 0, 0, (int)cam.BaseSize.Width, (int)cam.BaseSize.Height);
 
                 if (ShowFPS)
                 {

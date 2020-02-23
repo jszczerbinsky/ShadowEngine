@@ -13,7 +13,6 @@ namespace ShadowBuild.Objects.Texturing
 
         public string Name;
 
-        public abstract System.Windows.Size GetSize();
         public abstract void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos);
 
         public static void Setup(Texture t)
@@ -49,44 +48,6 @@ namespace ShadowBuild.Objects.Texturing
                         ));
             }
         }
-        public static void RenderObjectBorders(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
-        {
-            Random rand = new Random();
-            Color fillColor = Color.FromArgb(100, rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
-
-            g.FillRectangle(
-                    new SolidBrush(
-                            fillColor
-                    ),
-                new Rectangle(
-                    new Point(
-                        (int)(obj.GetStartPosition().X - cameraPos.X),
-                        (int)(obj.GetStartPosition().Y - cameraPos.Y)
-                    ),
-                    new Size(
-                        (int)(obj.ActualTexture.GetSize().Width * obj.Size.Width),
-                        (int)(obj.ActualTexture.GetSize().Height * obj.Size.Height))
-                    ));
-
-            Color drawColor = Color.FromArgb(100, rand.Next(0, 255), rand.Next(0, 255), rand.Next(0, 255));
-
-            g.DrawRectangle(
-                new Pen(
-                    new SolidBrush(
-                            drawColor
-                    ),
-                    3),
-                new Rectangle(
-                    new Point(
-                        (int)(obj.GetStartPosition().X - cameraPos.X),
-                        (int)(obj.GetStartPosition().Y - cameraPos.Y)
-                    ),
-                    new Size(
-                        (int)(obj.ActualTexture.GetSize().Width * obj.Size.Width),
-                        (int)(obj.ActualTexture.GetSize().Height * obj.Size.Height))
-                    ));
-        }
-
 
         public static void SaveConfig(string path)
         {

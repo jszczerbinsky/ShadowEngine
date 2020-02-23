@@ -12,16 +12,16 @@ namespace ShadowBuild.Objects
             Point tmp;
 
             tmp = new Point(
-                obj1.ActualTexture.GetSize().Width * obj1.Size.Width,
-                obj1.ActualTexture.GetSize().Height * obj1.Size.Height);
+                obj1.SizeMultipler.Width * obj1.BaseSize.Width,
+                obj1.SizeMultipler.Height * obj1.BaseSize.Height);
 
             Point end1 = new Point(
                 obj1.GetStartPosition().X + tmp.X,
                 obj1.GetStartPosition().Y + tmp.Y);
 
             tmp = new Point(
-                obj2.ActualTexture.GetSize().Width * obj2.Size.Width,
-                obj2.ActualTexture.GetSize().Height * obj2.Size.Height);
+                obj2.SizeMultipler.Width * obj2.BaseSize.Width,
+                obj2.SizeMultipler.Height * obj2.BaseSize.Height);
 
             Point end2 = new Point(
                 obj2.GetStartPosition().X + tmp.X,

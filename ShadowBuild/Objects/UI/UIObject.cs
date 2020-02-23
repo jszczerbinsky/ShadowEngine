@@ -9,19 +9,19 @@ namespace ShadowBuild.Objects.UI
 
         public string Content;
         public System.Windows.Size ContentSize = new System.Windows.Size(100, 100);
-        public StringFormat contentFormat = new StringFormat();
+        public StringFormat ContentFormat = new StringFormat();
 
         public UIObject(string name, Texture texture, string content) : base(name, texture)
         {
             this.Content = content;
-            contentFormat.LineAlignment = StringAlignment.Center;
-            contentFormat.Alignment = StringAlignment.Center;
+            ContentFormat.LineAlignment = StringAlignment.Center;
+            ContentFormat.Alignment = StringAlignment.Center;
         }
         public UIObject(string name, Texture texture, Layer layer, string content) : base(name, texture, layer)
         {
             this.Content = content;
-            contentFormat.LineAlignment = StringAlignment.Center;
-            contentFormat.Alignment = StringAlignment.Center;
+            ContentFormat.LineAlignment = StringAlignment.Center;
+            ContentFormat.Alignment = StringAlignment.Center;
         }
 
         private void RenderContent(Graphics g, System.Windows.Point camPos)
@@ -29,10 +29,10 @@ namespace ShadowBuild.Objects.UI
             Rectangle rect = new Rectangle(
                     (int)(this.GetStartPosition().X - camPos.X),
                     (int)(this.GetStartPosition().Y - camPos.Y),
-                    (int)(this.ContentSize.Width * this.Size.Width),
-                    (int)(this.ContentSize.Height * this.Size.Height)
+                    (int)(this.ContentSize.Width * this.SizeMultipler.Width),
+                    (int)(this.ContentSize.Height * this.SizeMultipler.Height)
                     );
-            g.DrawString(this.Content, SystemFonts.MenuFont, new SolidBrush(Color.Black), rect, contentFormat);
+            g.DrawString(this.Content, SystemFonts.MenuFont, new SolidBrush(Color.Black), rect, ContentFormat);
         }
         public override void Render(Graphics g, System.Windows.Point camPos)
         {

@@ -51,7 +51,7 @@ namespace ShadowBuild
 
         internal void RenderNewFrame()
         {
-            Camera.Default.SetSize(Render.Resolution);
+            Camera.Default.ChangeBaseSize(Render.Resolution);
             this.Invoke(new Action(() =>
             {
                 Image tmp = this.display.Image;
