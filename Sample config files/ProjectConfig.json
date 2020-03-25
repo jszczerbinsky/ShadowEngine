@@ -1,0 +1,19 @@
+﻿{
+    "Name": "Sample project",
+    "Author": "Me :)",
+    "LicenseFilePath": "LICENSE.txt",
+    "ProjectVersion": "1.0",
+    "ShadowBuildVersion": "0.1",
+    "StartResolution": 
+        {
+            "Width": 800,
+            "Height": 600
+        },
+    "StartFullscreen": false,
+    "AxisConfigPath": "Axes.json",
+    "AxisConfigAutoLoad": false,
+    "LayerConfigPath": "Layers.json",
+    "LayerConfigAutoLoad": false,
+    "TextureConfigPath": "Textures.json",
+    "TextureConfigAutoLoad": false
+}
