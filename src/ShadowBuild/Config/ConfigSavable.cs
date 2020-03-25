@@ -1,6 +1,8 @@
 ﻿using ShadowBuild.Exceptions;
 using System;
 using System.IO;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Web.Script.Serialization;
 
 namespace ShadowBuild.Config
@@ -9,6 +11,7 @@ namespace ShadowBuild.Config
     {
         protected static dynamic ReadConfigFile(string path)
         {
+            path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + '/' + path;
             FileStream fs;
             try
             {
@@ -40,6 +43,7 @@ namespace ShadowBuild.Config
         }
         protected static void WriteConfigFile(string path, object o)
         {
+            path = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + '/' + path;
             JavaScriptSerializer jss = new JavaScriptSerializer();
             string str = jss.Serialize(o);
             FileStream fs = new FileStream(path, FileMode.Create, FileAccess.Write);

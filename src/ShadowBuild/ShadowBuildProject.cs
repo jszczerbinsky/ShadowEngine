@@ -29,7 +29,8 @@ namespace ShadowBuild
 
         public ShadowBuildProject(string[] args)
         {
-            ShowWindow(GetConsoleWindow(), SW_HIDE);
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                ShowWindow(GetConsoleWindow(), SW_HIDE);
             Project = this;
 
             Log.Say("Loading project config");
@@ -51,7 +52,7 @@ namespace ShadowBuild
         {
             foreach (string arg in args)
             {
-                if (CheckArg(arg, "-console"))
+                if (CheckArg(arg, "-console") && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                     ShowWindow(GetConsoleWindow(), SW_SHOW);
                 else if (CheckArg(arg, "-showfps"))
                     Render.ShowFPS = true;
