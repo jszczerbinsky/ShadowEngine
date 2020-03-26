@@ -25,11 +25,19 @@ namespace ShadowBuild.Objects.Texturing
         public Animation ActualAnimation { get; private set; } = null;
 
         protected TexturedObject() : base() { }
-        public TexturedObject(string name, Texture texture) : base(name)
+        protected TexturedObject(string name, Texture texture) : base(name)
         {
             this.DefaultTexture = texture;
         }
-        public TexturedObject(string name, Texture texture, Layer layer) : base(name, layer)
+        protected TexturedObject(string name, Texture texture, Layer layer) : base(name, layer)
+        {
+            this.DefaultTexture = texture;
+        }
+        protected TexturedObject(string name, Texture texture, World world) : base(name, world)
+        {
+            this.DefaultTexture = texture;
+        }
+        protected TexturedObject(string name, Texture texture, Layer layer, World world) : base(name, layer, world)
         {
             this.DefaultTexture = texture;
         }

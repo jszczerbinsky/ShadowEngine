@@ -13,6 +13,7 @@ namespace ShadowBuild.Input.Keyboard
         public string Name;
         internal Keys Negative;
         internal Keys Positive;
+
         public string NegativeName
         {
             get { return Negative.ToString(); }
@@ -44,7 +45,10 @@ namespace ShadowBuild.Input.Keyboard
         {
             Axis axis = Find(name);
             if (axis == null) throw new AxisException("Cannot find axis \"" + name + "\"");
-
+            return GetValue(axis);
+        }
+        public static double GetValue(Axis axis)
+        {
             double value = 0;
 
             if (Keyboard.KeyPressed(axis.Negative))

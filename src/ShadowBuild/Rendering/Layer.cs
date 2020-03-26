@@ -18,7 +18,7 @@ namespace ShadowBuild.Rendering
             get
             {
                 List<RenderableObject> objs = new List<RenderableObject>();
-                foreach (RenderableObject obj in RenderableObject.All)
+                foreach (RenderableObject obj in World.ActualWorld.Objects)
                 {
                     if (obj.RenderLayer == this) objs.Add(obj);
                 }

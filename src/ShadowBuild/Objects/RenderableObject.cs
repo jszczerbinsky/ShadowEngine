@@ -1,8 +1,6 @@
 ﻿using ShadowBuild.Exceptions;
 using ShadowBuild.Input.Mouse;
-using ShadowBuild.Objects.Animationing;
-using ShadowBuild.Objects.Texturing;
-using ShadowBuild.Objects.Texturing.Image;
+using ShadowBuild.Objects;
 using ShadowBuild.Rendering;
 using System.Collections.Generic;
 using System.Windows;
@@ -14,8 +12,8 @@ namespace ShadowBuild.Objects
         public static List<RenderableObject> All { get; private set; } = new List<RenderableObject>();
 
         public string Name;
+        public World World { get; private set; } 
 
-        
         public bool Visible = true;
         public Layer RenderLayer { get; protected set; }
 
@@ -51,17 +49,42 @@ namespace ShadowBuild.Objects
         {
             this.Name = name;
             this.RenderLayer = Layer.Default;
+            this.World = World.Default;
             this.SetPosition(0, 0);
             this.Visible = true;
             All.Add(this);
+            this.World.Objects.Add(this);
         }
         public RenderableObject(string name, Layer layer)
         {
             this.Name = name;
             this.RenderLayer = layer;
+            this.World = World.Default;
             this.SetPosition(0, 0);
             this.Visible = true;
             All.Add(this);
+            this.World.Objects.Add(this);
+        }
+        public RenderableObject(string name, World world)
+        {
+            this.Name = name;
+            this.RenderLayer = Layer.Default;
+            this.World = world;
+            this.SetPosition(0, 0);
+            this.Visible = true;
+            All.Add(this);
+            this.World.Objects.Add(this);
+
+        }
+        public RenderableObject(string name, Layer layer, World world)
+        {
+            this.Name = name;
+            this.RenderLayer = layer;
+            this.World = world;
+            this.SetPosition(0, 0);
+            this.Visible = true;
+            All.Add(this);
+            this.World.Objects.Add(this);
 
         }
         protected RenderableObject() { }
@@ -114,9 +137,39 @@ namespace ShadowBuild.Objects
 
         }
 
+        #region World
+        private void MoveChildrenToWorld(World w)
+        {
+            foreach (RenderableObject obj in this.Children)
+                obj.MoveToWorld(w);
+        }
+        public void MoveToWorld(string worldName)
+        {
+            foreach (World w in World.All)
+                if (w.Name == worldName)
+                {
+                    this.World.Objects.Remove(this);
+                    this.World = w;
+                    this.World.Objects.Add(this);
+                    MoveChildrenToWorld(w);
+                    return;
+                }
+            throw new WorldNameException("There is no world with name " + worldName);
+        }
+        public void MoveToWorld(World world)
+        {
+            this.World.Objects.Remove(this);
+            this.World = world;
+            this.World.Objects.Add(this);
+            MoveChildrenToWorld(world);
+        }
+        #endregion
+
         public abstract Point GetStartPosition();
         public abstract void Render(System.Drawing.Graphics g, Point startPosition);
 
         public abstract bool CheckPointInside(Point p);
+
+
     }
 }

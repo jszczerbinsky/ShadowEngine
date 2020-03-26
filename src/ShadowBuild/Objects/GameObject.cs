@@ -1,4 +1,5 @@
-﻿using ShadowBuild.Objects.Texturing;
+﻿using ShadowBuild.Exceptions;
+using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Rendering;
 using System.Collections.Generic;
 using System.Windows;
@@ -11,6 +12,8 @@ namespace ShadowBuild.Objects
 
         public GameObject(string name, Texture texture) : base(name, texture) { }
         public GameObject(string name, Texture texture, Layer layer) : base(name, texture, layer) { }
+        public GameObject(string name, Texture texture, World world) : base(name, texture, world) { }
+        public GameObject(string name, Texture texture, Layer layer, World world) : base(name, texture, layer, world) { }
         private GameObject() : base() { }
 
         private bool CheckCollision(GameObject obj1, GameObject obj2)
@@ -49,7 +52,7 @@ namespace ShadowBuild.Objects
                 GameObject tmpObject = GetClone(childG);
                 tmpObject.SetPosition(new Point(childG.GetGlobalPosition().X + X, childG.GetGlobalPosition().Y + Y));
 
-                foreach (RenderableObject robj in All)
+                foreach (RenderableObject robj in World.Objects)
                 {
                     if (!(robj is GameObject)) continue;
                     GameObject obj = (GameObject)robj;
@@ -67,5 +70,7 @@ namespace ShadowBuild.Objects
             if(this.ActualTexture != null)
                 this.ActualTexture.Render(g, this, camPos);
         }
+
+
     }
 }

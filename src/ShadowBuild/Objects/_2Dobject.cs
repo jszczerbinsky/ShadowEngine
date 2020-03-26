@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using ShadowBuild.Exceptions;
 
 namespace ShadowBuild.Objects
 {
@@ -28,6 +29,7 @@ namespace ShadowBuild.Objects
 
             return Math.Sqrt(y * y + x * x);
         }
+
 
         #endregion
 

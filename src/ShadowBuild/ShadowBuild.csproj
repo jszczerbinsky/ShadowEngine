@@ -94,6 +94,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Loop.cs" />
     <Compile Include="ProjectConfig.cs" />
+    <Compile Include="Objects\World.cs" />
+    <Compile Include="Exceptions\WorldNameException.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GameWindow.resx">
