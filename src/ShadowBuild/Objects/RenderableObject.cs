@@ -31,7 +31,7 @@ namespace ShadowBuild.Objects
             }
             private set { }
         }
-        public bool MouseOver
+        public virtual bool MouseOver
         {
             get
             {
