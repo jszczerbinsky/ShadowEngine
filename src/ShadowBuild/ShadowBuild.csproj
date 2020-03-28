@@ -96,6 +96,7 @@
     <Compile Include="ProjectConfig.cs" />
     <Compile Include="Objects\World.cs" />
     <Compile Include="Exceptions\WorldNameException.cs" />
+    <Compile Include="Rendering\Display.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GameWindow.resx">

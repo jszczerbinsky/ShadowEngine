@@ -10,7 +10,7 @@ namespace ShadowBuild
 {
     internal class GameWindow : Form
     {
-        private PictureBox display;
+        private Display display;
         internal static GameWindow actualGameWindow;
 
         public GameWindow()
@@ -33,6 +33,7 @@ namespace ShadowBuild
             }
 
             Log.Say("Initializing GameLoop");
+            this.display.Initialize(new Size((int)Render.Resolution.Width, (int)Render.Resolution.Height));
             Loop.OnTick += this.RenderNewFrame;
             Loop.OnTick += Animation.OnTick;
             Mouse.OnStart();
@@ -48,15 +49,13 @@ namespace ShadowBuild
             Log.Space();
 
         }
-
         internal void RenderNewFrame()
         {
             Camera.Default.ChangeBaseSize(Render.Resolution);
             this.Invoke(new Action(() =>
             {
-                Image tmp = this.display.Image;
-                this.display.Image = Render.FromCamera(Camera.Default);
-                if (tmp != null) tmp.Dispose();
+                Render.FromCamera(this.display.Image, this.display.DisplayGraphics, Camera.Default);
+                this.display.Refresh();
             }));
         }
 
@@ -68,7 +67,7 @@ namespace ShadowBuild
 
         private void InitializeComponent()
         {
-            this.display = new System.Windows.Forms.PictureBox();
+            this.display = new Display(); 
             ((System.ComponentModel.ISupportInitialize)(this.display)).BeginInit();
             this.SuspendLayout();
             // 
@@ -87,6 +86,7 @@ namespace ShadowBuild
             // GameWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.SizeChanged += OnResize;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(782, 553);
             this.Controls.Add(this.display);
@@ -97,6 +97,11 @@ namespace ShadowBuild
             this.ResumeLayout(false);
             this.PerformLayout();
 
+        }
+        private void OnResize(object sender, EventArgs e)
+        {
+            Render.Resolution = new System.Windows.Size(this.Size.Width, this.Size.Height);
+            this.display.Initialize(new Size(this.Size.Width, this.Size.Height));
         }
         private void OnMouseDown(object sender, MouseEventArgs e)
         {

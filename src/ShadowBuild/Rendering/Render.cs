@@ -1,4 +1,5 @@
 ﻿using ShadowBuild.Objects;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -6,16 +7,7 @@ namespace ShadowBuild.Rendering
 {
     public static class Render
     {
-        public static System.Windows.Size Resolution
-        {
-            get
-            {
-                return new System.Windows.Size(
-                    GameWindow.actualGameWindow.Size.Width,
-                    GameWindow.actualGameWindow.Size.Height
-                    );
-            }
-        }
+        public static System.Windows.Size Resolution = new System.Windows.Size(800, 600);
         public static bool ShowFPS = false;
         private static SortedSet<Layer> SortedLayers;
 
@@ -28,19 +20,18 @@ namespace ShadowBuild.Rendering
         {
             SortedLayers = new SortedSet<Layer>(Layer.All);
         }
-        public static Bitmap FromCamera(Camera cam)
+        public static void FromCamera(Image frame, Graphics g, Camera cam)
         {
             System.Windows.Point startPos =
                 new System.Windows.Point(
                     cam.Position.X - cam.BaseSize.Width / 2,
                     cam.Position.Y - cam.BaseSize.Height / 2);
 
-            Bitmap frame = new Bitmap((int)cam.BaseSize.Width, (int)cam.BaseSize.Height);
 
-
-            using (Graphics g = Graphics.FromImage(frame))
-            {
-                g.FillRectangle(new SolidBrush(cam.Background), 0, 0, (int)cam.BaseSize.Width, (int)cam.BaseSize.Height);
+                using (Brush backgroundBrush = new SolidBrush(cam.Background))
+                {
+                g.FillRectangle(backgroundBrush, 0, 0, (int)cam.BaseSize.Width, (int)cam.BaseSize.Height);
+                }
 
                 if (ShowFPS)
                 {
@@ -62,12 +53,8 @@ namespace ShadowBuild.Rendering
                         obj.Render(g, startPos);
 
                     }
-                }
-
-
-                return frame;
-            }
-
+               }
+                
         }
 
     }
