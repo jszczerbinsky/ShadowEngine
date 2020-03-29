@@ -20,7 +20,7 @@ namespace ShadowBuild.Objects.Texturing
             set { Shape = (ColorTextureShape)Enum.Parse(typeof(ColorTextureShape), value); }
         }
 
-        public ColorTexture(string name, Color color, ColorTextureShape shape, System.Windows.Size size)
+        public ColorTexture(string name, Color color, ColorTextureShape shape)
         {
             this.Name = name;
             this.Shape = shape;
