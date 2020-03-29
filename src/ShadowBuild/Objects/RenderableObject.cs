@@ -35,12 +35,21 @@ namespace ShadowBuild.Objects
         {
             get
             {
-                if (Mouse.LockCurosr) return false;
+                if (Mouse.LockCurosr || this.World != World.ActualWorld) return false;
                 Point p = new Point(
                     Mouse.Position.X + Camera.Default.StartPosition.X,
                     Mouse.Position.Y + Camera.Default.StartPosition.Y
                 );
                 return CheckPointInside(p);
+            }
+        }
+        public bool Click
+        {
+            get
+            {
+                if (MouseOver && Mouse.ButtonClick(System.Windows.Forms.MouseButtons.Left))
+                    return true;
+                return false;
             }
         }
 

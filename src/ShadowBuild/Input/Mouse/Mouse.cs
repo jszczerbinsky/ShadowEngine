@@ -12,7 +12,7 @@ namespace ShadowBuild.Input.Mouse
         private static List<MouseButtons> ClickedButtons = new List<MouseButtons>();
 
         private static bool lockCursor = false;
-        public static bool LockCurosr
+        public static bool LockCursor
         {
             get
             {

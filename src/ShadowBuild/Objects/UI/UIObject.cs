@@ -17,7 +17,7 @@ namespace ShadowBuild.Objects.UI
         {
             get
             {
-                if (Mouse.LockCurosr) return false;
+                if (Mouse.LockCursor) return false;
                 if (PositionType == UIPositionType.Global) return base.MouseOver;
 
                 System.Windows.Point p = new System.Windows.Point(
