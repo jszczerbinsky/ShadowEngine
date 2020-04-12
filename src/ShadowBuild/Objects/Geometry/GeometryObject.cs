@@ -11,6 +11,11 @@ namespace ShadowBuild.Objects.Geometry
         public Shape Shape;
         public Color Color = Color.Black;
         public float BorderThickness = 1;
+        public System.Windows.Point EndPosition { get; private set; }
+
+
+        private System.Windows.Point renderPosition;
+        private System.Windows.Size renderSize;
 
         public GeometryObject(string name, Shape shape, Color color, float borderThickness, bool fill, System.Windows.Point position, System.Windows.Size size) : base(name)
         {
@@ -26,7 +31,8 @@ namespace ShadowBuild.Objects.Geometry
         {
             this.Shape = shape;
             this.Position = position;
-            this.BaseSize = new System.Windows.Size(endPosition.X - position.X, endPosition.Y - position.Y);
+            this.EndPosition = endPosition;
+            SetBoundsFrom2Points(position, endPosition);
             this.Color = color;
             this.Fill = fill;
             this.BorderThickness = borderThickness;
@@ -44,6 +50,7 @@ namespace ShadowBuild.Objects.Geometry
         public GeometryObject(string name, Shape shape, System.Windows.Point position, System.Windows.Point endPosition) : base(name)
         {
             this.Shape = shape;
+            this.EndPosition = endPosition;
             SetBoundsFrom2Points(position, endPosition);
             this.Name = name;
 
@@ -63,6 +70,7 @@ namespace ShadowBuild.Objects.Geometry
         public GeometryObject(string name, Layer layer, Shape shape, Color color, float borderThickness, bool fill, System.Windows.Point position, System.Windows.Point endPosition) : base(name, layer)
         {
             this.Shape = shape;
+            this.EndPosition = endPosition;
             SetBoundsFrom2Points(position, endPosition);
             this.Color = color;
             this.Fill = fill;
@@ -84,8 +92,19 @@ namespace ShadowBuild.Objects.Geometry
         {
             this.Shape = shape;
             SetBoundsFrom2Points(position, endPosition);
+            this.EndPosition = endPosition;
             this.Name = name;
             this.RenderLayer = layer;
+        }
+        public System.Windows.Point GetStartRenderPosition()
+        {
+            System.Windows.Point tmpPosition = this.renderPosition;
+            if (this.Parent != null)
+            {
+                tmpPosition = new System.Windows.Point(tmpPosition.X + this.Parent.GetGlobalPosition().X, tmpPosition.Y + this.Parent.GetGlobalPosition().Y);
+            }
+            return tmpPosition;
+
         }
         private void SetBoundsFrom2Points(System.Windows.Point p1, System.Windows.Point p2)
         {
@@ -96,14 +115,15 @@ namespace ShadowBuild.Objects.Geometry
 
             if (p1.X > p2.X) { bX = p1.X; sX = p2.X; }
             else { bX = p2.X; sX = p1.X; }
-            if (p1.Y > p2.Y) { bX = p1.Y; sX = p2.Y; }
-            else { bX = p2.Y; sX = p1.Y; } 
+            if (p1.Y > p2.Y) { bY = p1.Y; sY = p2.Y; }
+            else { bY = p2.Y; sY= p1.Y; } 
 
-            this.Position = new System.Windows.Point(sX, sY);
-            this.BaseSize = new System.Windows.Size(bX - sX, bY - sY);
+            this.renderPosition = new System.Windows.Point(sX, sY);
+            this.renderSize = new System.Windows.Size(bX - sX, bY - sY);
         }
         public void SetEndPosition(System.Windows.Point endPosition)
         {
+            this.EndPosition = endPosition;
             SetBoundsFrom2Points(this.Position, endPosition);
         }
 
@@ -116,16 +136,24 @@ namespace ShadowBuild.Objects.Geometry
         {
             return this.GetGlobalPosition();
         }
-
+        public System.Windows.Point GetGlobalEndPosition()
+        {
+            System.Windows.Point tmpPosition = this.EndPosition;
+            if (this.Parent != null)
+            {
+                tmpPosition = new System.Windows.Point(tmpPosition.X + this.Parent.GetGlobalPosition().X, tmpPosition.Y + this.Parent.GetGlobalPosition().Y);
+            }
+            return tmpPosition;
+        }
         public override void Render(Graphics g, System.Windows.Point startPosition)
         {
             System.Drawing.Point pos = new System.Drawing.Point(
-                (int)(this.GetStartPosition().X - startPosition.X),
-                (int)(this.GetStartPosition().Y - startPosition.Y)
+                (int)(this.GetStartRenderPosition().X - startPosition.X),
+                (int)(this.GetStartRenderPosition().Y - startPosition.Y)
                 );
             System.Drawing.Size size = new System.Drawing.Size(
-                (int)this.BaseSize.Width,
-                (int)this.BaseSize.Height);
+                (int)renderSize.Width,
+                (int)renderSize.Height);
 
             Rectangle rect = new Rectangle(pos, size);
 
@@ -146,7 +174,11 @@ namespace ShadowBuild.Objects.Geometry
                     break;
 
                 default:
-                    g.DrawLine(new Pen(this.Color, this.BorderThickness), pos.X, pos.Y, pos.X + size.Width, pos.Y + size.Height);
+                    int x1 = (int)(this.GetStartPosition().X - startPosition.X);
+                    int y1 = (int)(this.GetStartPosition().Y - startPosition.Y);
+                    int x2 = (int)(this.GetGlobalEndPosition().X - startPosition.X);
+                    int y2 = (int)(this.GetGlobalEndPosition().Y - startPosition.Y);
+                    g.DrawLine(new Pen(this.Color, this.BorderThickness), x1, y1, x2, y2);
                     break;
             }
 
