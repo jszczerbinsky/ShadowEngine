@@ -119,7 +119,7 @@ namespace ShadowBuild.Input.Mouse
             {
                 if (CheckExists(a.Button, PressedButtons))
                     PressedButtons.Remove(a.Button);
-                if (!CheckExists(a.Button, ClickedButtons))
+                if (CheckExists(a.Button, ClickedButtons))
                     ClickedButtons.Remove(a.Button);
             }
         }
