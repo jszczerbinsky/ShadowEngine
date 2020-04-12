@@ -14,7 +14,7 @@ namespace ShadowBuild.Objects
         public GameObject(string name, Texture texture, Layer layer) : base(name, texture, layer) { }
         public GameObject(string name, Texture texture, World world) : base(name, texture, world) { }
         public GameObject(string name, Texture texture, Layer layer, World world) : base(name, texture, layer, world) { }
-        private GameObject() : base() { }
+        private GameObject() { }
 
         private bool CheckCollision(GameObject obj1, GameObject obj2)
         {
@@ -65,10 +65,10 @@ namespace ShadowBuild.Objects
 
         }
 
-        public override void Render(System.Drawing.Graphics g, Point camPos)
+        public override void Render(System.Drawing.Graphics g, Point startPosition)
         {
             if(this.ActualTexture != null)
-                this.ActualTexture.Render(g, this, camPos);
+                this.ActualTexture.Render(g, this, startPosition);
         }
 
 

@@ -54,7 +54,7 @@ namespace ShadowBuild.Objects
         }
 
 
-        public RenderableObject(string name)
+        protected RenderableObject(string name)
         {
             this.Name = name;
             this.RenderLayer = Layer.Default;
@@ -64,7 +64,7 @@ namespace ShadowBuild.Objects
             All.Add(this);
             this.World.Objects.Add(this);
         }
-        public RenderableObject(string name, Layer layer)
+        protected RenderableObject(string name, Layer layer)
         {
             this.Name = name;
             this.RenderLayer = layer;
@@ -74,7 +74,7 @@ namespace ShadowBuild.Objects
             All.Add(this);
             this.World.Objects.Add(this);
         }
-        public RenderableObject(string name, World world)
+        protected RenderableObject(string name, World world)
         {
             this.Name = name;
             this.RenderLayer = Layer.Default;
@@ -85,7 +85,7 @@ namespace ShadowBuild.Objects
             this.World.Objects.Add(this);
 
         }
-        public RenderableObject(string name, Layer layer, World world)
+        protected RenderableObject(string name, Layer layer, World world)
         {
             this.Name = name;
             this.RenderLayer = layer;
@@ -131,8 +131,8 @@ namespace ShadowBuild.Objects
         public bool IsChildOf(RenderableObject parent)
         {
             if (this.Parent == parent) return true;
-            else if (this.Parent == null) return false;
-            else return this.Parent.IsChildOf(parent);
+            if (this.Parent == null) return false;
+            return this.Parent.IsChildOf(parent);
         }
 
         public Point GetGlobalPosition()

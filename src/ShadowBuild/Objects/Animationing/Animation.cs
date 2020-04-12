@@ -19,8 +19,8 @@ namespace ShadowBuild.Objects.Animationing
         }
         public double Speed = 1;
 
-        private int ActualTextureID = 0;
-        private double ActualOffset = 0;
+        private int ActualTextureID;
+        private double ActualOffset;
 
         public Animation(string name, List<Texture> textures)
         {

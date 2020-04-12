@@ -6,8 +6,8 @@ namespace ShadowBuild.Sound
 {
     internal class SoundInstance 
     {
-        internal MemoryStream ms = null;
-        internal SoundPlayer sp = null;
+        internal MemoryStream ms;
+        internal SoundPlayer sp;
 
         internal SoundInstance()
         {

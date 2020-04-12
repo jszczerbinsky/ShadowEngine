@@ -18,13 +18,13 @@ namespace ShadowBuild.Objects.Texturing
             get
             {
                 if (ActualAnimation != null) return ActualAnimation.ActualTexture;
-                else return this.DefaultTexture;
+                return this.DefaultTexture;
             }
             private set { }
         }
         public Animation ActualAnimation { get; private set; } = null;
 
-        protected TexturedObject() : base() { }
+        protected TexturedObject() { }
         protected TexturedObject(string name, Texture texture) : base(name)
         {
             this.DefaultTexture = texture;

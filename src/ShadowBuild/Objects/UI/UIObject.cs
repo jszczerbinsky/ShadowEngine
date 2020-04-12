@@ -51,12 +51,12 @@ namespace ShadowBuild.Objects.UI
                     );
             g.DrawString(this.Content, SystemFonts.MenuFont, new SolidBrush(Color.Black), rect, ContentFormat);
         }
-        public override void Render(Graphics g, System.Windows.Point camPos)
+        public override void Render(Graphics g, System.Windows.Point startPosition)
         {
             System.Windows.Point camPosTmp = new System.Windows.Point(0,0);
 
             if (this.PositionType == UIPositionType.Global)
-                camPosTmp = camPos; 
+                camPosTmp = startPosition; 
 
             if (this.ActualTexture != null)
                 this.ActualTexture.Render(g, this, camPosTmp);

@@ -58,8 +58,6 @@
     <Compile Include="Input\Mouse\MouseAxesValues.cs" />
     <Compile Include="Input\Mouse\MouseAxis.cs" />
     <Compile Include="Objects\Animationing\Animation.cs" />
-    <Compile Include="Objects\Geometry\GeometryObject.cs" />
-    <Compile Include="Objects\Geometry\Shape.cs" />
     <Compile Include="Objects\RenderableObject.cs" />
     <Compile Include="Objects\Texturing\Image\ImageTexture.cs" />
     <Compile Include="Objects\Texturing\Shape.cs" />
@@ -102,6 +100,8 @@
     <Compile Include="Sound\Sound.cs" />
     <Compile Include="Sound\SoundInstance.cs" />
     <Compile Include="Exceptions\SoundException.cs" />
+    <Compile Include="Objects\Geometry\GeometryObject.cs" />
+    <Compile Include="Objects\Geometry\Shape.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GameWindow.resx">

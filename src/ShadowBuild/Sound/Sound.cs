@@ -7,7 +7,7 @@ using ShadowBuild.Exceptions;
 
 namespace ShadowBuild.Sound
 {
-    public class Sound
+    public sealed class Sound
     {
         private List<SoundInstance> intances = new List<SoundInstance>();
         private MemoryStream ms = new MemoryStream();

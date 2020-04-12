@@ -10,7 +10,7 @@ namespace ShadowBuild.Rendering
     public class Layer : ConfigSavable, IComparable<Layer>
     {
         public static readonly Layer Default = new Layer("default", 0);
-        internal static readonly List<Layer> All = new List<Layer>() { Layer.Default };
+        internal static readonly List<Layer> All = new List<Layer> { Layer.Default };
 
         [ScriptIgnore]
         public List<RenderableObject> Objects
@@ -24,7 +24,6 @@ namespace ShadowBuild.Rendering
                 }
                 return objs;
             }
-            private set { }
         }
 
         public readonly int zIndex;

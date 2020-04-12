@@ -117,11 +117,11 @@ namespace ShadowBuild.Objects.Geometry
             return this.GetGlobalPosition();
         }
 
-        public override void Render(Graphics g, System.Windows.Point camPos)
+        public override void Render(Graphics g, System.Windows.Point startPosition)
         {
             System.Drawing.Point pos = new System.Drawing.Point(
-                (int)(this.GetStartPosition().X - camPos.X),
-                (int)(this.GetStartPosition().Y - camPos.Y)
+                (int)(this.GetStartPosition().X - startPosition.X),
+                (int)(this.GetStartPosition().Y - startPosition.Y)
                 );
             System.Drawing.Size size = new System.Drawing.Size(
                 (int)this.BaseSize.Width,
@@ -145,7 +145,7 @@ namespace ShadowBuild.Objects.Geometry
                         g.DrawRectangle(new Pen(this.Color, this.BorderThickness), rect);
                     break;
 
-                case Shape.Line:
+                default:
                     g.DrawLine(new Pen(this.Color, this.BorderThickness), pos.X, pos.Y, pos.X + size.Width, pos.Y + size.Height);
                     break;
             }

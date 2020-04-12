@@ -27,7 +27,7 @@ namespace ShadowBuild
         const int SW_HIDE = 0;
         const int SW_SHOW = 5;
 
-        public ShadowBuildProject(string[] args)
+        protected ShadowBuildProject(string[] args)
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 ShowWindow(GetConsoleWindow(), SW_HIDE);
