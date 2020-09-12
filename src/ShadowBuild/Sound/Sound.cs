@@ -1,48 +1,71 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Media;
 using System.Reflection;
 using System.Threading;
+using System.Windows.Media;
+using System.Windows.Threading;
 using ShadowBuild.Exceptions;
 
 namespace ShadowBuild.Sound
 {
     public sealed class Sound
     {
-        private List<SoundInstance> intances = new List<SoundInstance>();
-        private MemoryStream ms = new MemoryStream();
+        private MediaPlayer player = new MediaPlayer();
+        public double volume
+        {
+            get
+            {
+                double vol = 0;
+                GameWindow.actualGameWindow.Invoke(new Action(() =>
+                {
+                    vol = player.Volume;
+                }));
+
+                return vol;
+            }
+            set
+            {
+                GameWindow.actualGameWindow.Invoke(new Action(() =>
+                {
+                    player.Volume = value;
+                }));
+            }
+        }
 
         public Sound(string path)
         {
-            FileStream fs = null;
-
             try
             {
-                fs = new FileStream(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + path, FileMode.Open);
-            }catch(FileNotFoundException e)
+                player.Open(new Uri(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + path));
+            }
+            catch (FileNotFoundException e)
             {
                 throw new SoundException("Not found " + Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + path + " file", e);
             }
-            fs.CopyTo(ms);
-            fs.Close();
-            ms.Position = 0;
         }
         public void Play()
         {
-            SoundInstance i = new SoundInstance();
-            i.ms = new MemoryStream();
-            ms.CopyTo(i.ms);
-            ms.Position = 0;
-            i.ms.Position = 0;
-            i.Init();
-            intances.Add(i);
-            i.Play();
+            GameWindow.actualGameWindow.Invoke(new Action(() => { player.Play(); }));
         }
-        public void Stop()
+        public void Pause()
         {
-            foreach (SoundInstance si in intances)
-                si.Stop();
-            intances.Clear();
+            GameWindow.actualGameWindow.Invoke(new Action(() =>
+            {
+                player.Pause();
+            }));
+        }
+        public void PlayAgain()
+        {
+            GameWindow.actualGameWindow.Invoke(new Action(() =>
+            {
+                player.Position = new TimeSpan(0);
+            }));
+            GameWindow.actualGameWindow.Invoke(new Action(() =>
+            {
+                Play();
+            }));
         }
     }
 }

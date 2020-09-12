@@ -98,7 +98,6 @@
     <Compile Include="Rendering\Display.cs" />
     <Compile Include="Objects\UI\UIPositionType.cs" />
     <Compile Include="Sound\Sound.cs" />
-    <Compile Include="Sound\SoundInstance.cs" />
     <Compile Include="Exceptions\SoundException.cs" />
     <Compile Include="Objects\Geometry\GeometryObject.cs" />
     <Compile Include="Objects\Geometry\Shape.cs" />
@@ -112,8 +111,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Sound\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
