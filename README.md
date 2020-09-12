@@ -4,9 +4,6 @@ ShadowBuild is a .NET framework for creating 2D games. It's focused on RPG games
 # Current state
 ShadowBuild is not released yet, but it's going to be soon in an alpha state. Probably there will be a ShadowBuild CLI too, that will be used to fast setup a new ShadowBuild project or edit Your an existing project configuration.
 
-# Compability
-My goal is to make ShadowBuild run as good on Windows as on Linux using [mono](https://github.com/mono/mono).
-
 # License
 BSD 3-Clause License
 
