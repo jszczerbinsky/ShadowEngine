@@ -95,7 +95,9 @@
     <Compile Include="ProjectConfig.cs" />
     <Compile Include="Objects\World.cs" />
     <Compile Include="Exceptions\WorldNameException.cs" />
-    <Compile Include="Rendering\Display.cs" />
+    <Compile Include="Rendering\Display.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Objects\UI\UIPositionType.cs" />
     <Compile Include="Sound\Sound.cs" />
     <Compile Include="Exceptions\SoundException.cs" />
@@ -111,6 +113,10 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="LICENSE ShadowBuild.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
