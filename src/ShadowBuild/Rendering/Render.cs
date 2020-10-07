@@ -28,33 +28,37 @@ namespace ShadowBuild.Rendering
                     cam.Position.Y - cam.BaseSize.Height / 2);
 
 
-                using (Brush backgroundBrush = new SolidBrush(cam.Background))
-                {
+            using (Brush backgroundBrush = new SolidBrush(cam.Background))
+            {
                 g.FillRectangle(backgroundBrush, 0, 0, (int)cam.BaseSize.Width, (int)cam.BaseSize.Height);
-                }
+            }
 
-                if (ShowFPS)
+            if (ShowFPS)
+            {
+                g.FillRectangle(FPSBackground, FPSRectangle);
+                g.DrawString(
+                    Loop.currentFPS.ToString("D3") + " FPS",
+                    FPSFont,
+                    FPSForeground,
+                    FPSRectangle
+                );
+            }
+
+            foreach (Layer l in SortedLayers)
+            {
+                if (!cam.IsRendering(l)) continue;
+                foreach (RenderableObject obj in l.Objects)
                 {
-                    g.FillRectangle(FPSBackground, FPSRectangle);
-                    g.DrawString(
-                        Loop.currentFPS.ToString("D3") + " FPS",
-                        FPSFont,
-                        FPSForeground, 
-                        FPSRectangle
-                    );
+                    if (!obj.Visible) continue;
+
+                    obj.InheritRotation(g, startPos);
+
+
+                    obj.Render(g, startPos);
+
                 }
+            }
 
-                foreach (Layer l in SortedLayers)
-                {
-                    if (!cam.IsRendering(l)) continue;
-                    foreach (RenderableObject obj in l.Objects)
-                    {
-                        if (!obj.Visible) continue;
-                        obj.Render(g, startPos);
-
-                    }
-               }
-                
         }
 
     }

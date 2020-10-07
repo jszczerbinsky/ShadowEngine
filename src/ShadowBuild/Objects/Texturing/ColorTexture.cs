@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ShadowBuild.Rendering;
+using System;
 using System.Drawing;
 using System.Web.Script.Serialization;
+using System.Windows.Forms.VisualStyles;
 
 namespace ShadowBuild.Objects.Texturing
 {
@@ -31,6 +33,7 @@ namespace ShadowBuild.Objects.Texturing
         {
             ColorTexture tex = (ColorTexture)obj.ActualTexture;
             Brush brush = new SolidBrush(tex.Color);
+
             Rectangle size = new Rectangle(
                 new System.Drawing.Point(
                      (int)(obj.GetStartPosition().X - cameraPos.X),
@@ -41,10 +44,11 @@ namespace ShadowBuild.Objects.Texturing
                     (int)(obj.SizeMultipler.Height * obj.BaseSize.Height)
                 )
             );
-
             if (tex.Shape == ColorTextureShape.Ellipse)
                 g.FillEllipse(brush, size);
             else g.FillRectangle(brush, size);
+
+            g.ResetTransform();
         }
     }
 }

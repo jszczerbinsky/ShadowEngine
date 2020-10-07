@@ -53,6 +53,7 @@ namespace ShadowBuild.Objects
             }
         }
 
+        #region constructors
 
         protected RenderableObject(string name)
         {
@@ -97,6 +98,8 @@ namespace ShadowBuild.Objects
 
         }
         protected RenderableObject() { }
+
+        #endregion
 
         public static RenderableObject Get(string name)
         {
@@ -174,7 +177,19 @@ namespace ShadowBuild.Objects
         }
         #endregion
 
-        public abstract Point GetStartPosition();
+        public void InheritRotation(System.Drawing.Graphics g, Point startPos)
+        {
+            if (this.Parent != null) this.Parent.InheritRotation(g, startPos);
+
+
+            //Rotate by origin
+            g.TranslateTransform((float)(this.GetGlobalPosition().X - startPos.X), (float)(this.GetGlobalPosition().Y - startPos.Y));
+            g.RotateTransform(this.Rotation);
+
+            //Return to position 0,0
+            g.TranslateTransform(-(float)(this.GetGlobalPosition().X - startPos.X), -(float)(this.GetGlobalPosition().Y - startPos.Y));
+        }
+
         public abstract void Render(System.Drawing.Graphics g, Point startPosition);
 
         public abstract bool CheckPointInside(Point p);

@@ -132,7 +132,7 @@ namespace ShadowBuild.Objects.Geometry
             throw new NotImplementedException();
         }
 
-        public override System.Windows.Point GetStartPosition()
+        public System.Windows.Point GetStartPosition()
         {
             return this.GetGlobalPosition();
         }

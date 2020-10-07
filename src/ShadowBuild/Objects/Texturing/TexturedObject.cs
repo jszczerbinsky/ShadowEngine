@@ -53,25 +53,25 @@ namespace ShadowBuild.Objects.Texturing
             }
             return base.GetRealSize();
         }
-        public override Point GetStartPosition()
+        public Point GetStartPosition()
         {
-            double decreseLeft = 0;
-            double decreseTop = 0;
+            double decreaseLeft = 0;
+            double decreaseTop = 0;
 
             if (ActualTexture is RegularTexture || ActualTexture is ColorTexture)
             {
-                decreseLeft -= this.SizeMultipler.Width * this.BaseSize.Width / 2;
-                decreseTop -= this.SizeMultipler.Height * this.BaseSize.Height / 2;
+                decreaseLeft -= this.SizeMultipler.Width * this.BaseSize.Width / 2;
+                decreaseTop -= this.SizeMultipler.Height * this.BaseSize.Height / 2;
             }
             else if (ActualTexture is GridTexture)
             {
                 GridTexture tex = (GridTexture)this.ActualTexture;
-                decreseLeft -= this.SizeMultipler.Width * this.BaseSize.Width * tex.xCount / 2;
-                decreseTop -= this.SizeMultipler.Height * this.BaseSize.Height * tex.yCount / 2;
+                decreaseLeft -= this.SizeMultipler.Width * this.BaseSize.Width * tex.xCount / 2;
+                decreaseTop -= this.SizeMultipler.Height * this.BaseSize.Height * tex.yCount / 2;
             }
-            Point decrese = new Point(decreseLeft, decreseTop);
+            Point decrease = new Point(decreaseLeft, decreaseTop);
 
-            return new Point(this.GetGlobalPosition().X + decrese.X, this.GetGlobalPosition().Y + decrese.Y);
+            return new Point(this.GetGlobalPosition().X + decrease.X, this.GetGlobalPosition().Y + decrease.Y);
         }
         public override bool CheckPointInside(Point p)
         {
