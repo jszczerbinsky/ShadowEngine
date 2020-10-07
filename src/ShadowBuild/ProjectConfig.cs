@@ -8,8 +8,6 @@ namespace ShadowBuild
         public string Name { get; internal set; }
         public string Author { get; internal set; }
 
-        public string LicenseFilePath { get; internal set; }
-
         public string ProjectVersion { get; internal set; }
         public string ShadowBuildVersion { get; internal set; }
 

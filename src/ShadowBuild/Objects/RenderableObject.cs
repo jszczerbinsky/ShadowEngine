@@ -7,7 +7,7 @@ using System.Windows;
 
 namespace ShadowBuild.Objects
 {
-    public abstract class RenderableObject : _2DobjectResizable
+    public abstract class RenderableObject : _2Dobject
     {
         public static List<RenderableObject> All { get; private set; } = new List<RenderableObject>();
 

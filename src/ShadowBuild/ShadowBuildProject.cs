@@ -68,7 +68,6 @@ namespace ShadowBuild
             {
                 pc.Name = val["Name"];
                 pc.Author = val["Author"];
-                pc.LicenseFilePath = val["LicenseFilePath"];
                 pc.ProjectVersion = val["ProjectVersion"];
                 pc.ShadowBuildVersion = val["ShadowBuildVersion"];
                 dynamic sr = val["StartResolution"];

@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace ShadowBuild.Rendering
 {
-    public class Camera : _2DobjectResizable
+    public class Camera : _2Dobject
     {
         public static Camera Default;
 

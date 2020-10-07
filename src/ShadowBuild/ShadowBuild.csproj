@@ -78,7 +78,6 @@
     <Compile Include="Objects\Texturing\ColorTexture.cs" />
     <Compile Include="Objects\Texturing\Image\GridTexture.cs" />
     <Compile Include="Objects\Texturing\Image\RegularTexture.cs" />
-    <Compile Include="Objects\_2Dobject.cs" />
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="GameWindow.cs">
       <SubType>Form</SubType>
@@ -86,7 +85,7 @@
     <Compile Include="Input\Keyboard\Keyboard.cs" />
     <Compile Include="Input\Mouse\Mouse.cs" />
     <Compile Include="Objects\Texturing\Texture.cs" />
-    <Compile Include="Objects\_2DobjectResizable.cs" />
+    <Compile Include="Objects\_2Dobject.cs" />
     <Compile Include="Rendering\Layer.cs" />
     <Compile Include="Rendering\Render.cs" />
     <Compile Include="ShadowBuildProject.cs" />
