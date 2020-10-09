@@ -1,18 +1,20 @@
 ﻿using ShadowBuild.Objects.Animationing;
 using ShadowBuild.Objects.Texturing.Image;
 using ShadowBuild.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace ShadowBuild.Objects.Texturing
 {
+    /// <summary>
+    /// Textured object class.
+    /// Textured objects are renderable objects, that can use textures.
+    /// </summary>
     public abstract class TexturedObject : RenderableObject
     {
+        /// <value>Default object texture</value>
         public Texture DefaultTexture { get; protected set; }
+
+        /// <value>Actual object texture (if there is no animation it returns default texture)</value>
         public Texture ActualTexture
         {
             get
@@ -22,6 +24,8 @@ namespace ShadowBuild.Objects.Texturing
             }
             private set { }
         }
+
+        /// <value>Actual animation</value>
         public Animation ActualAnimation { get; private set; } = null;
 
         protected TexturedObject() { }
@@ -53,6 +57,10 @@ namespace ShadowBuild.Objects.Texturing
             }
             return base.GetRealSize();
         }
+
+        /// <summary>
+        /// Gets start position of an object
+        /// </summary>
         public Point GetStartPosition()
         {
             double decreaseLeft = 0;
@@ -73,6 +81,7 @@ namespace ShadowBuild.Objects.Texturing
 
             return new Point(this.GetNonRotatedGlobalPosition().X + decrease.X, this.GetNonRotatedGlobalPosition().Y + decrease.Y);
         }
+
         public override bool CheckPointInside(Point p)
         {
             Point start = this.GetStartPosition();
@@ -96,10 +105,19 @@ namespace ShadowBuild.Objects.Texturing
                 return true;
             return false;
         }
+
+        /// <summary>
+        /// Plays animation
+        /// </summary>
+        /// <param name="animName">name of animation</param>
         public void Play(string animName)
         {
             this.ActualAnimation = Animation.Get(animName);
         }
+
+        /// <summary>
+        /// Stops playing actual animationrealsize
+        /// </summary>
         public void StopPlaying()
         {
             this.ActualAnimation = null;

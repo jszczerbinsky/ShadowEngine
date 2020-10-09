@@ -1,27 +1,42 @@
-﻿using ShadowBuild.Rendering;
-using System;
+﻿using System;
 using System.Drawing;
 using System.Web.Script.Serialization;
-using System.Windows.Forms.VisualStyles;
 
 namespace ShadowBuild.Objects.Texturing
 {
+    /// <summary>
+    /// Color texture class.
+    /// With this class you can create textures with single color.
+    /// </summary>
     public class ColorTexture : Texture
     {
+        /// <value>Texture color</value>
         [ScriptIgnore]
         public Color Color;
+
+        /// <value>Gets texture color in hex value</value>
         public string HexColor
         {
             get { return "#" + Color.R.ToString("X2") + Color.G.ToString("X2") + Color.B.ToString("X2") + Color.A.ToString("X2"); }
         }
+
+        /// <value>Texture shape</value>
         [ScriptIgnore]
         public ColorTextureShape Shape;
+
+        /// <value>Texture shape as string</value>
         public string ShapeString
         {
             get { return Shape.ToString(); }
             set { Shape = (ColorTextureShape)Enum.Parse(typeof(ColorTextureShape), value); }
         }
 
+        /// <summary>
+        /// Constructor of color texture.
+        /// </summary>
+        /// <param name="name">texture name</param>
+        /// <param name="color">texture color</param>
+        /// <param name="shape">texture shape</param>
         public ColorTexture(string name, Color color, ColorTextureShape shape)
         {
             this.Name = name;

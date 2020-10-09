@@ -1,6 +1,8 @@
-﻿using System;
-namespace ShadowBuild.Objects.UI
+﻿namespace ShadowBuild.Objects.UI
 {
+    /// <summary>
+    /// UI object position type.
+    /// </summary>
     public enum UIPositionType
     {
         RelativeToScreen,

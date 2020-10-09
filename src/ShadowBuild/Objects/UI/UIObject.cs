@@ -1,18 +1,29 @@
-﻿using System;
-using System.Drawing;
-using ShadowBuild.Input.Mouse;
+﻿using ShadowBuild.Input.Mouse;
 using ShadowBuild.Objects.Texturing;
-using ShadowBuild.Objects.Texturing.Image;
 using ShadowBuild.Rendering;
+using System.Drawing;
 
 namespace ShadowBuild.Objects.UI
 {
+
+    /// <summary>
+    /// UI object class.
+    /// With this class you can create UI objects.
+    /// </summary>
     public class UIObject : TexturedObject
     {
+        /// <value>UI object position type</value>
         public UIPositionType PositionType = UIPositionType.RelativeToScreen;
+
+        /// <value>Text on UI object</value>
         public string Content;
+
+        /// <value>size of a text</value>
         public System.Windows.Size ContentSize = new System.Windows.Size(100, 100);
+
+        /// <value>format of a text</value>
         public StringFormat ContentFormat = new StringFormat();
+
         public override bool MouseOver
         {
             get
@@ -21,8 +32,8 @@ namespace ShadowBuild.Objects.UI
                 if (PositionType == UIPositionType.Global) return base.MouseOver;
 
                 System.Windows.Point p = new System.Windows.Point(
-                                    Mouse.Position.X, 
-                                    Mouse.Position.Y 
+                                    Mouse.Position.X,
+                                    Mouse.Position.Y
                                 );
                 return CheckPointInside(p);
             }
@@ -53,10 +64,10 @@ namespace ShadowBuild.Objects.UI
         }
         public override void Render(Graphics g, System.Windows.Point startPosition)
         {
-            System.Windows.Point camPosTmp = new System.Windows.Point(0,0);
+            System.Windows.Point camPosTmp = new System.Windows.Point(0, 0);
 
             if (this.PositionType == UIPositionType.Global)
-                camPosTmp = startPosition; 
+                camPosTmp = startPosition;
 
             if (this.ActualTexture != null)
                 this.ActualTexture.Render(g, this, camPosTmp);
@@ -64,14 +75,14 @@ namespace ShadowBuild.Objects.UI
         }
         public override bool CheckPointInside(System.Windows.Point p)
         {
-            if(this.PositionType == UIPositionType.Global)
+            if (this.PositionType == UIPositionType.Global)
                 return base.CheckPointInside(p);
 
             double decreseLeft = this.GetRealSize().Width / 2;
             double decreseTop = this.GetRealSize().Height / 2;
 
             System.Windows.Point start = new System.Windows.Point(this.Position.X - decreseLeft, this.Position.Y - decreseTop);
-            System.Windows.Point end = new System.Windows.Point(start.X+ this.GetRealSize().Width, start.Y + this.GetRealSize().Height);
+            System.Windows.Point end = new System.Windows.Point(start.X + this.GetRealSize().Width, start.Y + this.GetRealSize().Height);
 
             if (
                 p.X > start.X &&

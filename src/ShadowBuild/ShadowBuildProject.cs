@@ -9,24 +9,39 @@ using System.Windows.Forms;
 
 namespace ShadowBuild
 {
+    /// <summary>
+    /// Main class of ShadowBuild project.
+    /// </summary>
     public abstract class ShadowBuildProject : ConfigSavable
     {
+        /// <value>Gets actual project.</value>
         public static ShadowBuildProject Project { get; private set; }
+        /// <value>Options loaded from ProjectConfig.json file.</value>
         public ProjectConfig Config { get; private set; }
 
-
+        /// <summary>
+        /// Method called after initialization of an engine.
+        /// </summary>
         public abstract void OnStart();
+
+        /// <summary>
+        /// Method called on every tick of game timer.
+        /// </summary>
         public abstract void OnTick();
 
         [DllImport("kernel32.dll")]
-        static extern IntPtr GetConsoleWindow();
+        private static extern IntPtr GetConsoleWindow();
 
         [DllImport("user32.dll")]
-        static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-        const int SW_HIDE = 0;
-        const int SW_SHOW = 5;
+        private const int SW_HIDE = 0;
+        private const int SW_SHOW = 5;
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="args">Apllication startup arguments.</param>
         protected ShadowBuildProject(string[] args)
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))

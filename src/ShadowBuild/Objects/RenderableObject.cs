@@ -1,6 +1,5 @@
 ﻿using ShadowBuild.Exceptions;
 using ShadowBuild.Input.Mouse;
-using ShadowBuild.Objects;
 using ShadowBuild.Rendering;
 using System;
 using System.Collections.Generic;
@@ -8,17 +7,34 @@ using System.Windows;
 
 namespace ShadowBuild.Objects
 {
+    /// <summary>
+    /// Renderable objects class.
+    /// Renderable objects can be rendered on game window.
+    /// </summary>
     public abstract class RenderableObject : _2Dobject
     {
+        /// <value>Gets all renderable objects</value>
         public static List<RenderableObject> All { get; private set; } = new List<RenderableObject>();
 
+        /// <value>Gets object name</value>
         public string Name;
-        public World World { get; private set; } 
 
+        /// <value>Gets world of an object</value>
+        public World World { get; private set; }
+
+        /// <value>
+        /// if true - object will be rendered
+        /// if false - it will not
+        /// </value>
         public bool Visible = true;
+
+        /// <value>Gets render layer of an object</value>
         public Layer RenderLayer { get; protected set; }
 
+        /// <value>Gets parent of an object</value>
         public RenderableObject Parent { get; private set; }
+
+        /// <value>Gets children of an object</value>
         public List<RenderableObject> Children
         {
             get
@@ -32,6 +48,8 @@ namespace ShadowBuild.Objects
             }
             private set { }
         }
+
+        /// <value>if mouse is over this object it will be true</value>
         public virtual bool MouseOver
         {
             get
@@ -44,6 +62,8 @@ namespace ShadowBuild.Objects
                 return CheckPointInside(p);
             }
         }
+
+        /// <value>if mouse is over this object and there is left mouse button click it will be true</value>
         public bool Click
         {
             get
@@ -104,12 +124,20 @@ namespace ShadowBuild.Objects
 
         #region finding
 
+        /// <summary>
+        /// Finds object by name
+        /// </summary>
         public static RenderableObject Get(string name)
         {
             foreach (RenderableObject o in All)
                 if (o.Name == name) return o;
             throw new ObjectException("Could not find object \"" + name + "\"");
         }
+
+        /// <summary>
+        /// Finds object by name.
+        /// </summary>
+        /// <typeparam name="T">Type of object (TexturedObject, GameObject etc.)</typeparam>
         public static T Get<T>(string name) where T : RenderableObject
         {
             foreach (RenderableObject o in All)
@@ -121,10 +149,21 @@ namespace ShadowBuild.Objects
 
         #region genealogic
 
+        /// <summary>
+        /// Sets parent of an object
+        /// </summary>
+        /// <param name="obj">parent</param>
         public void SetParent(RenderableObject obj)
         {
             this.Parent = obj;
         }
+
+        /// <summary>
+        /// Gets all grandchildren
+        /// </summary>
+        /// <returns>
+        /// All granchildren of an object (All objects that are children of this object and all their grandchildren)
+        /// </returns>
         public List<RenderableObject> GetAllGrandchildren()
         {
             List<RenderableObject> objs = new List<RenderableObject>();
@@ -139,6 +178,10 @@ namespace ShadowBuild.Objects
             }
             return objs;
         }
+
+        /// <summary>
+        /// Checks if object is children of another object.
+        /// </summary>
         public bool IsChildOf(RenderableObject parent)
         {
             if (this.Parent == parent) return true;
@@ -150,6 +193,9 @@ namespace ShadowBuild.Objects
 
         #region global transform
 
+        /// <summary>
+        /// Returns global position ignoring rotation and all grandparents rotation.
+        /// </summary>
         public Point GetNonRotatedGlobalPosition()
         {
             Point tmpPosition = this.Position;
@@ -161,6 +207,9 @@ namespace ShadowBuild.Objects
 
         }
 
+        /// <summary>
+        /// Returns global position.
+        /// </summary>
         public Point GetGlobalPosition()
         {
             Point pos = this.GetNonRotatedGlobalPosition();
@@ -168,6 +217,9 @@ namespace ShadowBuild.Objects
             return pos;
         }
 
+        /// <summary>
+        /// Returns global rotation.
+        /// </summary>
         public float GetGlobalRotation()
         {
             float rot = this.Rotation;
@@ -178,11 +230,16 @@ namespace ShadowBuild.Objects
         #endregion
 
         #region World
+
         private void MoveChildrenToWorld(World w)
         {
             foreach (RenderableObject obj in this.Children)
                 obj.MoveToWorld(w);
         }
+
+        /// <summary>
+        /// Moves object to another world.
+        /// </summary>
         public void MoveToWorld(string worldName)
         {
             foreach (World w in World.All)
@@ -196,6 +253,10 @@ namespace ShadowBuild.Objects
                 }
             throw new WorldNameException("There is no world with name " + worldName);
         }
+
+        /// <summary>
+        /// Moves object to another world.
+        /// </summary>
         public void MoveToWorld(World world)
         {
             this.World.Objects.Remove(this);
@@ -216,12 +277,18 @@ namespace ShadowBuild.Objects
             g.TranslateTransform(-(float)(this.GetNonRotatedGlobalPosition().X - startPos.X), -(float)(this.GetNonRotatedGlobalPosition().Y - startPos.Y));
         }
 
+        /// <summary>
+        /// Inherit rotation from all grandparents.
+        /// </summary>
         public void InheritRotation(ref float rot)
         {
             rot += this.Rotation;
             if (this.Parent != null) this.Parent.InheritRotation(ref rot);
         }
 
+        /// <summary>
+        /// Inherit position of all grandparents, including rotation transformations.
+        /// </summary>
         public void InheritPosition(ref Point p)
         {
             double angleInRadians = this.Rotation * (Math.PI / 180);
@@ -245,6 +312,9 @@ namespace ShadowBuild.Objects
 
         public abstract void Render(System.Drawing.Graphics g, Point startPosition);
 
+        /// <summary>
+        /// Checks point is inside this object.
+        /// </summary>
         public abstract bool CheckPointInside(Point p);
 
 

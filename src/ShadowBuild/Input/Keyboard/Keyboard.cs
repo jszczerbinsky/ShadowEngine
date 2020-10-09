@@ -3,6 +3,9 @@ using System.Windows.Forms;
 
 namespace ShadowBuild.Input.Keyboard
 {
+    /// <summary>
+    /// Keyboard events class.
+    /// </summary>
     public static class Keyboard
     {
         private static List<Keys> PressedKeys = new List<Keys>();
@@ -33,10 +36,18 @@ namespace ShadowBuild.Input.Keyboard
                     ClickedKeys.Remove(a.KeyCode);
             }
         }
+
+        /// <summary>
+        /// Returns true if key is pressed.
+        /// </summary>
         public static bool KeyPressed(Keys k)
         {
             return CheckExists(k, PressedKeys);
         }
+
+        /// <summary>
+        /// Returns true when key is pushed down.
+        /// </summary>
         public static bool KeyClick(Keys k)
         {
             bool check = CheckExists(k, ClickedKeys);

@@ -1,18 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ShadowBuild.Exceptions;
+using System;
 using System.IO;
-using System.Media;
 using System.Reflection;
-using System.Threading;
 using System.Windows.Media;
-using System.Windows.Threading;
-using ShadowBuild.Exceptions;
 
 namespace ShadowBuild.Sound
 {
+
+    /// <summary>
+    /// Sound class.
+    /// With this class you can manage sounds effects.
+    /// </summary>
     public sealed class Sound
     {
         private MediaPlayer player = new MediaPlayer();
+
+        /// <value>sound volume</value>
         public double volume
         {
             get
@@ -48,6 +51,10 @@ namespace ShadowBuild.Sound
                 throw new SoundException("Not found " + Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + path + " file", e);
             }
         }
+        /// <summary>
+        /// Clones sound.
+        /// It can be useful for playing multiple sounds with same audio effect.
+        /// </summary>
         public Sound Clone()
         {
             Sound s = new Sound();
@@ -55,10 +62,18 @@ namespace ShadowBuild.Sound
             s.volume = volume;
             return s;
         }
+
+        /// <summary>
+        /// Plays sound
+        /// </summary>
         public void Play()
         {
             GameWindow.actualGameWindow.Invoke(new Action(() => { player.Play(); }));
         }
+
+        /// <summary>
+        /// Pauses sound
+        /// </summary>
         public void Pause()
         {
             GameWindow.actualGameWindow.Invoke(new Action(() =>
@@ -66,6 +81,10 @@ namespace ShadowBuild.Sound
                 player.Pause();
             }));
         }
+
+        /// <summary>
+        /// Plays sound from start
+        /// </summary>
         public void PlayAgain()
         {
             GameWindow.actualGameWindow.Invoke(new Action(() =>

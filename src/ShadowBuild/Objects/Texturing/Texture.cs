@@ -7,14 +7,22 @@ using System.Drawing;
 
 namespace ShadowBuild.Objects.Texturing
 {
+    /// <summary>
+    /// Texture class
+    /// </summary>
     public abstract class Texture : ConfigSavable
     {
+        /// <value>All set up textures</value>
         public static List<Texture> All = new List<Texture>();
 
+        /// <value>Texture name</value>
         public string Name;
 
         public abstract void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos);
 
+        /// <summary>
+        /// Sets up a texture
+        /// </summary>
         public static void Setup(Texture t)
         {
             foreach (Texture tex in All)
@@ -22,6 +30,10 @@ namespace ShadowBuild.Objects.Texturing
                     throw new TextureException("Texture name \"" + t.Name + "\" is already in use");
             All.Add(t);
         }
+
+        /// <summary>
+        /// Finds texture by name
+        /// </summary>
         public static Texture Get(string name)
         {
             foreach (Texture t in All)
@@ -140,7 +152,7 @@ namespace ShadowBuild.Objects.Texturing
                 }
                 ColorConverter cc = new ColorConverter();
                 Color c = (Color)cc.ConvertFromString(hex);
-                All.Add(new ColorTexture(name, c, shape ));
+                All.Add(new ColorTexture(name, c, shape));
             }
 
             foreach (Texture t in All)

@@ -1,14 +1,23 @@
 ﻿using ShadowBuild.Objects;
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 
 namespace ShadowBuild.Rendering
 {
+    /// <summary>
+    /// Render class.
+    /// Here you can specify game window resolution and some rendering options.
+    /// </summary>
     public static class Render
     {
+
+        /// <value>Game window resolution</value>
         public static System.Windows.Size Resolution = new System.Windows.Size(800, 600);
+
+        /// <value>If true - FPS counter will be shown</value>
         public static bool ShowFPS = false;
+
+        /// <value>If true - Colliders will be shown</value>
         public static bool ShowColliders = false;
         private static SortedSet<Layer> SortedLayers;
 
@@ -57,14 +66,14 @@ namespace ShadowBuild.Rendering
 
                     obj.Render(g, startPos);
 
-                    if(ShowColliders && obj is GameObject)
+                    if (ShowColliders && obj is GameObject)
                     {
                         GameObject gobj = (GameObject)obj;
-                        if(gobj.Collider != null)
+                        if (gobj.Collider != null)
                         {
-                            foreach(System.Windows.Point p in gobj.Collider.GetGlobalPoints(gobj))
+                            foreach (System.Windows.Point p in gobj.Collider.GetGlobalPoints(gobj))
                             {
-                                g.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(new Point((int)p.X - 1-(int)startPos.X, (int)p.Y - 1-(int)startPos.Y), new Size(3, 3)));
+                                g.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(new Point((int)p.X - 1 - (int)startPos.X, (int)p.Y - 1 - (int)startPos.Y), new Size(3, 3)));
                             }
                         }
                     }

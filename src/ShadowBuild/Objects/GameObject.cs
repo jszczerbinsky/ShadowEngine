@@ -1,15 +1,18 @@
-﻿using ShadowBuild.Exceptions;
-using ShadowBuild.Objects.Collision;
+﻿using ShadowBuild.Objects.Collision;
 using ShadowBuild.Objects.Texturing;
 using ShadowBuild.Rendering;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace ShadowBuild.Objects
 {
+    /// <summary>
+    /// Game object class;
+    /// Game objects are renderable objects with textures and collisions
+    /// </summary>
     public class GameObject : TexturedObject
     {
+        /// <value>Object collider</value>
         public PolygonCollider Collider = null;
 
         public GameObject(string name, Texture texture) : base(name, texture) { }

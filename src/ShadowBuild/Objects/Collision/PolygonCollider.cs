@@ -1,26 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
 
 namespace ShadowBuild.Objects.Collision
 {
+    /// <summary>
+    /// Polygon collider class.
+    /// With this class you can make custom colliders to your game objects
+    /// </summary>
     public abstract class PolygonCollider
     {
+        /// <value>Gets vertices locations relative to parent object</value>
         public Point[] Vertices { get; protected set; }
 
         protected PolygonCollider()
         {
         }
 
+        /// <summary>
+        /// Polygon collider constructor.
+        /// </summary>
+        /// <param name="vertices">Vertices locations relative to parent</param>
         public PolygonCollider(Point[] vertices)
         {
             this.Vertices = vertices;
         }
 
+        /// <summary>
+        /// Gets vertices locations.
+        /// </summary>
         public Point[] GetGlobalPoints(GameObject parent)
         {
             Point[] globalPoints = new Point[this.Vertices.Length];

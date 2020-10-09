@@ -1,5 +1,4 @@
-﻿using System;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace ShadowBuild.Rendering
@@ -13,7 +12,7 @@ namespace ShadowBuild.Rendering
             if (this.Image != null) ((Bitmap)this.Image).Dispose();
             if (this.DisplayGraphics != null) this.DisplayGraphics.Dispose();
             this.Image = new Bitmap(Resolution.Width, Resolution.Height);
-            DisplayGraphics = Graphics.FromImage(this.Image); 
+            DisplayGraphics = Graphics.FromImage(this.Image);
         }
     }
 }

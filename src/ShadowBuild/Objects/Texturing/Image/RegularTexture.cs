@@ -3,10 +3,20 @@ using System.Drawing;
 
 namespace ShadowBuild.Objects.Texturing.Image
 {
+    /// <summary>
+    /// Regular texture class.
+    /// With this class you can create standard image textures.
+    /// </summary>
     public class RegularTexture : ImageTexture
     {
         //Empty constructor for deserialization
         public RegularTexture() { }
+
+        /// <summary>
+        /// Regular texture constructor
+        /// </summary>
+        /// <param name="name">texture name</param>
+        /// <param name="imgPath">path to image</param>
         public RegularTexture(string name, string imgPath)
         {
             this.Name = name;

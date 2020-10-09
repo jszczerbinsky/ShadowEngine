@@ -4,12 +4,23 @@ using System.Windows;
 
 namespace ShadowBuild.Rendering
 {
+
+    /// <summary>
+    /// Camera class.
+    /// You can use cameras to render different parts of a world.
+    /// </summary>
     public class Camera : _2Dobject
     {
+        /// <value>Default camera</value>
         public static Camera Default;
 
+        /// <value>Gets all render layers, that this camera renders</value>
         public readonly List<Layer> RenderLayers = new List<Layer>() { Layer.Default };
+
+        /// <value>Camera background</value>
         public System.Drawing.Color Background = System.Drawing.Color.Gray;
+
+        /// <value>Gets start point of rendered area of camera</value>
         public Point StartPosition
         {
             get
@@ -17,6 +28,8 @@ namespace ShadowBuild.Rendering
                 return new Point(this.Position.X - this.BaseSize.Width / 2, this.Position.Y - this.BaseSize.Height / 2);
             }
         }
+
+        /// <value>Gets end point of rendered area of camera</value>
         public Point EndPosition
         {
             get
@@ -42,6 +55,7 @@ namespace ShadowBuild.Rendering
             this.RenderLayers = layers;
         }
 
+        /// <value>Returns true if camera renders a layer</value>
         public bool IsRendering(Layer l)
         {
             foreach (Layer l1 in RenderLayers)

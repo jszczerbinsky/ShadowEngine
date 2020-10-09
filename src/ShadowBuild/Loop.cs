@@ -1,17 +1,26 @@
 ﻿using System;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ShadowBuild
 {
+    /// <summary>
+    /// Game loop class.
+    /// </summary>
     public static class Loop
     {
         private static Thread thread;
-        public delegate void OnTickDelegateVoid();
-        public static OnTickDelegateVoid OnTick;
-        public static long currentFPS { get; private set; } = 0;
-        public static double delay = 0;
 
+        /// <value>OnTick delegate.</value>
+        public delegate void OnTickDelegateVoid();
+
+        /// <value>Voids called on every timer tick.</value>
+        public static OnTickDelegateVoid OnTick;
+
+        /// <value>Gets current frames per second.</value>
+        public static long currentFPS { get; private set; } = 0;
+
+        /// <value>Gets time between last 2 timer ticks.</value>
+        public static double delay = 0;
 
         internal static void StartTicker()
         {
@@ -20,7 +29,7 @@ namespace ShadowBuild
                 double waitForCount = 0;
                 while (true)
                 {
-                    Thread.Sleep(10); 
+                    Thread.Sleep(10);
                     DateTime timeOnStart = DateTime.Now;
                     OnTick();
                     DateTime timeOnEnd = DateTime.Now;

@@ -7,11 +7,22 @@ using System.Web.Script.Serialization;
 
 namespace ShadowBuild.Rendering
 {
+    /// <summary>
+    /// Render layer class.
+    /// You can add objects to render layers.
+    /// You can specify what render layers should render the camera.
+    /// You can specify zIndex of the layer.
+    /// Each layer should have unique zIndex
+    /// </summary>
     public class Layer : ConfigSavable, IComparable<Layer>
     {
+        /// <value>Gets default layer</value>
         public static readonly Layer Default = new Layer("default", 0);
+
+        /// <value>Gets all layers</value>
         internal static readonly List<Layer> All = new List<Layer> { Layer.Default };
 
+        /// <value>Gets objects assigned to the layer</value>
         [ScriptIgnore]
         public List<RenderableObject> Objects
         {
@@ -26,7 +37,10 @@ namespace ShadowBuild.Rendering
             }
         }
 
+        /// <value>Gets zIndex of the layer</value>
         public readonly int zIndex;
+
+        /// <value>Gets layer name</value>
         public readonly string Name;
 
         public Layer(string name, int zIndex)
@@ -34,6 +48,10 @@ namespace ShadowBuild.Rendering
             this.Name = name;
             this.zIndex = zIndex;
         }
+
+        /// <summary>
+        /// Finds a layer by name
+        /// </summary>
         public static Layer Find(string name)
         {
             Layer l = FindWithoutException(name);
@@ -41,6 +59,10 @@ namespace ShadowBuild.Rendering
                 throw new LayerException("Cannot find layer \"" + name + "\"");
             return l;
         }
+
+        /// <summary>
+        /// Finds a layer by zIndex
+        /// </summary>
         public static Layer Find(int zIndex)
         {
             Layer l = FindWithoutException(zIndex);
@@ -67,7 +89,9 @@ namespace ShadowBuild.Rendering
             return null;
         }
 
-
+        /// <summary>
+        /// Sets up a layer
+        /// </summary>
         public static void Setup(Layer layer)
         {
             if (Layer.FindWithoutException(layer.Name) != null) throw new LayerException("Layer name \"" + layer.Name + "\" is already in use");

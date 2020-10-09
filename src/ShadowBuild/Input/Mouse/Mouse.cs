@@ -6,12 +6,20 @@ using System.Windows.Forms;
 
 namespace ShadowBuild.Input.Mouse
 {
+    /// <summary>
+    /// Mouse events class.
+    /// </summary>
     public static class Mouse
     {
         private static List<MouseButtons> PressedButtons = new List<MouseButtons>();
         private static List<MouseButtons> ClickedButtons = new List<MouseButtons>();
 
         private static bool lockCursor = false;
+
+        /// <summary>
+        /// If true - cursor is locked and hidden.
+        /// if false - cursor is in normal mode.
+        /// </summary>
         public static bool LockCursor
         {
             get
@@ -30,6 +38,10 @@ namespace ShadowBuild.Input.Mouse
                 lockCursor = value;
             }
         }
+
+        /// <summary>
+        /// Gets current mouse position relative to game window.
+        /// </summary>
         public static Point Position
         {
             get
@@ -45,6 +57,10 @@ namespace ShadowBuild.Input.Mouse
                 return new Point(p.X, p.Y);
             }
         }
+
+        /// <summary>
+        /// Gets current mouse position on screen.
+        /// </summary>
         public static Point GlobalPosition
         {
             get
@@ -63,6 +79,9 @@ namespace ShadowBuild.Input.Mouse
             }
         }
 
+        /// <summary>
+        /// returns mouse axis value.
+        /// </summary>
         public static double Get(MouseAxis a)
         {
             switch (a)
@@ -123,10 +142,18 @@ namespace ShadowBuild.Input.Mouse
                     ClickedButtons.Remove(a.Button);
             }
         }
+
+        /// <summary>
+        /// Returns true if mouse button is pressed.
+        /// </summary>
         public static bool ButtonPressed(MouseButtons k)
         {
             return CheckExists(k, PressedButtons);
         }
+
+        /// <summary>
+        /// Returns true when mouse button is pushed down.
+        /// </summary>
         public static bool ButtonClick(MouseButtons k)
         {
             bool check = CheckExists(k, ClickedButtons);

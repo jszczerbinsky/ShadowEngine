@@ -67,7 +67,7 @@ namespace ShadowBuild
 
         private void InitializeComponent()
         {
-            this.display = new Display(); 
+            this.display = new Display();
             ((System.ComponentModel.ISupportInitialize)(this.display)).BeginInit();
             this.SuspendLayout();
             // 
