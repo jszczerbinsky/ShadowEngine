@@ -33,7 +33,10 @@ namespace ShadowBuild.Sound
                 }));
             }
         }
+        private Sound()
+        {
 
+        }
         public Sound(string path)
         {
             try
@@ -44,6 +47,13 @@ namespace ShadowBuild.Sound
             {
                 throw new SoundException("Not found " + Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + path + " file", e);
             }
+        }
+        public Sound Clone()
+        {
+            Sound s = new Sound();
+            s.player = (MediaPlayer)player.Clone();
+            s.volume = volume;
+            return s;
         }
         public void Play()
         {
