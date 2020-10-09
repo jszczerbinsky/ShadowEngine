@@ -2,6 +2,7 @@
 using ShadowBuild.Input.Mouse;
 using ShadowBuild.Objects;
 using ShadowBuild.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -101,6 +102,8 @@ namespace ShadowBuild.Objects
 
         #endregion
 
+        #region finding
+
         public static RenderableObject Get(string name)
         {
             foreach (RenderableObject o in All)
@@ -113,6 +116,11 @@ namespace ShadowBuild.Objects
                 if (o.Name == name && o is T) return (T)o;
             throw new ObjectException("Could not find object \"" + name + "\" with type \"" + typeof(T).FullName + "\"");
         }
+
+        #endregion
+
+        #region genealogic
+
         public void SetParent(RenderableObject obj)
         {
             this.Parent = obj;
@@ -138,16 +146,36 @@ namespace ShadowBuild.Objects
             return this.Parent.IsChildOf(parent);
         }
 
-        public Point GetGlobalPosition()
+        #endregion
+
+        #region global transform
+
+        public Point GetNonRotatedGlobalPosition()
         {
             Point tmpPosition = this.Position;
             if (this.Parent != null)
             {
-                tmpPosition = new Point(tmpPosition.X + this.Parent.GetGlobalPosition().X, tmpPosition.Y + this.Parent.GetGlobalPosition().Y);
+                tmpPosition = new Point(tmpPosition.X + this.Parent.GetNonRotatedGlobalPosition().X, tmpPosition.Y + this.Parent.GetNonRotatedGlobalPosition().Y);
             }
             return tmpPosition;
 
         }
+
+        public Point GetGlobalPosition()
+        {
+            Point pos = this.GetNonRotatedGlobalPosition();
+            if (this.Parent != null) this.Parent.InheritPosition(ref pos);
+            return pos;
+        }
+
+        public float GetGlobalRotation()
+        {
+            float rot = this.Rotation;
+            if (this.Parent != null) Parent.InheritRotation(ref rot);
+            return rot;
+        }
+
+        #endregion
 
         #region World
         private void MoveChildrenToWorld(World w)
@@ -177,18 +205,43 @@ namespace ShadowBuild.Objects
         }
         #endregion
 
-        public void InheritRotation(System.Drawing.Graphics g, Point startPos)
+        #region inherit
+
+        public void InheritGraphicsTransform(System.Drawing.Graphics g, Point startPos)
         {
-            if (this.Parent != null) this.Parent.InheritRotation(g, startPos);
+            if (this.Parent != null) this.Parent.InheritGraphicsTransform(g, startPos);
 
-
-            //Rotate by origin
-            g.TranslateTransform((float)(this.GetGlobalPosition().X - startPos.X), (float)(this.GetGlobalPosition().Y - startPos.Y));
+            g.TranslateTransform((float)(this.GetNonRotatedGlobalPosition().X - startPos.X), (float)(this.GetNonRotatedGlobalPosition().Y - startPos.Y));
             g.RotateTransform(this.Rotation);
-
-            //Return to position 0,0
-            g.TranslateTransform(-(float)(this.GetGlobalPosition().X - startPos.X), -(float)(this.GetGlobalPosition().Y - startPos.Y));
+            g.TranslateTransform(-(float)(this.GetNonRotatedGlobalPosition().X - startPos.X), -(float)(this.GetNonRotatedGlobalPosition().Y - startPos.Y));
         }
+
+        public void InheritRotation(ref float rot)
+        {
+            rot += this.Rotation;
+            if (this.Parent != null) this.Parent.InheritRotation(ref rot);
+        }
+
+        public void InheritPosition(ref Point p)
+        {
+            double angleInRadians = this.Rotation * (Math.PI / 180);
+            double cosTheta = Math.Cos(angleInRadians);
+            double sinTheta = Math.Sin(angleInRadians);
+            p = new Point()
+            {
+                X =
+                    (int)
+                    (cosTheta * (p.X - this.GetNonRotatedGlobalPosition().X) -
+                    sinTheta * (p.Y - this.GetNonRotatedGlobalPosition().Y) + this.GetNonRotatedGlobalPosition().X),
+                Y =
+                    (int)
+                    (sinTheta * (p.X - GetNonRotatedGlobalPosition().X) +
+                    cosTheta * (p.Y - GetNonRotatedGlobalPosition().Y) + GetNonRotatedGlobalPosition().Y)
+            };
+            if (this.Parent != null) this.Parent.InheritPosition(ref p);
+        }
+
+        #endregion
 
         public abstract void Render(System.Drawing.Graphics g, Point startPosition);
 

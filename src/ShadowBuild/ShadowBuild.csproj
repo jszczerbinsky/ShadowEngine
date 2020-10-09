@@ -58,6 +58,9 @@
     <Compile Include="Input\Mouse\MouseAxesValues.cs" />
     <Compile Include="Input\Mouse\MouseAxis.cs" />
     <Compile Include="Objects\Animationing\Animation.cs" />
+    <Compile Include="Objects\Collision\PolygonCollider.cs" />
+    <Compile Include="Objects\Collision\RectCollider.cs" />
+    <Compile Include="Objects\Collision\RegularPolygonCollider.cs" />
     <Compile Include="Objects\RenderableObject.cs" />
     <Compile Include="Objects\Texturing\Image\ImageTexture.cs" />
     <Compile Include="Objects\Texturing\Shape.cs" />
@@ -74,7 +77,6 @@
     <Compile Include="Exceptions\EventException.cs" />
     <Compile Include="Input\Keyboard\Axis.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="Objects\Collision.cs" />
     <Compile Include="Objects\Texturing\ColorTexture.cs" />
     <Compile Include="Objects\Texturing\Image\GridTexture.cs" />
     <Compile Include="Objects\Texturing\Image\RegularTexture.cs" />

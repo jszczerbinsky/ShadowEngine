@@ -71,7 +71,7 @@ namespace ShadowBuild.Objects.Texturing
             }
             Point decrease = new Point(decreaseLeft, decreaseTop);
 
-            return new Point(this.GetGlobalPosition().X + decrease.X, this.GetGlobalPosition().Y + decrease.Y);
+            return new Point(this.GetNonRotatedGlobalPosition().X + decrease.X, this.GetNonRotatedGlobalPosition().Y + decrease.Y);
         }
         public override bool CheckPointInside(Point p)
         {

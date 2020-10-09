@@ -56,6 +56,8 @@ namespace ShadowBuild
                     ShowWindow(GetConsoleWindow(), SW_SHOW);
                 else if (CheckArg(arg, "-showfps"))
                     Render.ShowFPS = true;
+                else if (CheckArg(arg, "-showcolliders"))
+                    Render.ShowColliders = true;
             }
         }
         private void LoadConfig()

@@ -10,7 +10,7 @@ namespace ShadowBuild.Objects
         public Size BaseSize = new Size(200, 200);
         public Size SizeMultipler = new Size(1, 1);
 
-        public float Rotation { get; private set; }
+        public float Rotation { get; protected set; }
 
         #region position
 
@@ -71,7 +71,7 @@ namespace ShadowBuild.Objects
             Rotation = rotation % 360;
         }
 
-        public void Rotate(float rotation)
+        public virtual void Rotate(float rotation)
         {
             SetRotation(this.Rotation + rotation);
         }

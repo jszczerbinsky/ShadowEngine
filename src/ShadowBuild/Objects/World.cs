@@ -7,7 +7,7 @@ namespace ShadowBuild.Objects
     public sealed class World
     {
         public static readonly World Default = new World("default");
-        internal static List<World> All { get; private set; } = new List<World> { World.Default };
+        public static List<World> All { get; private set; } = new List<World> { World.Default };
         public List<RenderableObject> Objects { get; internal set; } = new List<RenderableObject>();
         public static World ActualWorld = World.Default;
 

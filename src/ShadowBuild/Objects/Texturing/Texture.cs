@@ -40,8 +40,8 @@ namespace ShadowBuild.Objects.Texturing
                     ),
                     new Rectangle(
                         new Point(
-                            (int)(obj.GetGlobalPosition().X - 2 - cameraPos.X),
-                            (int)(obj.GetGlobalPosition().Y - 2 - cameraPos.Y)
+                            (int)(obj.GetNonRotatedGlobalPosition().X - 2 - cameraPos.X),
+                            (int)(obj.GetNonRotatedGlobalPosition().Y - 2 - cameraPos.Y)
                         ),
                         new Size(
                             5, 5)

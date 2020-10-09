@@ -9,6 +9,7 @@ namespace ShadowBuild.Rendering
     {
         public static System.Windows.Size Resolution = new System.Windows.Size(800, 600);
         public static bool ShowFPS = false;
+        public static bool ShowColliders = false;
         private static SortedSet<Layer> SortedLayers;
 
         private static readonly Brush FPSForeground = new SolidBrush(Color.White);
@@ -51,10 +52,23 @@ namespace ShadowBuild.Rendering
                 {
                     if (!obj.Visible) continue;
 
-                    obj.InheritRotation(g, startPos);
+                    obj.InheritGraphicsTransform(g, startPos);
 
 
                     obj.Render(g, startPos);
+
+                    if(ShowColliders && obj is GameObject)
+                    {
+                        GameObject gobj = (GameObject)obj;
+                        if(gobj.Collider != null)
+                        {
+                            foreach(System.Windows.Point p in gobj.Collider.GetGlobalPoints(gobj))
+                            {
+                                g.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(new Point((int)p.X - 1-(int)startPos.X, (int)p.Y - 1-(int)startPos.Y), new Size(3, 3)));
+                            }
+                        }
+                    }
+                    g.ResetTransform();
 
                 }
             }

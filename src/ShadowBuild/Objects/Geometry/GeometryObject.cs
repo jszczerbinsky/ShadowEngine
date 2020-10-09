@@ -17,6 +17,8 @@ namespace ShadowBuild.Objects.Geometry
         private System.Windows.Point renderPosition;
         private System.Windows.Size renderSize;
 
+        #region constructors
+
         public GeometryObject(string name, Shape shape, Color color, float borderThickness, bool fill, System.Windows.Point position, System.Windows.Size size) : base(name)
         {
             this.Shape = shape;
@@ -96,12 +98,15 @@ namespace ShadowBuild.Objects.Geometry
             this.Name = name;
             this.RenderLayer = layer;
         }
+
+        #endregion
+
         public System.Windows.Point GetStartRenderPosition()
         {
             System.Windows.Point tmpPosition = this.renderPosition;
             if (this.Parent != null)
             {
-                tmpPosition = new System.Windows.Point(tmpPosition.X + this.Parent.GetGlobalPosition().X, tmpPosition.Y + this.Parent.GetGlobalPosition().Y);
+                tmpPosition = new System.Windows.Point(tmpPosition.X + this.Parent.GetNonRotatedGlobalPosition().X, tmpPosition.Y + this.Parent.GetNonRotatedGlobalPosition().Y);
             }
             return tmpPosition;
 
@@ -134,14 +139,14 @@ namespace ShadowBuild.Objects.Geometry
 
         public System.Windows.Point GetStartPosition()
         {
-            return this.GetGlobalPosition();
+            return this.GetNonRotatedGlobalPosition();
         }
         public System.Windows.Point GetGlobalEndPosition()
         {
             System.Windows.Point tmpPosition = this.EndPosition;
             if (this.Parent != null)
             {
-                tmpPosition = new System.Windows.Point(tmpPosition.X + this.Parent.GetGlobalPosition().X, tmpPosition.Y + this.Parent.GetGlobalPosition().Y);
+                tmpPosition = new System.Windows.Point(tmpPosition.X + this.Parent.GetNonRotatedGlobalPosition().X, tmpPosition.Y + this.Parent.GetNonRotatedGlobalPosition().Y);
             }
             return tmpPosition;
         }
