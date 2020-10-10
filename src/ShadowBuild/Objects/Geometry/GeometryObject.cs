@@ -54,23 +54,6 @@ namespace ShadowBuild.Objects.Geometry
             this.Fill = fill;
             this.BorderThickness = borderThickness;
             this.Name = name;
-
-        }
-        public GeometryObject(string name, Shape shape, System.Windows.Point position, System.Windows.Size size) : base(name)
-        {
-            this.Shape = shape;
-            this.Position = position;
-            this.BaseSize = size;
-            this.Name = name;
-
-        }
-        public GeometryObject(string name, Shape shape, System.Windows.Point position, System.Windows.Point endPosition) : base(name)
-        {
-            this.Shape = shape;
-            this.EndPosition = endPosition;
-            SetBoundsFrom2Points(position, endPosition);
-            this.Name = name;
-
         }
         public GeometryObject(string name, Layer layer, Shape shape, Color color, float borderThickness, bool fill, System.Windows.Point position, System.Windows.Size size) : base(name, layer)
         {
@@ -82,7 +65,6 @@ namespace ShadowBuild.Objects.Geometry
             this.BorderThickness = borderThickness;
             this.Name = name;
             this.RenderLayer = layer;
-
         }
         public GeometryObject(string name, Layer layer, Shape shape, Color color, float borderThickness, bool fill, System.Windows.Point position, System.Windows.Point endPosition) : base(name, layer)
         {
@@ -94,24 +76,52 @@ namespace ShadowBuild.Objects.Geometry
             this.BorderThickness = borderThickness;
             this.Name = name;
             this.RenderLayer = layer;
-
         }
-        public GeometryObject(string name, Layer layer, Shape shape, System.Windows.Point position, System.Windows.Size size) : base(name, layer)
+        public GeometryObject(string name, World world, Shape shape, Color color, float borderThickness, bool fill, System.Windows.Point position, System.Windows.Size size) : base(name, world)
         {
             this.Shape = shape;
             this.Position = position;
             this.BaseSize = size;
+            this.Color = color;
+            this.Fill = fill;
+            this.BorderThickness = borderThickness;
+            this.Name = name;
+        }
+        public GeometryObject(string name, World world, Shape shape, Color color, float borderThickness, bool fill, System.Windows.Point position, System.Windows.Point endPosition) : base(name, world)
+        {
+            this.Shape = shape;
+            this.Position = position;
+            this.EndPosition = endPosition;
+            SetBoundsFrom2Points(position, endPosition);
+            this.Color = color;
+            this.Fill = fill;
+            this.BorderThickness = borderThickness;
+            this.Name = name;
+
+        }
+        public GeometryObject(string name, World world, Layer layer, Shape shape, Color color, float borderThickness, bool fill, System.Windows.Point position, System.Windows.Size size) : base(name, layer, world)
+        {
+            this.Shape = shape;
+            this.Position = position;
+            this.BaseSize = size;
+            this.Color = color;
+            this.Fill = fill;
+            this.BorderThickness = borderThickness;
             this.Name = name;
             this.RenderLayer = layer;
 
         }
-        public GeometryObject(string name, Layer layer, Shape shape, System.Windows.Point position, System.Windows.Point endPosition) : base(name, layer)
+        public GeometryObject(string name, World world, Layer layer, Shape shape, Color color, float borderThickness, bool fill, System.Windows.Point position, System.Windows.Point endPosition) : base(name, layer, world)
         {
             this.Shape = shape;
-            SetBoundsFrom2Points(position, endPosition);
             this.EndPosition = endPosition;
+            SetBoundsFrom2Points(position, endPosition);
+            this.Color = color;
+            this.Fill = fill;
+            this.BorderThickness = borderThickness;
             this.Name = name;
             this.RenderLayer = layer;
+
         }
 
         #endregion
