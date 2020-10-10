@@ -12,10 +12,10 @@ namespace ShadowBuild
     /// <summary>
     /// Main class of ShadowBuild project.
     /// </summary>
-    public abstract class ShadowBuildProject : ConfigSavable
+    public abstract class ShadowEngine : ConfigSavable
     {
         /// <value>Gets actual project.</value>
-        public static ShadowBuildProject Project { get; private set; }
+        public static ShadowEngine Project { get; private set; }
         /// <value>Options loaded from ProjectConfig.json file.</value>
         public ProjectConfig Config { get; private set; }
 
@@ -42,7 +42,7 @@ namespace ShadowBuild
         /// Default constructor.
         /// </summary>
         /// <param name="args">Apllication startup arguments.</param>
-        protected ShadowBuildProject(string[] args)
+        protected ShadowEngine(string[] args)
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 ShowWindow(GetConsoleWindow(), SW_HIDE);

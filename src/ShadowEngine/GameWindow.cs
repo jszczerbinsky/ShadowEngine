@@ -24,9 +24,9 @@ namespace ShadowBuild
             InitializeComponent();
 
             this.Size = new Size(
-                ShadowBuildProject.Project.Config.StartResolution.Width,
-                ShadowBuildProject.Project.Config.StartResolution.Height);
-            if (ShadowBuildProject.Project.Config.StartFullscreen)
+                ShadowEngine.Project.Config.StartResolution.Width,
+                ShadowEngine.Project.Config.StartResolution.Height);
+            if (ShadowEngine.Project.Config.StartFullscreen)
             {
                 this.WindowState = FormWindowState.Maximized;
                 this.FormBorderStyle = FormBorderStyle.None;
@@ -42,7 +42,7 @@ namespace ShadowBuild
             this.Show();
             Loop.StartTicker();
             Log.Say("Calling OnStart");
-            ShadowBuildProject.Project.OnStart();
+            ShadowEngine.Project.OnStart();
             Render.SortLayers();
             Log.Space();
             Log.Say("------Listing Render Layers-----");
