@@ -116,7 +116,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Include\LICENSE ShadowEngine.txt">
+    <Content Include="LICENSE ShadowEngine.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
