@@ -13,10 +13,10 @@ namespace ShadowBuild
         /// <value>OnTick delegate.</value>
         public delegate void OnTickDelegateVoid();
 
-        /// <value>Voids called on every timer tick.</value>
+        /// <value>Methods called on every timer tick.</value>
         public static OnTickDelegateVoid OnTick;
 
-        /// <value>Gets current frames per second.</value>
+        /// <value>Gets current frames per second value.</value>
         public static long currentFPS { get; private set; } = 0;
 
         /// <value>Gets time between last 2 timer ticks.</value>

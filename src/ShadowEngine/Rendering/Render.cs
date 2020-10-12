@@ -6,7 +6,7 @@ namespace ShadowBuild.Rendering
 {
     /// <summary>
     /// Render class.
-    /// Here you can specify game window resolution and some rendering options.
+    /// Here you can specify game window resolution and some other rendering options.
     /// </summary>
     public static class Render
     {
@@ -30,7 +30,13 @@ namespace ShadowBuild.Rendering
         {
             SortedLayers = new SortedSet<Layer>(Layer.All);
         }
-        public static void FromCamera(Image frame, Graphics g, Camera cam)
+
+        /// <summary>
+        /// Renders image from camera rendering area.
+        /// </summary>
+        /// <param name="g">Graphics object to paint</param>
+        /// <param name="cam">Camera</param>
+        public static void FromCamera(Graphics g, Camera cam)
         {
             System.Windows.Point startPos =
                 new System.Windows.Point(

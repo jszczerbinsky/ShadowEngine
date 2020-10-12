@@ -10,22 +10,25 @@ using System.Windows.Forms;
 namespace ShadowBuild
 {
     /// <summary>
-    /// Main class of ShadowBuild project.
+    /// Class of ShadowEngine project.
+    /// You have to extend this class to create a ShadowEngine project.
+    /// You should extend this class only once in your project.
     /// </summary>
     public abstract class ShadowEngine : ConfigSavable
     {
         /// <value>Gets actual project.</value>
         public static ShadowEngine Project { get; private set; }
+
         /// <value>Options loaded from ProjectConfig.json file.</value>
         public ProjectConfig Config { get; private set; }
 
         /// <summary>
-        /// Method called after initialization of an engine.
+        /// This method is called only once, after engine initialization.
         /// </summary>
         public abstract void OnStart();
 
         /// <summary>
-        /// Method called on every tick of game timer.
+        /// This method is called ater every tick of game timer.
         /// </summary>
         public abstract void OnTick();
 

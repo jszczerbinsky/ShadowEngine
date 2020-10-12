@@ -8,14 +8,13 @@ namespace ShadowBuild.Sound
 {
 
     /// <summary>
-    /// Sound class.
     /// With this class you can manage sounds effects.
     /// </summary>
     public sealed class Sound
     {
         private MediaPlayer player = new MediaPlayer();
 
-        /// <value>sound volume</value>
+        /// <value>Volume of sound effect</value>
         public double volume
         {
             get
@@ -40,6 +39,10 @@ namespace ShadowBuild.Sound
         {
 
         }
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="path">Path to an audio file</param>
         public Sound(string path)
         {
             try
@@ -55,6 +58,9 @@ namespace ShadowBuild.Sound
         /// Clones sound.
         /// It can be useful for playing multiple sounds with same audio effect.
         /// </summary>
+        /// <returns>
+        /// Clone of sound object
+        /// </returns>
         public Sound Clone()
         {
             Sound s = new Sound();

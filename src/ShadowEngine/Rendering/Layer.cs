@@ -12,17 +12,16 @@ namespace ShadowBuild.Rendering
     /// You can add objects to render layers.
     /// You can specify what render layers should render the camera.
     /// You can specify zIndex of the layer.
-    /// Each layer should have unique zIndex
+    /// Each layer should have unique zIndex.
     /// </summary>
     public class Layer : ConfigSavable, IComparable<Layer>
     {
-        /// <value>Gets default layer</value>
+        /// <value>Gets a default layer.</value>
         public static readonly Layer Default = new Layer("default", 0);
 
-        /// <value>Gets all layers</value>
         internal static readonly List<Layer> All = new List<Layer> { Layer.Default };
 
-        /// <value>Gets objects assigned to the layer</value>
+        /// <value>Gets objects assigned to the layer.</value>
         [ScriptIgnore]
         public List<RenderableObject> Objects
         {
@@ -40,9 +39,14 @@ namespace ShadowBuild.Rendering
         /// <value>Gets zIndex of the layer</value>
         public readonly int zIndex;
 
-        /// <value>Gets layer name</value>
+        /// <value>Gets a name of the layer.</value>
         public readonly string Name;
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// <param name="name">Layer name (should be unique)</param>
+        /// <param name="zIndex">Layer zIndex (should be unique)</param>
         public Layer(string name, int zIndex)
         {
             this.Name = name;
@@ -50,8 +54,11 @@ namespace ShadowBuild.Rendering
         }
 
         /// <summary>
-        /// Finds a layer by name
+        /// Finds a layer by name.
+        /// Layer should be set up before finding.
         /// </summary>
+        /// <param name="name">Layer name</param>
+        /// <returns>Found layer</returns>
         public static Layer Find(string name)
         {
             Layer l = FindWithoutException(name);
@@ -61,8 +68,11 @@ namespace ShadowBuild.Rendering
         }
 
         /// <summary>
-        /// Finds a layer by zIndex
+        /// Finds a layer by zIndex.
+        /// Layer has to be set up before finding.
         /// </summary>
+        /// <param name="zIndex">Layer zIndex</param>
+        /// <returns>Found layer</returns>
         public static Layer Find(int zIndex)
         {
             Layer l = FindWithoutException(zIndex);
@@ -70,6 +80,7 @@ namespace ShadowBuild.Rendering
                 throw new LayerException("Cannot find layer with zIndex " + zIndex);
             return l;
         }
+
         private static Layer FindWithoutException(string name)
         {
             foreach (Layer l in All)
@@ -90,8 +101,9 @@ namespace ShadowBuild.Rendering
         }
 
         /// <summary>
-        /// Sets up a layer
+        /// Sets up a layer. Layers have to be set up to be used.
         /// </summary>
+        /// <param name="layer">Layer to be set up</param>
         public static void Setup(Layer layer)
         {
             if (Layer.FindWithoutException(layer.Name) != null) throw new LayerException("Layer name \"" + layer.Name + "\" is already in use");

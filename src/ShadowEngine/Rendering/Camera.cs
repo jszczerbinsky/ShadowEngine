@@ -17,7 +17,7 @@ namespace ShadowBuild.Rendering
         /// <value>Gets all render layers, that this camera renders</value>
         public readonly List<Layer> RenderLayers = new List<Layer>() { Layer.Default };
 
-        /// <value>Camera background</value>
+        /// <value>Camera background color</value>
         public System.Drawing.Color Background = System.Drawing.Color.Gray;
 
         /// <value>Gets start point of rendered area of camera</value>
@@ -38,16 +38,36 @@ namespace ShadowBuild.Rendering
             }
         }
 
+        /// <summary>
+        /// Camera constructor.
+        /// </summary>
+        /// <param name="position">Camera position. Position is always in a middle of a camera rendered area.</param>
+        /// <param name="size">Size of rendered area.</param>
         public Camera(Point position, Size size)
         {
             this.Position = position;
             this.BaseSize = size;
         }
+
+        /// <summary>
+        /// Camera constructor.
+        /// </summary>
+        /// <param name="x">Camera X position. Position is always in a middle of a camera rendered area</param>
+        /// <param name="y">Camera Y position. Position is always in a middle of a camera rendered area</param>
+        /// <param name="width">Width of rendered area.</param>
+        /// <param name="height">Height of rendered area.</param>
         public Camera(double x, double y, double width, double height)
         {
             this.Position = new Point(x, y);
             this.BaseSize = new Size(width, height);
         }
+
+        /// <summary>
+        /// Camera constructor.
+        /// </summary>
+        /// <param name="position">Camera position. Position is always in a middle of a camera rendered area.</param>
+        /// <param name="size">Size of rendered area.</param>
+        /// <param name="layers">Layers, that this camera will render.</param>
         public Camera(Point position, Size size, List<Layer> layers)
         {
             this.Position = position;
@@ -55,12 +75,16 @@ namespace ShadowBuild.Rendering
             this.RenderLayers = layers;
         }
 
-        /// <value>Returns true if camera renders a layer</value>
-        public bool IsRendering(Layer l)
+        /// <summary>
+        /// Chech if camera is rendering specific layer.
+        /// </summary>
+        /// <param name="layer">Layer to check.</param>
+        /// <returns>True if camera renders this layer.</returns>
+        public bool IsRendering(Layer layer)
         {
             foreach (Layer l1 in RenderLayers)
             {
-                if (l1 == l) return true;
+                if (l1 == layer) return true;
             }
             return false;
         }

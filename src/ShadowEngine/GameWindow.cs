@@ -54,7 +54,7 @@ namespace ShadowBuild
             Camera.Default.ChangeBaseSize(Render.Resolution);
             this.Invoke(new Action(() =>
             {
-                Render.FromCamera(this.display.Image, this.display.DisplayGraphics, Camera.Default);
+                Render.FromCamera(this.display.DisplayGraphics, Camera.Default);
                 this.display.Refresh();
             }));
         }
