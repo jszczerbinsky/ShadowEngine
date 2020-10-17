@@ -1,8 +1,11 @@
 # What is ShadowEngine?
 ShadowEngine is a .NET framework for creating 2D games. It's focused on RPG games, but You can use it to create any other kind of games. ShadowEngine is a good choice for creators, that want to create a small game without using giant game engines.
 
-# Current state
-ShadowEngine is not released yet, but it's going to be soon in an alpha state. Probably there will be a ShadowEngine CLI too, that will be used to fast setup a new ShadowEngine project or edit Your an existing project configuration.
+# Why ShadowEngine?
+* Easy to use
+* Lightweight
+* Fast
+* Simple, but powerful
 
 # License
 MIT License
