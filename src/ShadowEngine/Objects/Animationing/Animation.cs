@@ -9,6 +9,8 @@ namespace ShadowBuild.Objects.Animationing
     /// </summary>
     public class Animation
     {
+        public delegate void OnEndDelegateVoid();
+        public OnEndDelegateVoid OnEnd;
         private static List<Animation> All = new List<Animation>();
 
         /// <value>Gets name of animation.</value>
@@ -17,20 +19,8 @@ namespace ShadowBuild.Objects.Animationing
         /// <value>Gets animation textures.</value>
         public readonly List<Texture> Textures;
 
-        /// <value>Gets actual texture.</value>
-        public Texture ActualTexture
-        {
-            get
-            {
-                return Textures[ActualTextureID];
-            }
-        }
-
         /// <value>Animation speed.</value>
         public double Speed = 1;
-
-        private int ActualTextureID;
-        private double ActualOffset;
 
         /// <summary>
         /// Animation constructor.
@@ -41,20 +31,6 @@ namespace ShadowBuild.Objects.Animationing
         {
             this.Name = name;
             this.Textures = textures;
-        }
-        public static void OnTick()
-        {
-            foreach (Animation anim in All)
-            {
-                anim.ActualOffset += Loop.delay;
-                if (anim.ActualOffset > 1.0 / anim.Speed)
-                {
-                    anim.ActualTextureID++;
-                    if (anim.ActualTextureID >= anim.Textures.Count)
-                        anim.ActualTextureID = 0;
-                    anim.ActualOffset = anim.ActualOffset % (1 / anim.Speed);
-                }
-            }
         }
 
         /// <summary>

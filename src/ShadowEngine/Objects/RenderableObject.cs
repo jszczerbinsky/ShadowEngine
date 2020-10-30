@@ -29,7 +29,7 @@ namespace ShadowBuild.Objects
         public bool Visible = true;
 
         /// <value>Gets render layer of an object</value>
-        public Layer RenderLayer { get; protected set; }
+        public Layer RenderLayer;
 
         /// <value>Gets parent of an object</value>
         public RenderableObject Parent { get; private set; }
@@ -225,6 +225,24 @@ namespace ShadowBuild.Objects
             float rot = this.Rotation;
             if (this.Parent != null) Parent.InheritRotation(ref rot);
             return rot;
+        }
+
+        #endregion
+
+        #region rotation
+        
+        public override void RotateTo(Point p)
+        {
+            float rot = (float)((180 / Math.PI) * Math.Atan2(p.Y - this.GetGlobalPosition().Y, p.X - this.GetGlobalPosition().X));
+            if (rot < 0)
+            {
+                rot = 360 - (-rot);
+            }
+            rot += 90;
+
+            float increaseRot = this.GetGlobalRotation() - Rotation;
+            Rotation = rot - increaseRot;
+
         }
 
         #endregion

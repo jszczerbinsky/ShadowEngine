@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Web.Script.Serialization;
 
 namespace ShadowBuild.Objects.Texturing.Image
@@ -11,6 +12,7 @@ namespace ShadowBuild.Objects.Texturing.Image
         [ScriptIgnore]
         public Bitmap Image;
         public string ImagePath;
+        public InterpolationMode InterpolationMode = InterpolationMode.Default;
 
         public void InitializeImage()
         {

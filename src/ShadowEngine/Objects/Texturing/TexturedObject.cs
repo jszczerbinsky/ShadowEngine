@@ -19,31 +19,42 @@ namespace ShadowBuild.Objects.Texturing
         {
             get
             {
-                if (ActualAnimation != null) return ActualAnimation.ActualTexture;
+                if (ActualAnimation != null) return ActualAnimation.Textures[animationTextureID];
                 return this.DefaultTexture;
             }
             private set { }
         }
 
+        private double animationOffset = 0;
+        private int animationTextureID = 0;
+
+
         /// <value>Actual animation</value>
         public Animation ActualAnimation { get; private set; } = null;
 
-        protected TexturedObject() { }
+        protected TexturedObject() {
+            Loop.OnTick += this.UpdateAnimationTexture;
+        }
         protected TexturedObject(string name, Texture texture) : base(name)
         {
             this.DefaultTexture = texture;
+            Loop.OnTick += this.UpdateAnimationTexture;
+
         }
         protected TexturedObject(string name, Texture texture, Layer layer) : base(name, layer)
         {
             this.DefaultTexture = texture;
+            Loop.OnTick += this.UpdateAnimationTexture;
         }
         protected TexturedObject(string name, Texture texture, World world) : base(name, world)
         {
             this.DefaultTexture = texture;
+            Loop.OnTick += this.UpdateAnimationTexture;
         }
         protected TexturedObject(string name, Texture texture, Layer layer, World world) : base(name, layer, world)
         {
             this.DefaultTexture = texture;
+            Loop.OnTick += this.UpdateAnimationTexture;
         }
 
         public override Size GetRealSize()
@@ -112,7 +123,21 @@ namespace ShadowBuild.Objects.Texturing
         /// <param name="animName">name of animation</param>
         public void Play(string animName)
         {
-            this.ActualAnimation = Animation.Get(animName);
+            animationOffset = 0;
+            animationTextureID = 0;
+            Animation anim = Animation.Get(animName);
+            this.ActualAnimation = anim;
+        }
+
+        /// <summary>
+        /// Plays animation
+        /// </summary>
+        /// <param name="anim">animation</param>
+        public void Play(Animation anim)
+        {
+            animationOffset = 0;
+            animationTextureID = 0;
+            this.ActualAnimation = anim;
         }
 
         /// <summary>
@@ -121,6 +146,23 @@ namespace ShadowBuild.Objects.Texturing
         public void StopPlaying()
         {
             this.ActualAnimation = null;
+        }
+
+        public void UpdateAnimationTexture()
+        {
+            if (ActualAnimation == null) return;
+            animationOffset += Loop.delay;
+            if (animationOffset > 1.0 / ActualAnimation.Speed)
+            {
+                animationTextureID++;
+                if (animationTextureID >= ActualAnimation.Textures.Count)
+                {
+                    animationTextureID = 0;
+                    ActualAnimation.OnEnd?.Invoke();
+                }
+                animationOffset = animationOffset % (1 / ActualAnimation.Speed);
+            }
+
         }
     }
 }

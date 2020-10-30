@@ -26,8 +26,8 @@ namespace ShadowBuild.Objects.Texturing.Image
 
         public override void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
         {
-
             RegularTexture tex = (RegularTexture)obj.ActualTexture;
+            g.InterpolationMode = tex.InterpolationMode;
 
             if (tex.Image == null) throw new RenderException("Image was not initialized in texture \"" + tex.Name);
 

@@ -35,7 +35,6 @@ namespace ShadowBuild
             Log.Say("Initializing GameLoop");
             this.display.Initialize(new Size((int)Render.Resolution.Width, (int)Render.Resolution.Height));
             Loop.OnTick += this.RenderNewFrame;
-            Loop.OnTick += Animation.OnTick;
             Mouse.OnStart();
             Loop.OnTick += Mouse.OnTick;
 

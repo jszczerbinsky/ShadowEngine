@@ -1,4 +1,6 @@
 ﻿using ShadowBuild.Exceptions;
+using ShadowBuild.Objects;
+using ShadowBuild.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -66,6 +68,20 @@ namespace ShadowBuild.Input.Mouse
             get
             {
                 return new Point(System.Windows.Forms.Cursor.Position.X, System.Windows.Forms.Cursor.Position.Y);
+            }
+        }
+
+        /// <summary>
+        /// Gets point in game, that mouse is pointing on
+        /// </summary>
+        public static Point GamePosition
+        {
+            get
+            {
+                Point p = Position;
+                p.X -= Camera.Default.Position.X + Camera.Default.GetRealSize().Width/2;
+                p.Y -= Camera.Default.Position.Y + Camera.Default.GetRealSize().Height/2;
+                return p;
             }
         }
         private static System.Drawing.Point screenCenter
