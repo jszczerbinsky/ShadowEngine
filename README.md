@@ -10,7 +10,7 @@ ShadowEngine is a .NET framework for creating 2D games. It's focused on RPG game
 # License
 MIT License
 
-Copyright (c) 2020-2021 Jakub Szczerbiński
+Copyright (c) 2021 Jakub Szczerbiński
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
