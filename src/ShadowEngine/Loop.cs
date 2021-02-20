@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace ShadowBuild
+namespace ShadowEngine
 {
     /// <summary>
     /// Game loop class.
@@ -22,6 +22,8 @@ namespace ShadowBuild
         /// <value>Gets time between last 2 timer ticks.</value>
         public static double delay = 0;
 
+        private static TimeSpan tsdelay = TimeSpan.Zero;
+
         internal static void StartTicker()
         {
             thread = new Thread(() =>
@@ -29,12 +31,10 @@ namespace ShadowBuild
                 double waitForCount = 0;
                 while (true)
                 {
-                    Thread.Sleep(10);
                     DateTime timeOnStart = DateTime.Now;
+                    Thread.Sleep(10);
                     OnTick();
-                    DateTime timeOnEnd = DateTime.Now;
-
-                    TimeSpan tsdelay = timeOnEnd - timeOnStart;
+                    
                     delay = tsdelay.TotalSeconds;
                     waitForCount += delay;
                     if (waitForCount >= 0.5)
@@ -42,6 +42,9 @@ namespace ShadowBuild
                         currentFPS = (int)(1000 / tsdelay.TotalMilliseconds);
                         waitForCount = 0;
                     }
+                    DateTime timeOnEnd = DateTime.Now;
+
+                    tsdelay = timeOnEnd - timeOnStart;
                 }
             });
             thread.Start();

@@ -1,10 +1,10 @@
-﻿using ShadowBuild.Config;
-using ShadowBuild.Exceptions;
+﻿using ShadowEngine.Config;
+using ShadowEngine.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace ShadowBuild.Input.Keyboard
+namespace ShadowEngine.Input.Keyboard
 {
     /// <summary>
     /// Keyboard axes class.

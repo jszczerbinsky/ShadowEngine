@@ -1,8 +1,8 @@
-﻿using ShadowBuild.Rendering;
+﻿using ShadowEngine.Rendering;
 using System;
 using System.Drawing;
 
-namespace ShadowBuild.Objects.Geometry
+namespace ShadowEngine.Objects.Geometry
 {
     /// <summary>
     /// Geometry objects class.

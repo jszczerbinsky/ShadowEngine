@@ -1,9 +1,9 @@
-﻿using ShadowBuild.Input.Mouse;
-using ShadowBuild.Objects.Texturing;
-using ShadowBuild.Rendering;
+﻿using ShadowEngine.Input.Mouse;
+using ShadowEngine.Objects.Texturing;
+using ShadowEngine.Rendering;
 using System.Drawing;
 
-namespace ShadowBuild.Objects.UI
+namespace ShadowEngine.Objects.UI
 {
 
     /// <summary>

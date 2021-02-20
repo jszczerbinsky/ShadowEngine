@@ -1,10 +1,10 @@
-﻿using ShadowBuild.Exceptions;
+﻿using ShadowEngine.Exceptions;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Windows.Media;
 
-namespace ShadowBuild.Sound
+namespace ShadowEngine.Sound
 {
 
     /// <summary>

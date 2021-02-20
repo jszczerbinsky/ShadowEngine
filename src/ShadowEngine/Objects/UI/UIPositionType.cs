@@ -1,4 +1,4 @@
-﻿namespace ShadowBuild.Objects.UI
+﻿namespace ShadowEngine.Objects.UI
 {
     /// <summary>
     /// UI object position type.

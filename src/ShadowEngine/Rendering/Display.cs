@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Windows.Forms;
 
-namespace ShadowBuild.Rendering
+namespace ShadowEngine.Rendering
 {
     public class Display : PictureBox
     {

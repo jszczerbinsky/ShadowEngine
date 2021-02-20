@@ -1,23 +1,23 @@
-﻿using ShadowBuild.Config;
-using ShadowBuild.Exceptions;
-using ShadowBuild.Input.Keyboard;
-using ShadowBuild.Objects.Texturing;
-using ShadowBuild.Rendering;
+﻿using ShadowEngine.Config;
+using ShadowEngine.Exceptions;
+using ShadowEngine.Input.Keyboard;
+using ShadowEngine.Objects.Texturing;
+using ShadowEngine.Rendering;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace ShadowBuild
+namespace ShadowEngine
 {
     /// <summary>
     /// Class of ShadowEngine project.
     /// You have to extend this class to create a ShadowEngine project.
     /// You should extend this class only once in your project.
     /// </summary>
-    public abstract class ShadowEngine : ConfigSavable
+    public abstract class ShadowEngineProject : ConfigSavable
     {
         /// <value>Gets actual project.</value>
-        public static ShadowEngine Project { get; private set; }
+        public static ShadowEngineProject Project { get; private set; }
 
         /// <value>Options loaded from ProjectConfig.json file.</value>
         public ProjectConfig Config { get; private set; }
@@ -45,7 +45,7 @@ namespace ShadowBuild
         /// Default constructor.
         /// </summary>
         /// <param name="args">Apllication startup arguments.</param>
-        protected ShadowEngine(string[] args)
+        protected ShadowEngineProject(string[] args)
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 ShowWindow(GetConsoleWindow(), SW_HIDE);
@@ -89,7 +89,7 @@ namespace ShadowBuild
                 pc.Name = val["Name"];
                 pc.Author = val["Author"];
                 pc.ProjectVersion = val["ProjectVersion"];
-                pc.ShadowBuildVersion = val["ShadowBuildVersion"];
+                pc.ShadowEngineVersion = val["ShadowEngineVersion"];
                 dynamic sr = val["StartResolution"];
                 pc.StartResolution = new System.Drawing.Size(sr["Width"], sr["Height"]);
                 pc.StartFullscreen = val["StartFullscreen"];

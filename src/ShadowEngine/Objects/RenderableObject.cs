@@ -1,11 +1,11 @@
-﻿using ShadowBuild.Exceptions;
-using ShadowBuild.Input.Mouse;
-using ShadowBuild.Rendering;
+﻿using ShadowEngine.Exceptions;
+using ShadowEngine.Input.Mouse;
+using ShadowEngine.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace ShadowBuild.Objects
+namespace ShadowEngine.Objects
 {
     /// <summary>
     /// Renderable objects class.

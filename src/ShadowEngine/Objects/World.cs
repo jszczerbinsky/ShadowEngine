@@ -1,7 +1,7 @@
-﻿using ShadowBuild.Exceptions;
+﻿using ShadowEngine.Exceptions;
 using System.Collections.Generic;
 
-namespace ShadowBuild.Objects
+namespace ShadowEngine.Objects
 {
 
     /// <summary>

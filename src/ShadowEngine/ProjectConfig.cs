@@ -1,7 +1,7 @@
 ﻿
 using System.Drawing;
 
-namespace ShadowBuild
+namespace ShadowEngine
 {
     public class ProjectConfig
     {
@@ -9,7 +9,7 @@ namespace ShadowBuild
         public string Author { get; internal set; }
 
         public string ProjectVersion { get; internal set; }
-        public string ShadowBuildVersion { get; internal set; }
+        public string ShadowEngineVersion { get; internal set; }
 
         public Size StartResolution { get; internal set; }
         public bool StartFullscreen { get; internal set; }

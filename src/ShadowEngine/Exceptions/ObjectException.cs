@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ShadowBuild.Exceptions
+namespace ShadowEngine.Exceptions
 {
     public class ObjectException : Exception
     {

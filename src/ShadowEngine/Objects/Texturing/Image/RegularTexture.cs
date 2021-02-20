@@ -1,7 +1,7 @@
-﻿using ShadowBuild.Exceptions;
+﻿using ShadowEngine.Exceptions;
 using System.Drawing;
 
-namespace ShadowBuild.Objects.Texturing.Image
+namespace ShadowEngine.Objects.Texturing.Image
 {
     /// <summary>
     /// Regular texture class.

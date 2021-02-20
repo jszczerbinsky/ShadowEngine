@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ShadowBuild
+namespace ShadowEngine
 {
     /// <summary>
     /// With this class you can write logs.

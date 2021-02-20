@@ -1,4 +1,4 @@
-﻿namespace ShadowBuild.Objects.Texturing
+﻿namespace ShadowEngine.Objects.Texturing
 {
     /// <summary>
     /// Shape of color texture

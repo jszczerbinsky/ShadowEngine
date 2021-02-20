@@ -1,12 +1,12 @@
-﻿using ShadowBuild.Exceptions;
-using ShadowBuild.Objects;
-using ShadowBuild.Rendering;
+﻿using ShadowEngine.Exceptions;
+using ShadowEngine.Objects;
+using ShadowEngine.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
 
-namespace ShadowBuild.Input.Mouse
+namespace ShadowEngine.Input.Mouse
 {
     /// <summary>
     /// Mouse events class.

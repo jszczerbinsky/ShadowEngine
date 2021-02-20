@@ -1,4 +1,4 @@
-﻿namespace ShadowBuild.Input.Mouse
+﻿namespace ShadowEngine.Input.Mouse
 {
     internal static class MouseAxesValues
     {

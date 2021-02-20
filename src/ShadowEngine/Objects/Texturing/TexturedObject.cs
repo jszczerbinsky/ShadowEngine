@@ -1,9 +1,9 @@
-﻿using ShadowBuild.Objects.Animationing;
-using ShadowBuild.Objects.Texturing.Image;
-using ShadowBuild.Rendering;
+﻿using ShadowEngine.Objects.Animationing;
+using ShadowEngine.Objects.Texturing.Image;
+using ShadowEngine.Rendering;
 using System.Windows;
 
-namespace ShadowBuild.Objects.Texturing
+namespace ShadowEngine.Objects.Texturing
 {
     /// <summary>
     /// Textured object class.
@@ -28,11 +28,13 @@ namespace ShadowBuild.Objects.Texturing
         private double animationOffset = 0;
         private int animationTextureID = 0;
 
+        public virtual void OnAnimationEnd(Animation anim) { }
 
         /// <value>Actual animation</value>
         public Animation ActualAnimation { get; private set; } = null;
 
-        protected TexturedObject() {
+        protected TexturedObject()
+        {
             Loop.OnTick += this.UpdateAnimationTexture;
         }
         protected TexturedObject(string name, Texture texture) : base(name)
@@ -151,17 +153,23 @@ namespace ShadowBuild.Objects.Texturing
         public void UpdateAnimationTexture()
         {
             if (ActualAnimation == null) return;
-            animationOffset += Loop.delay;
-            if (animationOffset > 1.0 / ActualAnimation.Speed)
+
+            try
             {
-                animationTextureID++;
-                if (animationTextureID >= ActualAnimation.Textures.Count)
+                animationOffset += Loop.delay;
+
+                if (animationOffset > ActualAnimation.Length/ActualAnimation.Textures.Count)
                 {
-                    animationTextureID = 0;
-                    ActualAnimation.OnEnd?.Invoke();
+                    animationOffset -= ActualAnimation.Length/ActualAnimation.Textures.Count;
+                    animationTextureID++;
+                    if (animationTextureID >= ActualAnimation.Textures.Count)
+                    {
+                        animationTextureID = 0;
+                        OnAnimationEnd(ActualAnimation);
+                    }
                 }
-                animationOffset = animationOffset % (1 / ActualAnimation.Speed);
             }
+            catch { }
 
         }
     }

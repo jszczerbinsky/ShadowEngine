@@ -1,7 +1,7 @@
-﻿using ShadowBuild.Exceptions;
+﻿using ShadowEngine.Exceptions;
 using System.Collections.Generic;
 
-namespace ShadowBuild.Events
+namespace ShadowEngine.Events
 {
     /// <summary>
     /// Custom in-game events class.

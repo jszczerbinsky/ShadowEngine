@@ -1,7 +1,7 @@
-﻿using ShadowBuild.Objects.Texturing;
+﻿using ShadowEngine.Objects.Texturing;
 using System.Collections.Generic;
 
-namespace ShadowBuild.Objects.Animationing
+namespace ShadowEngine.Objects.Animationing
 {
     /// <summary>
     /// Animation class.
@@ -9,8 +9,7 @@ namespace ShadowBuild.Objects.Animationing
     /// </summary>
     public class Animation
     {
-        public delegate void OnEndDelegateVoid();
-        public OnEndDelegateVoid OnEnd;
+        
         private static List<Animation> All = new List<Animation>();
 
         /// <value>Gets name of animation.</value>
@@ -20,7 +19,7 @@ namespace ShadowBuild.Objects.Animationing
         public readonly List<Texture> Textures;
 
         /// <value>Animation speed.</value>
-        public double Speed = 1;
+        public double Length = 1;
 
         /// <summary>
         /// Animation constructor.

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace ShadowBuild.Objects
+namespace ShadowEngine.Objects
 {
 
     /// <summary>

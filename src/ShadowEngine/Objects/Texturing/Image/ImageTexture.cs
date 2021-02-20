@@ -2,7 +2,7 @@
 using System.Drawing.Drawing2D;
 using System.Web.Script.Serialization;
 
-namespace ShadowBuild.Objects.Texturing.Image
+namespace ShadowEngine.Objects.Texturing.Image
 {
     /// <summary>
     /// Class for all image textures.

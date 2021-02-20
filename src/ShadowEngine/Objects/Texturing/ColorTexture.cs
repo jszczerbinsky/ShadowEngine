@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Web.Script.Serialization;
 
-namespace ShadowBuild.Objects.Texturing
+namespace ShadowEngine.Objects.Texturing
 {
     /// <summary>
     /// Color texture class.

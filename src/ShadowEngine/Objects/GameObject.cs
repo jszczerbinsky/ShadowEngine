@@ -1,10 +1,10 @@
-﻿using ShadowBuild.Objects.Collision;
-using ShadowBuild.Objects.Texturing;
-using ShadowBuild.Rendering;
+﻿using ShadowEngine.Objects.Collision;
+using ShadowEngine.Objects.Texturing;
+using ShadowEngine.Rendering;
 using System.Collections.Generic;
 using System.Windows;
 
-namespace ShadowBuild.Objects
+namespace ShadowEngine.Objects
 {
     /// <summary>
     /// Game object class;

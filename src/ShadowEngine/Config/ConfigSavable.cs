@@ -1,10 +1,10 @@
-﻿using ShadowBuild.Exceptions;
+﻿using ShadowEngine.Exceptions;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Web.Script.Serialization;
 
-namespace ShadowBuild.Config
+namespace ShadowEngine.Config
 {
     public abstract class ConfigSavable
     {

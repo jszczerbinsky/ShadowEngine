@@ -1,8 +1,8 @@
-﻿using ShadowBuild.Exceptions;
+﻿using ShadowEngine.Exceptions;
 using System;
 using System.Windows;
 
-namespace ShadowBuild.Objects.Collision
+namespace ShadowEngine.Objects.Collision
 {
     /// <summary>
     /// Regular polygon collider constructor.

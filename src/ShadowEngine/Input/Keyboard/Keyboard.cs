@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace ShadowBuild.Input.Keyboard
+namespace ShadowEngine.Input.Keyboard
 {
     /// <summary>
     /// Keyboard events class.

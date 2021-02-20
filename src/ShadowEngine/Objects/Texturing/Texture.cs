@@ -1,11 +1,11 @@
-﻿using ShadowBuild.Config;
-using ShadowBuild.Exceptions;
-using ShadowBuild.Objects.Texturing.Image;
+﻿using ShadowEngine.Config;
+using ShadowEngine.Exceptions;
+using ShadowEngine.Objects.Texturing.Image;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace ShadowBuild.Objects.Texturing
+namespace ShadowEngine.Objects.Texturing
 {
     /// <summary>
     /// Texture class
@@ -40,6 +40,17 @@ namespace ShadowBuild.Objects.Texturing
                 if (t.Name == name)
                     return t;
             throw new TextureException("Cannot find texture \"" + name);
+        }
+
+        public static List<Texture> StartsWidth(string name)
+        {
+            List<Texture> tex = new List<Texture>();
+
+            foreach (Texture t in All)
+                if (t.Name.StartsWith(name))
+                    tex.Add(t);
+
+            return tex;
         }
 
         public static void RenderObjectCenters(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)

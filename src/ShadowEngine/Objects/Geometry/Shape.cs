@@ -1,4 +1,4 @@
-﻿namespace ShadowBuild.Objects.Geometry
+﻿namespace ShadowEngine.Objects.Geometry
 {
     /// <summary>
     /// Geometry object shapes

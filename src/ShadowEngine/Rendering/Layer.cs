@@ -1,11 +1,11 @@
-﻿using ShadowBuild.Config;
-using ShadowBuild.Exceptions;
-using ShadowBuild.Objects;
+﻿using ShadowEngine.Config;
+using ShadowEngine.Exceptions;
+using ShadowEngine.Objects;
 using System;
 using System.Collections.Generic;
 using System.Web.Script.Serialization;
 
-namespace ShadowBuild.Rendering
+namespace ShadowEngine.Rendering
 {
     /// <summary>
     /// Render layer class.

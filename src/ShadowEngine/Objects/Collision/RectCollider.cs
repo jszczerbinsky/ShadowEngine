@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace ShadowBuild.Objects.Collision
+namespace ShadowEngine.Objects.Collision
 {
     /// <summary>
     /// Rectangle collider class.

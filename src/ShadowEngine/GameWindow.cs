@@ -1,12 +1,12 @@
-﻿using ShadowBuild.Input.Keyboard;
-using ShadowBuild.Input.Mouse;
-using ShadowBuild.Objects.Animationing;
-using ShadowBuild.Rendering;
+﻿using ShadowEngine.Input.Keyboard;
+using ShadowEngine.Input.Mouse;
+using ShadowEngine.Objects.Animationing;
+using ShadowEngine.Rendering;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace ShadowBuild
+namespace ShadowEngine
 {
     internal class GameWindow : Form
     {
@@ -24,9 +24,9 @@ namespace ShadowBuild
             InitializeComponent();
 
             this.Size = new Size(
-                ShadowEngine.Project.Config.StartResolution.Width,
-                ShadowEngine.Project.Config.StartResolution.Height);
-            if (ShadowEngine.Project.Config.StartFullscreen)
+                ShadowEngineProject.Project.Config.StartResolution.Width,
+                ShadowEngineProject.Project.Config.StartResolution.Height);
+            if (ShadowEngineProject.Project.Config.StartFullscreen)
             {
                 this.WindowState = FormWindowState.Maximized;
                 this.FormBorderStyle = FormBorderStyle.None;
@@ -41,7 +41,7 @@ namespace ShadowBuild
             this.Show();
             Loop.StartTicker();
             Log.Say("Calling OnStart");
-            ShadowEngine.Project.OnStart();
+            ShadowEngineProject.Project.OnStart();
             Render.SortLayers();
             Log.Space();
             Log.Say("------Listing Render Layers-----");

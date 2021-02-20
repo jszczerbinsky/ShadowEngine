@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace ShadowBuild.Objects.Collision
+namespace ShadowEngine.Objects.Collision
 {
     /// <summary>
     /// Polygon collider class.

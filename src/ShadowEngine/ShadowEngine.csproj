@@ -91,7 +91,7 @@
     <Compile Include="Objects\_2Dobject.cs" />
     <Compile Include="Rendering\Layer.cs" />
     <Compile Include="Rendering\Render.cs" />
-    <Compile Include="ShadowEngine.cs" />
+    <Compile Include="ShadowEngineProject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Loop.cs" />
     <Compile Include="ProjectConfig.cs" />

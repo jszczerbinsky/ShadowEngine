@@ -1,8 +1,8 @@
-﻿using ShadowBuild.Objects;
+﻿using ShadowEngine.Objects;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace ShadowBuild.Rendering
+namespace ShadowEngine.Rendering
 {
     /// <summary>
     /// Render class.
