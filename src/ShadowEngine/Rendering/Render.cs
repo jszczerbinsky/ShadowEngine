@@ -49,16 +49,7 @@ namespace ShadowEngine.Rendering
                 g.FillRectangle(backgroundBrush, 0, 0, (int)cam.BaseSize.Width, (int)cam.BaseSize.Height);
             }
 
-            if (ShowFPS)
-            {
-                g.FillRectangle(FPSBackground, FPSRectangle);
-                g.DrawString(
-                    Loop.currentFPS.ToString("D3") + " FPS",
-                    FPSFont,
-                    FPSForeground,
-                    FPSRectangle
-                );
-            }
+            
 
             foreach (Layer l in SortedLayers)
             {
@@ -92,6 +83,16 @@ namespace ShadowEngine.Rendering
                     g.ResetTransform();
 
                 }
+            }
+            if (ShowFPS)
+            {
+                g.FillRectangle(FPSBackground, FPSRectangle);
+                g.DrawString(
+                    Loop.currentFPS.ToString("D3") + " FPS",
+                    FPSFont,
+                    FPSForeground,
+                    FPSRectangle
+                );
             }
 
         }
