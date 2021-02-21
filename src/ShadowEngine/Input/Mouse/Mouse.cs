@@ -79,8 +79,8 @@ namespace ShadowEngine.Input.Mouse
             get
             {
                 Point p = Position;
-                p.X -= Camera.Default.Position.X + Camera.Default.GetRealSize().Width/2;
-                p.Y -= Camera.Default.Position.Y + Camera.Default.GetRealSize().Height/2;
+                p.X += Camera.Default.Position.X - Camera.Default.GetRealSize().Width/2;
+                p.Y += Camera.Default.Position.Y - Camera.Default.GetRealSize().Height/2;
                 return p;
             }
         }
