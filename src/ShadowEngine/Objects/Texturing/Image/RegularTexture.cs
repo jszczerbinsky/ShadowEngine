@@ -1,4 +1,5 @@
 ﻿using ShadowEngine.Exceptions;
+using System;
 using System.Drawing;
 
 namespace ShadowEngine.Objects.Texturing.Image
@@ -28,9 +29,10 @@ namespace ShadowEngine.Objects.Texturing.Image
         {
             RegularTexture tex = (RegularTexture)obj.ActualTexture;
             g.InterpolationMode = tex.InterpolationMode;
+            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 
             if (tex.Image == null) throw new RenderException("Image was not initialized in texture \"" + tex.Name);
-
+            Log.Say((obj.SizeMultipler.Height * obj.BaseSize.Height).ToString());
             g.DrawImage(
                 tex.Image,
                 new Rectangle(
@@ -38,8 +40,8 @@ namespace ShadowEngine.Objects.Texturing.Image
                         (int)(obj.GetStartPosition().X - cameraPos.X),
                         (int)(obj.GetStartPosition().Y - cameraPos.Y)
                     ), new Size(
-                        (int)(obj.SizeMultipler.Width * obj.BaseSize.Width),
-                        (int)(obj.SizeMultipler.Height * obj.BaseSize.Height)
+                        (int)Math.Round(obj.SizeMultipler.Width * obj.BaseSize.Width, MidpointRounding.AwayFromZero),
+                        (int)Math.Round(obj.SizeMultipler.Height * obj.BaseSize.Height, MidpointRounding.AwayFromZero)
                         )
                     )
                 );

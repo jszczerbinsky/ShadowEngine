@@ -35,6 +35,7 @@ namespace ShadowEngine.Objects.Texturing.Image
         {
             GridTexture tex = (GridTexture)obj.ActualTexture;
             g.InterpolationMode = tex.InterpolationMode;
+            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 
             if (tex.Image == null) throw new RenderException("Image was not initialized in texture \"" + tex.Name);
 
