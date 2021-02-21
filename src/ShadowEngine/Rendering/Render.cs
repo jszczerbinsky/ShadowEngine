@@ -66,6 +66,12 @@ namespace ShadowEngine.Rendering
                 foreach (RenderableObject obj in l.Objects)
                 {
                     if (!obj.Visible) continue;
+                    if (
+                        obj.GetGlobalPosition().X - obj.GetRealSize().Width / 2 > Camera.Default.Position.X + Camera.Default.GetRealSize().Width / 2 ||
+                        obj.GetGlobalPosition().X + obj.GetRealSize().Width/2 < Camera.Default.Position.X - Camera.Default.GetRealSize().Width / 2 ||
+                        obj.GetGlobalPosition().Y - obj.GetRealSize().Height / 2 > Camera.Default.Position.Y + Camera.Default.GetRealSize().Height / 2 ||
+                        obj.GetGlobalPosition().Y + obj.GetRealSize().Height/2 < Camera.Default.Position.Y - Camera.Default.GetRealSize().Height / 2
+                        ) continue;
 
                     obj.InheritGraphicsTransform(g, startPos);
 
