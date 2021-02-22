@@ -124,7 +124,12 @@ namespace ShadowEngine.Objects.Texturing
                 {
                     throw new ConfigException(path + " config file is incorrect", e);
                 }
-                All.Add(new RegularTexture(name, p));
+                RegularTexture t = new RegularTexture(name, p);
+                if (dict.ContainsKey("InterpolationMode"))
+                    t.InterpolationMode = (System.Drawing.Drawing2D.InterpolationMode)
+                        Enum.Parse(typeof(System.Drawing.Drawing2D.InterpolationMode),
+                        (string)dict["InterpolationMode"]);
+                All.Add(t);
             }
             foreach (Dictionary<string, object> dict in val["Image"]["Grid"])
             {
@@ -143,7 +148,12 @@ namespace ShadowEngine.Objects.Texturing
                 {
                     throw new ConfigException(path + " config file is incorrect", e);
                 }
-                All.Add(new GridTexture(name, p, xc, yc));
+                GridTexture t = new GridTexture(name, p, xc, yc);
+                if (dict.ContainsKey("InterpolationMode"))
+                    t.InterpolationMode = (System.Drawing.Drawing2D.InterpolationMode)
+                        Enum.Parse(typeof(System.Drawing.Drawing2D.InterpolationMode),
+                        (string)dict["InterpolationMode"]);
+                All.Add(t);
             }
             foreach (Dictionary<string, object> dict in val["Other"]["Color"])
             {
