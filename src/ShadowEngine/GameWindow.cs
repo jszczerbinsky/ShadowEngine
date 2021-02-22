@@ -100,6 +100,8 @@ namespace ShadowEngine
         private void OnResize(object sender, EventArgs e)
         {
             Render.Resolution = new System.Windows.Size(this.Size.Width, this.Size.Height);
+            if (Render.OnWindowResize != null)
+                Render.OnWindowResize();
             this.display.Initialize(new Size(this.Size.Width, this.Size.Height));
         }
         private void OnMouseDown(object sender, MouseEventArgs e)

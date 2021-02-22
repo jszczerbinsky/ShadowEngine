@@ -1,5 +1,6 @@
 ﻿using ShadowEngine.Objects;
 using ShadowEngine.Objects.UI;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -14,6 +15,9 @@ namespace ShadowEngine.Rendering
 
         /// <value>Game window resolution</value>
         public static System.Windows.Size Resolution = new System.Windows.Size(800, 600);
+
+        public delegate void OnWindowResizeDelegateVoid();
+        public static OnWindowResizeDelegateVoid OnWindowResize;
 
         /// <value>If true - FPS counter will be shown</value>
         public static bool ShowFPS = false;
