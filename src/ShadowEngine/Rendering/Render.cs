@@ -1,4 +1,5 @@
 ﻿using ShadowEngine.Objects;
+using ShadowEngine.Objects.UI;
 using System.Collections.Generic;
 using System.Drawing;
 
@@ -49,7 +50,7 @@ namespace ShadowEngine.Rendering
                 g.FillRectangle(backgroundBrush, 0, 0, (int)cam.BaseSize.Width, (int)cam.BaseSize.Height);
             }
 
-            
+
 
             foreach (Layer l in SortedLayers)
             {
@@ -57,12 +58,13 @@ namespace ShadowEngine.Rendering
                 foreach (RenderableObject obj in l.Objects)
                 {
                     if (!obj.Visible) continue;
-                    if (
-                        obj.GetGlobalPosition().X - obj.GetRealSize().Width / 2 > Camera.Default.Position.X + Camera.Default.GetRealSize().Width / 2 ||
-                        obj.GetGlobalPosition().X + obj.GetRealSize().Width/2 < Camera.Default.Position.X - Camera.Default.GetRealSize().Width / 2 ||
-                        obj.GetGlobalPosition().Y - obj.GetRealSize().Height / 2 > Camera.Default.Position.Y + Camera.Default.GetRealSize().Height / 2 ||
-                        obj.GetGlobalPosition().Y + obj.GetRealSize().Height/2 < Camera.Default.Position.Y - Camera.Default.GetRealSize().Height / 2
-                        ) continue;
+                    if ((obj is UIObject && ((UIObject)obj).PositionType == UIPositionType.Global) || !(obj is UIObject))
+                        if (
+                            obj.GetGlobalPosition().X - obj.GetRealSize().Width / 2 > Camera.Default.Position.X + Camera.Default.GetRealSize().Width / 2 ||
+                            obj.GetGlobalPosition().X + obj.GetRealSize().Width / 2 < Camera.Default.Position.X - Camera.Default.GetRealSize().Width / 2 ||
+                            obj.GetGlobalPosition().Y - obj.GetRealSize().Height / 2 > Camera.Default.Position.Y + Camera.Default.GetRealSize().Height / 2 ||
+                            obj.GetGlobalPosition().Y + obj.GetRealSize().Height / 2 < Camera.Default.Position.Y - Camera.Default.GetRealSize().Height / 2
+                            ) continue;
 
                     obj.InheritGraphicsTransform(g, startPos);
 

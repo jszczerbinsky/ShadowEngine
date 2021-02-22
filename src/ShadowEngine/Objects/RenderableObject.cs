@@ -74,6 +74,13 @@ namespace ShadowEngine.Objects
             }
         }
 
+        public void Destroy()
+        {
+            All.Remove(this);
+            this.RenderLayer.Objects.Remove(this);
+            this.World.Objects.Remove(this);
+        }
+
         #region constructors
 
         protected RenderableObject(string name)
