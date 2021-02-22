@@ -102,8 +102,8 @@ namespace ShadowEngine.Objects.Texturing
             Point tmp;
 
             tmp = new Point(
-                this.GetRealSize().Width * this.BaseSize.Width,
-                this.GetRealSize().Height * this.BaseSize.Height);
+                this.GetRealSize().Width,
+                this.GetRealSize().Height);
 
             Point end = new Point(
                 this.GetStartPosition().X + tmp.X,
