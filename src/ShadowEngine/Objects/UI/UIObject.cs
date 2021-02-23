@@ -81,7 +81,7 @@ namespace ShadowEngine.Objects.UI
             double decreseLeft = this.GetRealSize().Width / 2;
             double decreseTop = this.GetRealSize().Height / 2;
 
-            System.Windows.Point start = new System.Windows.Point(this.Position.X - decreseLeft, this.Position.Y - decreseTop);
+            System.Windows.Point start = new System.Windows.Point(this.GetGlobalPosition().X - decreseLeft, this.GetGlobalPosition().Y - decreseTop);
             System.Windows.Point end = new System.Windows.Point(start.X + this.GetRealSize().Width, start.Y + this.GetRealSize().Height);
 
             if (
