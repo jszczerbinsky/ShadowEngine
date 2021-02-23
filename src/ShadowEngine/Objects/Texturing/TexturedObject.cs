@@ -59,6 +59,11 @@ namespace ShadowEngine.Objects.Texturing
             Loop.OnTick += this.UpdateAnimationTexture;
         }
 
+        public void SetTexture(Texture texture)
+        {
+            this.DefaultTexture = texture;
+        }
+
         public override Size GetRealSize()
         {
             if (this.ActualTexture is GridTexture)
