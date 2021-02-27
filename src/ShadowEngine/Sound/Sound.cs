@@ -13,6 +13,7 @@ namespace ShadowEngine.Sound
     public sealed class Sound
     {
         private MediaPlayer player = new MediaPlayer();
+        private bool paused = true;
 
         /// <value>Volume of sound effect</value>
         public double volume
@@ -74,6 +75,7 @@ namespace ShadowEngine.Sound
         /// </summary>
         public void Play()
         {
+            paused = false;
             GameWindow.actualGameWindow.Invoke(new Action(() => { player.Play(); }));
         }
 
@@ -82,10 +84,16 @@ namespace ShadowEngine.Sound
         /// </summary>
         public void Pause()
         {
-            GameWindow.actualGameWindow.Invoke(new Action(() =>
+            if (!paused)
             {
-                player.Pause();
-            }));
+                paused = true;
+                GameWindow.actualGameWindow.Invoke(new Action(() =>
+                {
+                    player.Pause();
+                }));
+            }
+
+
         }
 
         /// <summary>
@@ -93,6 +101,7 @@ namespace ShadowEngine.Sound
         /// </summary>
         public void PlayAgain()
         {
+            paused = false;
             GameWindow.actualGameWindow.Invoke(new Action(() =>
             {
                 player.Position = new TimeSpan(0);
