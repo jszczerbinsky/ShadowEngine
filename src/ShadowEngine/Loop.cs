@@ -44,7 +44,7 @@ namespace ShadowEngine
                     Thread.Sleep(10);
                     delay = tsdelay.TotalSeconds;
 
-                    if (delay > 1 / MaxFPS)
+                    if (delay > 1.0 / MaxFPS || delay == 0)
                         OnTick();
 
                     waitForCount += delay;
