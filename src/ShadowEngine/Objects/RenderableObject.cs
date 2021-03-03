@@ -74,7 +74,7 @@ namespace ShadowEngine.Objects
             }
         }
 
-        public void Destroy()
+        public virtual void Destroy()
         {
             All.Remove(this);
             this.RenderLayer.Objects.Remove(this);
