@@ -13,6 +13,7 @@ namespace ShadowEngine
         private Display display;
         internal static GameWindow actualGameWindow;
 
+
         public GameWindow()
         {
             Log.Say("Creating new game window");
