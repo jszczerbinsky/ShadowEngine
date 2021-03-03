@@ -55,12 +55,14 @@ namespace ShadowEngine.Rendering
             }
 
 
-
+            Loop.OnObjectIterationBegin?.Invoke();
             foreach (Layer l in SortedLayers)
             {
                 if (!cam.IsRendering(l)) continue;
                 foreach (RenderableObject obj in l.Objects)
                 {
+                    Loop.OnObjectIteration?.Invoke(obj);
+
                     if (!obj.Visible) continue;
                     if ((obj is UIObject && ((UIObject)obj).PositionType == UIPositionType.Global) || !(obj is UIObject))
                         if (

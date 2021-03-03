@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ShadowEngine.Objects;
+using System;
+using System.Security.RightsManagement;
 using System.Threading;
 
 namespace ShadowEngine
@@ -15,6 +17,11 @@ namespace ShadowEngine
 
         /// <value>Methods called on every timer tick.</value>
         public static OnTickDelegateVoid OnTick;
+
+        public delegate void OnObjectIterationDelegateVoid(RenderableObject obj);
+
+        public static OnTickDelegateVoid OnObjectIterationBegin;
+        public static OnObjectIterationDelegateVoid OnObjectIteration;
 
         /// <value>Gets current frames per second value.</value>
         public static long currentFPS { get; private set; } = 0;
