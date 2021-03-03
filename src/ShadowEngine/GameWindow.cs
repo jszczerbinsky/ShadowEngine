@@ -50,8 +50,7 @@ namespace ShadowEngine
         }
         internal void RenderNewFrame()
         {
-            Camera.Default.ChangeBaseSize(Render.Resolution);
-            this.Invoke(new Action(() =>
+            this.BeginInvoke(new Action(() =>
             {
                 Render.FromCamera(this.display.DisplayGraphics, Camera.Default);
                 this.display.Refresh();
@@ -100,6 +99,7 @@ namespace ShadowEngine
         private void OnResize(object sender, EventArgs e)
         {
             Render.Resolution = new System.Windows.Size(this.Size.Width, this.Size.Height);
+            Camera.Default.ChangeBaseSize(Render.Resolution);
             Render.OnWindowResize?.Invoke();
             this.display.Initialize(new Size(this.Size.Width, this.Size.Height));
         }
