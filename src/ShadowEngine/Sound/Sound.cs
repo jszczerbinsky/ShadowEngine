@@ -12,7 +12,7 @@ namespace ShadowEngine.Sound
     /// </summary>
     public sealed class Sound
     {
-        private MediaPlayer player = new MediaPlayer();
+        private MediaPlayer player;
         private bool paused = true;
 
         /// <value>Volume of sound effect</value>
@@ -46,14 +46,18 @@ namespace ShadowEngine.Sound
         /// <param name="path">Path to an audio file</param>
         public Sound(string path)
         {
-            try
+            GameWindow.actualGameWindow.BeginInvoke(new Action(() =>
             {
-                player.Open(new Uri(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + path));
-            }
-            catch (FileNotFoundException e)
-            {
-                throw new SoundException("Not found " + Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + path + " file", e);
-            }
+                try
+                {
+                    player = new MediaPlayer();
+                    player.Open(new Uri(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + path));
+                }
+                catch (FileNotFoundException e)
+                {
+                    throw new SoundException("Not found " + Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + path + " file", e);
+                }
+            }));
         }
         /// <summary>
         /// Clones sound.
