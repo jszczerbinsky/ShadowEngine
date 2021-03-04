@@ -52,6 +52,7 @@ namespace ShadowEngine.Objects
 
                     if (CheckCollision(childG, obj))
                     {
+                        OnCollision(obj);
                         this.Rotation -= rotation;
                         return;
                     }
@@ -86,6 +87,7 @@ namespace ShadowEngine.Objects
 
                     if (CheckCollision(childG, obj))
                     {
+                        OnCollision(obj);
                         this.SetPosition(this.Position.X - X, this.Position.Y - Y);
                         return;
                     }
@@ -99,7 +101,7 @@ namespace ShadowEngine.Objects
             if (this.ActualTexture != null)
                 this.ActualTexture.Render(g, this, startPosition);
         }
-
+        protected virtual void OnCollision(GameObject collider) { }
 
     }
 }
