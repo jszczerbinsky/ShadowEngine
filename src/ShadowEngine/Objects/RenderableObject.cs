@@ -26,7 +26,7 @@ namespace ShadowEngine.Objects
         /// if true - object will be rendered
         /// if false - it will not
         /// </value>
-        public bool Visible = true;
+        public bool Visible { get; private set; } = true;
 
         /// <value>Gets render layer of an object</value>
         public Layer RenderLayer;
@@ -79,6 +79,11 @@ namespace ShadowEngine.Objects
             All.Remove(this);
             this.RenderLayer.Objects.Remove(this);
             this.World.Objects.Remove(this);
+        }
+
+        public virtual void SetVisiblity(bool visiblity)
+        {
+            this.Visible = visiblity;
         }
 
         #region constructors
