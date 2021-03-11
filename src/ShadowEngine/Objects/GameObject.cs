@@ -1,6 +1,7 @@
 ﻿using ShadowEngine.Objects.Collision;
 using ShadowEngine.Objects.Texturing;
 using ShadowEngine.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -10,6 +11,7 @@ namespace ShadowEngine.Objects
     /// Game object class;
     /// Game objects are renderable objects with textures and collisions
     /// </summary>
+    [Serializable]
     public class GameObject : TexturedObject
     {
         /// <value>Object collider</value>
@@ -98,8 +100,8 @@ namespace ShadowEngine.Objects
 
         public override void Render(System.Drawing.Graphics g, Point startPosition)
         {
-            if (this.ActualTexture != null)
-                this.ActualTexture.Render(g, this, startPosition);
+            if (this.GetActualTexture() != null)
+                this.GetActualTexture().Render(g, this, startPosition);
         }
         protected virtual void OnCollision(GameObject collider) { }
 

@@ -51,9 +51,7 @@ namespace ShadowEngine
                 ShowWindow(GetConsoleWindow(), SW_HIDE);
             Project = this;
 
-            Log.Say("Loading project config");
             LoadConfig();
-            Log.Say("Config file loaded");
 
             CheckArgs(args);
 

@@ -58,6 +58,7 @@
     <Compile Include="Exceptions\TextureException.cs" />
     <Compile Include="Input\Mouse\MouseAxesValues.cs" />
     <Compile Include="Input\Mouse\MouseAxis.cs" />
+    <Compile Include="ISerializableData.cs" />
     <Compile Include="Objects\Animationing\Animation.cs" />
     <Compile Include="Objects\Collision\PolygonCollider.cs" />
     <Compile Include="Objects\Collision\RectCollider.cs" />

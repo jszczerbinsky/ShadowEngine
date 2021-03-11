@@ -33,7 +33,7 @@ namespace ShadowEngine.Objects.Texturing.Image
 
         public override void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
         {
-            GridTexture tex = (GridTexture)obj.ActualTexture;
+            GridTexture tex = (GridTexture)obj.GetActualTexture();
             g.InterpolationMode = tex.InterpolationMode;
             g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 

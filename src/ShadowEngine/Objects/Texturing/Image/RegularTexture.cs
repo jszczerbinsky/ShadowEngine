@@ -27,12 +27,11 @@ namespace ShadowEngine.Objects.Texturing.Image
 
         public override void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
         {
-            RegularTexture tex = (RegularTexture)obj.ActualTexture;
+            RegularTexture tex = (RegularTexture)obj.GetActualTexture();
             g.InterpolationMode = tex.InterpolationMode;
             g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 
             if (tex.Image == null) throw new RenderException("Image was not initialized in texture \"" + tex.Name);
-            Log.Say((obj.SizeMultipler.Height * obj.BaseSize.Height).ToString());
             g.DrawImage(
                 tex.Image,
                 new Rectangle(

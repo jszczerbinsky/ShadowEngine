@@ -7,6 +7,7 @@ namespace ShadowEngine.Objects.Collision
     /// Polygon collider class.
     /// With this class you can make custom colliders to your game objects
     /// </summary>
+    [Serializable]
     public abstract class PolygonCollider
     {
         /// <value>Gets vertices locations relative to parent object</value>

@@ -16,8 +16,6 @@ namespace ShadowEngine
 
         public GameWindow()
         {
-            Log.Say("Creating new game window");
-
             this.FormClosing += OnClose;
 
             actualGameWindow = this;
@@ -33,20 +31,15 @@ namespace ShadowEngine
                 this.FormBorderStyle = FormBorderStyle.None;
             }
 
-            Log.Say("Initializing GameLoop");
             this.display.Initialize(new Size((int)Render.Resolution.Width, (int)Render.Resolution.Height));
             Loop.OnTick += this.RenderNewFrame;
             Mouse.OnStart();
             Loop.OnTick += Mouse.OnTick;
 
             this.Show();
-            Loop.StartTicker();
-            Log.Say("Calling OnStart");
             ShadowEngineProject.Project.OnStart();
+            Loop.StartTicker();
             Render.SortLayers();
-            Log.Space();
-            Log.Say("------Listing Render Layers-----");
-            Log.Space();
 
         }
         internal void RenderNewFrame()
@@ -60,7 +53,6 @@ namespace ShadowEngine
 
         private void OnClose(object sender, EventArgs a)
         {
-            Log.Say("Closing...");
             Loop.AbortThread();
         }
 

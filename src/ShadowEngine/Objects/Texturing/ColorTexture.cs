@@ -46,7 +46,7 @@ namespace ShadowEngine.Objects.Texturing
 
         public override void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
         {
-            ColorTexture tex = (ColorTexture)obj.ActualTexture;
+            ColorTexture tex = (ColorTexture)obj.GetActualTexture();
             Brush brush = new SolidBrush(tex.Color);
 
             Rectangle size = new Rectangle(

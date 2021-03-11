@@ -7,6 +7,7 @@ namespace ShadowEngine.Objects
     /// <summary>
     /// 2D objects class.
     /// </summary>
+    [Serializable]
     public abstract class _2Dobject
     {
 

@@ -8,6 +8,7 @@ namespace ShadowEngine.Objects.Collision
     /// Regular polygon collider constructor.
     /// With this class you can create simple regular polygon colliders.
     /// </summary>
+    [Serializable]
     public class RegularPolygonCollider : PolygonCollider
     {
 

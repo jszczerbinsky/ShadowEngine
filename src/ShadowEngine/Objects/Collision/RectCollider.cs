@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 
 namespace ShadowEngine.Objects.Collision
 {
@@ -6,6 +7,7 @@ namespace ShadowEngine.Objects.Collision
     /// Rectangle collider class.
     /// With this class you can create simple, rectangular colliders.
     /// </summary>
+    [Serializable]
     public sealed class RectCollider : PolygonCollider
     {
         /// <summary>

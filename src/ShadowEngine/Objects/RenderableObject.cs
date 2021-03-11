@@ -1,4 +1,5 @@
-﻿using ShadowEngine.Exceptions;
+﻿using ShadowBuild;
+using ShadowEngine.Exceptions;
 using ShadowEngine.Input.Mouse;
 using ShadowEngine.Rendering;
 using System;
@@ -11,42 +12,50 @@ namespace ShadowEngine.Objects
     /// Renderable objects class.
     /// Renderable objects can be rendered on game window.
     /// </summary>
-    public abstract class RenderableObject : _2Dobject
+    [Serializable]
+    public abstract class RenderableObject : _2Dobject, ISerializableData
     {
+
+        private static uint nextID = 0;
         /// <value>Gets all renderable objects</value>
         public static List<RenderableObject> All { get; private set; } = new List<RenderableObject>();
+
+        private uint ID;
 
         /// <value>Gets object name</value>
         public string Name;
 
+        private string worldName;
         /// <value>Gets world of an object</value>
-        public World World { get; private set; }
+        [NonSerialized]
+        public World World;
 
         /// <value>
         /// if true - object will be rendered
         /// if false - it will not
         /// </value>
-        public bool Visible { get; private set; } = true;
+        public bool Visible = true;
 
+
+        private string renderLayerName;
         /// <value>Gets render layer of an object</value>
+        [NonSerialized]
         public Layer RenderLayer;
 
+        private uint parentID;
         /// <value>Gets parent of an object</value>
-        public RenderableObject Parent { get; private set; }
+        [NonSerialized]
+        public RenderableObject Parent;
 
         /// <value>Gets children of an object</value>
-        public List<RenderableObject> Children
+        public List<RenderableObject> GetChildren()
         {
-            get
+            List<RenderableObject> toReturn = new List<RenderableObject>();
+            foreach (RenderableObject obj in All)
             {
-                List<RenderableObject> toReturn = new List<RenderableObject>();
-                foreach (RenderableObject obj in All)
-                {
-                    if (obj.Parent == this) toReturn.Add(obj);
-                }
-                return toReturn;
+                if (obj.Parent == this) toReturn.Add(obj);
             }
-            private set { }
+            return toReturn;
         }
 
         /// <value>if mouse is over this object it will be true</value>
@@ -80,6 +89,12 @@ namespace ShadowEngine.Objects
             this.RenderLayer.Objects.Remove(this);
             this.World.Objects.Remove(this);
         }
+        public virtual void ReassignToWorld()
+        {
+            All.Add(this);
+            this.RenderLayer.Objects.Add(this);
+            this.World.Objects.Add(this);
+        }
 
         public virtual void SetVisiblity(bool visiblity)
         {
@@ -90,6 +105,8 @@ namespace ShadowEngine.Objects
 
         protected RenderableObject(string name)
         {
+            this.ID = nextID;
+            nextID++;
             this.Name = name;
             this.RenderLayer = Layer.Default;
             this.World = World.Default;
@@ -100,6 +117,8 @@ namespace ShadowEngine.Objects
         }
         protected RenderableObject(string name, Layer layer)
         {
+            this.ID = nextID;
+            nextID++;
             this.Name = name;
             this.RenderLayer = layer;
             this.World = World.Default;
@@ -110,6 +129,8 @@ namespace ShadowEngine.Objects
         }
         protected RenderableObject(string name, World world)
         {
+            this.ID = nextID;
+            nextID++;
             this.Name = name;
             this.RenderLayer = Layer.Default;
             this.World = world;
@@ -121,6 +142,8 @@ namespace ShadowEngine.Objects
         }
         protected RenderableObject(string name, Layer layer, World world)
         {
+            this.ID = nextID;
+            nextID++;
             this.Name = name;
             this.RenderLayer = layer;
             this.World = world;
@@ -135,6 +158,13 @@ namespace ShadowEngine.Objects
         #endregion
 
         #region finding
+
+        private RenderableObject findByID(uint id)
+        {
+            foreach (RenderableObject o in All)
+                if (o.ID == id) return o;
+            throw new ObjectException("Could not find object with ID " + id);
+        }
 
         /// <summary>
         /// Finds object by name
@@ -180,7 +210,7 @@ namespace ShadowEngine.Objects
         {
             List<RenderableObject> objs = new List<RenderableObject>();
 
-            foreach (RenderableObject child in this.Children)
+            foreach (RenderableObject child in this.GetChildren())
             {
                 List<RenderableObject> toMerge = child.GetAllGrandchildren();
                 toMerge.Add(child);
@@ -242,7 +272,7 @@ namespace ShadowEngine.Objects
         #endregion
 
         #region rotation
-        
+
         public override void RotateTo(Point p)
         {
             float rot = (float)((180 / Math.PI) * Math.Atan2(p.Y - this.GetGlobalPosition().Y, p.X - this.GetGlobalPosition().X));
@@ -263,7 +293,7 @@ namespace ShadowEngine.Objects
 
         private void MoveChildrenToWorld(World w)
         {
-            foreach (RenderableObject obj in this.Children)
+            foreach (RenderableObject obj in this.GetChildren())
                 obj.MoveToWorld(w);
         }
 
@@ -340,13 +370,36 @@ namespace ShadowEngine.Objects
 
         #endregion
 
+        #region serialization
+
+        public virtual void BeforeSerialization()
+        {
+            if (this.Parent == null)
+                this.parentID = uint.MaxValue;
+            else
+                parentID = this.Parent.ID;
+            worldName = this.World.Name;
+            renderLayerName = this.RenderLayer.Name;
+        }
+
+        public virtual void AfterDeserialization()
+        {
+            if (this.parentID == uint.MaxValue)
+                this.Parent = null;
+            else
+                this.Parent = findByID(this.parentID);
+            this.World = World.Find(this.worldName);
+            this.RenderLayer = Layer.Find(this.renderLayerName);
+        }
+
+        #endregion
+
         public abstract void Render(System.Drawing.Graphics g, Point startPosition);
 
         /// <summary>
         /// Checks point is inside this object.
         /// </summary>
         public abstract bool CheckPointInside(Point p);
-
 
     }
 }

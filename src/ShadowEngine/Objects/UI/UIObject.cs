@@ -69,8 +69,8 @@ namespace ShadowEngine.Objects.UI
             if (this.PositionType == UIPositionType.Global)
                 camPosTmp = startPosition;
 
-            if (this.ActualTexture != null)
-                this.ActualTexture.Render(g, this, camPosTmp);
+            if (this.GetActualTexture() != null)
+                this.GetActualTexture().Render(g, this, camPosTmp);
             this.RenderContent(g, camPosTmp);
         }
         public override bool CheckPointInside(System.Windows.Point p)
