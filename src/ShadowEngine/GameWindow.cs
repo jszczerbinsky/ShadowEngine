@@ -53,7 +53,7 @@ namespace ShadowEngine
 
         private void OnClose(object sender, EventArgs a)
         {
-            Loop.AbortThread();
+            ShadowEngineProject.Project.OnClose();
         }
 
         private void InitializeComponent()

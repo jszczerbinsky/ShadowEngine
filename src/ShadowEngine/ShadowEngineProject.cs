@@ -111,5 +111,10 @@ namespace ShadowEngine
                 Texture.LoadConfig(this.Config.TextureConfigPath);
         }
 
+        internal protected virtual void OnClose()
+        {
+            Loop.AbortThread();
+        }
+
     }
 }
