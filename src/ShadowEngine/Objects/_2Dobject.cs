@@ -28,7 +28,7 @@ namespace ShadowEngine.Objects
         /// <summary>
         /// Sets a position.
         /// </summary>
-        public void SetPosition(Point position)
+        public virtual void SetPosition(Point position)
         {
             this.Position = position;
         }
@@ -36,7 +36,7 @@ namespace ShadowEngine.Objects
         /// <summary>
         /// Sets a position.
         /// </summary>
-        public void SetPosition(double X, double Y)
+        public virtual void SetPosition(double X, double Y)
         {
             this.Position = new Point(X, Y);
         }
