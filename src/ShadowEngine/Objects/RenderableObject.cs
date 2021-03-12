@@ -1,5 +1,4 @@
-﻿using ShadowBuild;
-using ShadowEngine.Exceptions;
+﻿using ShadowEngine.Exceptions;
 using ShadowEngine.Input.Mouse;
 using ShadowEngine.Rendering;
 using System;
