@@ -18,6 +18,8 @@ namespace ShadowEngine.Objects
         private static uint nextID = 0;
         /// <value>Gets all renderable objects</value>
         public static List<RenderableObject> All { get; private set; } = new List<RenderableObject>();
+        private static List<RenderableObject> AddQueue = new List<RenderableObject>();
+        private static List<RenderableObject> RemoveQueue = new List<RenderableObject>();
 
         private uint ID;
 
@@ -84,15 +86,11 @@ namespace ShadowEngine.Objects
 
         public virtual void Destroy()
         {
-            All.Remove(this);
-            this.RenderLayer.Objects.Remove(this);
-            this.World.Objects.Remove(this);
+            this.addToRemoveQueue();
         }
         public virtual void ReassignToWorld()
         {
-            All.Add(this);
-            this.RenderLayer.Objects.Add(this);
-            this.World.Objects.Add(this);
+            this.addToQueue();
         }
 
         public virtual void SetVisiblity(bool visiblity)
@@ -111,8 +109,7 @@ namespace ShadowEngine.Objects
             this.World = World.Default;
             this.SetPosition(0, 0);
             this.Visible = true;
-            All.Add(this);
-            this.World.Objects.Add(this);
+            addToQueue();
         }
         protected RenderableObject(string name, Layer layer)
         {
@@ -123,8 +120,7 @@ namespace ShadowEngine.Objects
             this.World = World.Default;
             this.SetPosition(0, 0);
             this.Visible = true;
-            All.Add(this);
-            this.World.Objects.Add(this);
+            addToQueue();
         }
         protected RenderableObject(string name, World world)
         {
@@ -135,8 +131,7 @@ namespace ShadowEngine.Objects
             this.World = world;
             this.SetPosition(0, 0);
             this.Visible = true;
-            All.Add(this);
-            this.World.Objects.Add(this);
+            addToQueue();
 
         }
         protected RenderableObject(string name, Layer layer, World world)
@@ -148,8 +143,7 @@ namespace ShadowEngine.Objects
             this.World = world;
             this.SetPosition(0, 0);
             this.Visible = true;
-            All.Add(this);
-            this.World.Objects.Add(this);
+            addToQueue();
 
         }
         protected RenderableObject() { }
@@ -389,6 +383,39 @@ namespace ShadowEngine.Objects
                 this.Parent = findByID(this.parentID);
             this.World = World.Find(this.worldName);
             this.RenderLayer = Layer.Find(this.renderLayerName);
+        }
+
+        #endregion
+
+
+        #region adding and removing
+
+        private void addToQueue()
+        {
+            AddQueue.Add(this);
+        }
+
+        private void addToRemoveQueue()
+        {
+            RemoveQueue.Add(this);
+        }
+
+        public static void UpdateAllObjects()
+        {
+            foreach (RenderableObject obj in AddQueue)
+            {
+                All.Add(obj);
+                obj.World.Objects.Add(obj);
+            }
+
+            foreach (RenderableObject obj in RemoveQueue)
+            {
+                All.Remove(obj);
+                obj.World.Objects.Add(obj);
+            }
+
+            AddQueue.Clear();
+            RemoveQueue.Clear();
         }
 
         #endregion

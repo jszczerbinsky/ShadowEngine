@@ -44,7 +44,7 @@ namespace ShadowEngine
         }
         internal void RenderNewFrame()
         {
-            this.BeginInvoke(new Action(() =>
+            this.Invoke(new Action(() =>
             {
                 Render.FromCamera(this.display.DisplayGraphics, Camera.Default);
                 this.display.Refresh();

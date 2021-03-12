@@ -45,7 +45,10 @@ namespace ShadowEngine
                     delay = tsdelay.TotalSeconds;
 
                     if (delay > 1.0 / MaxFPS || delay == 0)
+                    {
                         OnTick();
+                        RenderableObject.UpdateAllObjects();
+                    }
 
                     waitForCount += delay;
                     if (waitForCount >= 0.5)
