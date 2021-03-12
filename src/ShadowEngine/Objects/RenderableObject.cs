@@ -411,7 +411,7 @@ namespace ShadowEngine.Objects
             foreach (RenderableObject obj in RemoveQueue)
             {
                 All.Remove(obj);
-                obj.World.Objects.Add(obj);
+                obj.World.Objects.Remove(obj);
             }
 
             AddQueue.Clear();
