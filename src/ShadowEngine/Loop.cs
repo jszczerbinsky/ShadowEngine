@@ -37,6 +37,8 @@ namespace ShadowEngine
         {
             thread = new Thread(() =>
             {
+                thread.Name = "Game loop";
+
                 double waitForCount = 0;
                 while (true)
                 {
