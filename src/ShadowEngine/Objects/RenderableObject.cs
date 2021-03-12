@@ -402,20 +402,19 @@ namespace ShadowEngine.Objects
 
         public static void UpdateAllObjects()
         {
-            foreach (RenderableObject obj in AddQueue)
+            while(AddQueue.Count != 0)
             {
-                All.Add(obj);
-                obj.World.Objects.Add(obj);
+                All.Add(AddQueue[0]);
+                AddQueue[0].World.Objects.Add(AddQueue[0]);
+                AddQueue.Remove(AddQueue[0]);
             }
 
-            foreach (RenderableObject obj in RemoveQueue)
+            while (RemoveQueue.Count != 0)
             {
-                All.Remove(obj);
-                obj.World.Objects.Remove(obj);
+                All.Remove(RemoveQueue[0]);
+                RemoveQueue[0].World.Objects.Remove(RemoveQueue[0]);
+                RemoveQueue.Remove(RemoveQueue[0]);
             }
-
-            AddQueue.Clear();
-            RemoveQueue.Clear();
         }
 
         #endregion

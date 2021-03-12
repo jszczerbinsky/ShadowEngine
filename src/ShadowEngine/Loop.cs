@@ -48,7 +48,7 @@ namespace ShadowEngine
 
                     if (delay > 1.0 / MaxFPS || delay == 0)
                     {
-                        OnTick();
+                        OnTick.Invoke();
                         RenderableObject.UpdateAllObjects();
                     }
 
