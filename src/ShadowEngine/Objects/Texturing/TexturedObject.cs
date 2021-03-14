@@ -179,7 +179,11 @@ namespace ShadowEngine.Objects.Texturing
                     }
                 }
             }
-            catch { }
+            catch(Exception e)
+            {
+                Log.Exception(e);
+                throw e;
+            }
 
         }
 

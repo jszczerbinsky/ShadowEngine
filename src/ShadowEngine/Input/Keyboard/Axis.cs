@@ -115,7 +115,9 @@ namespace ShadowEngine.Input.Keyboard
             }
             catch (Exception e)
             {
-                throw new ConfigException(path + " config file is incorrect", e);
+                Exception ex =  new ConfigException(path + " config file is incorrect", e);
+                Log.Exception(ex);
+                throw ex;
             }
             foreach (Dictionary<string, object> dict in val["Axes"])
             {
@@ -130,7 +132,9 @@ namespace ShadowEngine.Input.Keyboard
                 }
                 catch (Exception e)
                 {
-                    throw new ConfigException(path + " config file is incorrect", e);
+                    Exception ex = new ConfigException(path + " config file is incorrect", e);
+                    Log.Exception(ex);
+                    throw ex;
                 }
                 Axis a = new Axis(name, neg, pos);
                 Axis.Setup(a);

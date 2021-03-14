@@ -100,7 +100,9 @@ namespace ShadowEngine
             }
             catch (Exception e)
             {
-                throw new ConfigException("ProjectConfig.json file is incorrect", e);
+                Exception ex = new ConfigException("ProjectConfig.json file is incorrect", e);
+                Log.Exception(ex);
+                throw ex;
             }
             this.Config = pc;
             if (this.Config.AxisConfigAutoLoad)

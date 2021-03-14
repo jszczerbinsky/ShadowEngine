@@ -108,7 +108,9 @@ namespace ShadowEngine.Objects.Texturing
             }
             catch (Exception e)
             {
-                throw new ConfigException(path + " config file is incorrect", e);
+                Exception ex = new ConfigException(path + " config file is incorrect", e);
+                Log.Exception(ex);
+                throw ex;
             }
 
             foreach (Dictionary<string, object> dict in val["Image"]["Regular"])
@@ -122,7 +124,9 @@ namespace ShadowEngine.Objects.Texturing
                 }
                 catch (Exception e)
                 {
-                    throw new ConfigException(path + " config file is incorrect", e);
+                    Exception ex = new ConfigException(path + " config file is incorrect", e);
+                    Log.Exception(ex);
+                    throw ex;
                 }
                 RegularTexture t = new RegularTexture(name, p);
                 if (dict.ContainsKey("InterpolationMode"))
@@ -146,7 +150,9 @@ namespace ShadowEngine.Objects.Texturing
                 }
                 catch (Exception e)
                 {
-                    throw new ConfigException(path + " config file is incorrect", e);
+                    Exception ex = new ConfigException(path + " config file is incorrect", e);
+                    Log.Exception(ex);
+                    throw ex;
                 }
                 GridTexture t = new GridTexture(name, p, xc, yc);
                 if (dict.ContainsKey("InterpolationMode"))
@@ -169,7 +175,9 @@ namespace ShadowEngine.Objects.Texturing
                 }
                 catch (Exception e)
                 {
-                    throw new ConfigException(path + " config file is incorrect", e);
+                    Exception ex = new ConfigException(path + " config file is incorrect", e);
+                    Log.Exception(ex);
+                    throw ex;
                 }
                 ColorConverter cc = new ColorConverter();
                 Color c = (Color)cc.ConvertFromString(hex);

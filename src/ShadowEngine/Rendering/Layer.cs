@@ -131,7 +131,9 @@ namespace ShadowEngine.Rendering
             }
             catch (Exception e)
             {
-                throw new ConfigException(path + " config file is incorrect", e);
+                Exception ex = new ConfigException(path + " config file is incorrect", e);
+                Log.Exception(ex);
+                throw ex;
             }
             foreach (Dictionary<string, object> dict in val["Layers"])
             {
@@ -144,7 +146,9 @@ namespace ShadowEngine.Rendering
                 }
                 catch (Exception e)
                 {
-                    throw new ConfigException(path + " config file is incorrect", e);
+                    Exception ex = new ConfigException(path + " config file is incorrect", e);
+                    Log.Exception(ex);
+                    throw ex;
                 }
                 All.Add(new Layer(name, zi));
             }

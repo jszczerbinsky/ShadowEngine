@@ -18,7 +18,9 @@ namespace ShadowEngine.Config
             }
             catch (Exception e)
             {
-                throw new ConfigException("Cannot open file \"" + path + "\"", e);
+                Exception ex = new ConfigException("Cannot open file \"" + path + "\"", e);
+                Log.Exception(ex);
+                throw ex;
             }
 
 
@@ -34,7 +36,9 @@ namespace ShadowEngine.Config
             }
             catch (Exception e)
             {
-                throw new ConfigException("Cannot convert config file to object in \"" + path + "\"", e);
+                Exception ex = new ConfigException("Cannot convert config file to object in \"" + path + "\"", e);
+                Log.Exception(ex);
+                throw ex;
             }
             return obj;
 
