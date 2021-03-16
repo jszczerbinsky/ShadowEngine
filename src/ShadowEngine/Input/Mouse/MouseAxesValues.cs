@@ -2,6 +2,6 @@
 {
     internal static class MouseAxesValues
     {
-        internal static double X, Y, Wheel = 0;
+        internal static float X, Y, Wheel = 0;
     }
 }

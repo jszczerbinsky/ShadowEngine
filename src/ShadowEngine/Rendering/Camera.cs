@@ -1,6 +1,6 @@
-﻿using ShadowEngine.Objects;
+﻿using ShadowEngine.Objects.Parameters;
+using ShadowEngine.Objects;
 using System.Collections.Generic;
-using System.Windows;
 
 namespace ShadowEngine.Rendering
 {
@@ -21,20 +21,20 @@ namespace ShadowEngine.Rendering
         public System.Drawing.Color Background = System.Drawing.Color.Gray;
 
         /// <value>Gets start point of rendered area of camera</value>
-        public Point StartPosition
+        public Vector2D StartPosition
         {
             get
             {
-                return new Point(this.Position.X - this.BaseSize.Width / 2, this.Position.Y - this.BaseSize.Height / 2);
+                return new Vector2D(this.Position.X - this.Size.Width / 2, this.Position.Y - this.Size.Height / 2);
             }
         }
 
         /// <value>Gets end point of rendered area of camera</value>
-        public Point EndPosition
+        public Vector2D EndPosition
         {
             get
             {
-                return new Point(this.Position.X + this.BaseSize.Width / 2, this.Position.Y + this.BaseSize.Height / 2);
+                return new Vector2D(this.Position.X + this.Size.Width / 2, this.Position.Y + this.Size.Height / 2);
             }
         }
 
@@ -43,10 +43,10 @@ namespace ShadowEngine.Rendering
         /// </summary>
         /// <param name="position">Camera position. Position is always in a middle of a camera rendered area.</param>
         /// <param name="size">Size of rendered area.</param>
-        public Camera(Point position, Size size)
+        public Camera(Vector2D position, Size size)
         {
             this.Position = position;
-            this.BaseSize = size;
+            this.Size = size;
         }
 
         /// <summary>
@@ -56,10 +56,10 @@ namespace ShadowEngine.Rendering
         /// <param name="y">Camera Y position. Position is always in a middle of a camera rendered area</param>
         /// <param name="width">Width of rendered area.</param>
         /// <param name="height">Height of rendered area.</param>
-        public Camera(double x, double y, double width, double height)
+        public Camera(float x, float y, float width, float height)
         {
-            this.Position = new Point(x, y);
-            this.BaseSize = new Size(width, height);
+            this.Position = new Vector2D(x, y);
+            this.Size = new Size(width, height);
         }
 
         /// <summary>
@@ -68,10 +68,10 @@ namespace ShadowEngine.Rendering
         /// <param name="position">Camera position. Position is always in a middle of a camera rendered area.</param>
         /// <param name="size">Size of rendered area.</param>
         /// <param name="layers">Layers, that this camera will render.</param>
-        public Camera(Point position, Size size, List<Layer> layers)
+        public Camera(Vector2D position, Size size, List<Layer> layers)
         {
             this.Position = position;
-            this.BaseSize = size;
+            this.Size = size;
             this.RenderLayers = layers;
         }
 

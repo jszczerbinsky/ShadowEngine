@@ -1,4 +1,5 @@
-﻿using ShadowEngine.Objects;
+﻿using ShadowEngine.Objects.Parameters;
+using ShadowEngine.Objects;
 using ShadowEngine.Objects.UI;
 using System.Collections.Generic;
 using System.Drawing;
@@ -13,7 +14,7 @@ namespace ShadowEngine.Rendering
     {
 
         /// <value>Game window resolution</value>
-        public static System.Windows.Size Resolution = new System.Windows.Size(800, 600);
+        public static Objects.Parameters.Size Resolution = new Objects.Parameters.Size(800, 600);
 
         public delegate void OnWindowResizeDelegateVoid();
         public static OnWindowResizeDelegateVoid OnWindowResize;
@@ -42,15 +43,15 @@ namespace ShadowEngine.Rendering
         /// <param name="cam">Camera</param>
         public static void FromCamera(Graphics g, Camera cam)
         {
-            System.Windows.Point startPos =
-                new System.Windows.Point(
-                    cam.Position.X - cam.BaseSize.Width / 2,
-                    cam.Position.Y - cam.BaseSize.Height / 2);
+            Vector2D startPos =
+                new Vector2D(
+                    cam.Position.X - cam.Size.Width / 2,
+                    cam.Position.Y - cam.Size.Height / 2);
 
 
             using (Brush backgroundBrush = new SolidBrush(cam.Background))
             {
-                g.FillRectangle(backgroundBrush, 0, 0, (int)cam.BaseSize.Width, (int)cam.BaseSize.Height);
+                g.FillRectangle(backgroundBrush, 0, 0, (int)cam.Size.Width, (int)cam.Size.Height);
             }
 
 
@@ -81,9 +82,9 @@ namespace ShadowEngine.Rendering
                         GameObject gobj = (GameObject)obj;
                         if (gobj.Collider != null)
                         {
-                            foreach (System.Windows.Point p in gobj.Collider.GetGlobalPoints(gobj))
+                            foreach (Vector2D p in gobj.Collider.GetGlobalPoints(gobj))
                             {
-                                g.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(new Point((int)p.X - 1 - (int)startPos.X, (int)p.Y - 1 - (int)startPos.Y), new Size(3, 3)));
+                                g.FillRectangle(new SolidBrush(Color.Blue), new Rectangle(new Point((int)p.X - 1 - (int)startPos.X, (int)p.Y - 1 - (int)startPos.Y), new System.Drawing.Size(3, 3)));
                             }
                         }
                     }

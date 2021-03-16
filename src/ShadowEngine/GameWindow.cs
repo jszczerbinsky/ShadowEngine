@@ -1,4 +1,5 @@
-﻿using ShadowEngine.Input.Keyboard;
+﻿using ShadowEngine.Objects.Parameters;
+using ShadowEngine.Input.Keyboard;
 using ShadowEngine.Input.Mouse;
 using ShadowEngine.Rendering;
 using System;
@@ -21,7 +22,7 @@ namespace ShadowEngine
             Camera.Default = new Camera(0, 0, 800, 600);
             InitializeComponent();
 
-            this.Size = new Size(
+            this.Size = new System.Drawing.Size(
                 ShadowEngineProject.Project.Config.StartResolution.Width,
                 ShadowEngineProject.Project.Config.StartResolution.Height);
             if (ShadowEngineProject.Project.Config.StartFullscreen)
@@ -30,7 +31,7 @@ namespace ShadowEngine
                 this.FormBorderStyle = FormBorderStyle.None;
             }
 
-            this.display.Initialize(new Size((int)Render.Resolution.Width, (int)Render.Resolution.Height));
+            this.display.Initialize(new System.Drawing.Size((int)Render.Resolution.Width, (int)Render.Resolution.Height));
             Loop.OnTick += this.RenderNewFrame;
             Mouse.OnStart();
             Loop.OnTick += Mouse.OnTick;
@@ -90,10 +91,10 @@ namespace ShadowEngine
         }
         private void OnResize(object sender, EventArgs e)
         {
-            Render.Resolution = new System.Windows.Size(this.Size.Width, this.Size.Height);
-            Camera.Default.ChangeBaseSize(Render.Resolution);
+            Render.Resolution = new Objects.Parameters.Size(this.Size.Width, this.Size.Height);
+            Camera.Default.SetSize(Render.Resolution);
             Render.OnWindowResize?.Invoke();
-            this.display.Initialize(new Size(this.Size.Width, this.Size.Height));
+            this.display.Initialize(new System.Drawing.Size(this.Size.Width, this.Size.Height));
         }
         private void OnMouseDown(object sender, MouseEventArgs e)
         {

@@ -1,8 +1,8 @@
-﻿using ShadowEngine.Objects.Animationing;
+﻿using ShadowEngine.Objects.Parameters;
+using ShadowEngine.Objects.Animationing;
 using ShadowEngine.Objects.Texturing.Image;
 using ShadowEngine.Rendering;
 using System;
-using System.Windows;
 
 namespace ShadowEngine.Objects.Texturing
 {
@@ -74,8 +74,8 @@ namespace ShadowEngine.Objects.Texturing
             {
                 GridTexture tex = (GridTexture)this.GetActualTexture();
                 return new Size(
-                    this.BaseSize.Width * this.SizeMultipler.Height * tex.xCount,
-                    this.BaseSize.Height * this.SizeMultipler.Height * tex.yCount);
+                    this.Size.Width * this.Scale.Width * tex.xCount,
+                    this.Size.Height * this.Scale.Height * tex.yCount);
             }
             return base.GetRealSize();
         }
@@ -83,41 +83,36 @@ namespace ShadowEngine.Objects.Texturing
         /// <summary>
         /// Gets start position of an object
         /// </summary>
-        public Point GetStartPosition()
+        public Vector2D GetStartPosition()
         {
-            double decreaseLeft = 0;
-            double decreaseTop = 0;
+            float decreaseLeft = 0;
+            float decreaseTop = 0;
             Texture actualTexture = this.GetActualTexture();
 
             if (actualTexture is RegularTexture || actualTexture is ColorTexture)
             {
-                decreaseLeft -= this.SizeMultipler.Width * this.BaseSize.Width / 2;
-                decreaseTop -= this.SizeMultipler.Height * this.BaseSize.Height / 2;
+                decreaseLeft -= this.Scale.Width * this.Size.Width / 2;
+                decreaseTop -= this.Scale.Height * this.Size.Height / 2;
             }
             else if (actualTexture is GridTexture)
             {
                 GridTexture tex = (GridTexture)this.GetActualTexture();
-                decreaseLeft -= this.SizeMultipler.Width * this.BaseSize.Width * tex.xCount / 2;
-                decreaseTop -= this.SizeMultipler.Height * this.BaseSize.Height * tex.yCount / 2;
+                decreaseLeft -= this.Scale.Width * this.Size.Width * tex.xCount / 2;
+                decreaseTop -= this.Scale.Height * this.Size.Height * tex.yCount / 2;
             }
-            Point decrease = new Point(decreaseLeft, decreaseTop);
+            Vector2D decrease = new Vector2D(decreaseLeft, decreaseTop);
 
-            return new Point(this.GetNonRotatedGlobalPosition().X + decrease.X, this.GetNonRotatedGlobalPosition().Y + decrease.Y);
+            return this.GetNonRotatedGlobalPosition() + decrease;
         }
 
-        public override bool CheckPointInside(Point p)
+        public override bool CheckPointInside(Vector2D p)
         {
-            Point start = this.GetStartPosition();
+            Vector2D start = this.GetStartPosition();
 
-            Point tmp;
+            Size tmp;
 
-            tmp = new Point(
-                this.GetRealSize().Width,
-                this.GetRealSize().Height);
-
-            Point end = new Point(
-                this.GetStartPosition().X + tmp.X,
-                this.GetStartPosition().Y + tmp.Y);
+            tmp = this.GetRealSize();
+            Vector2D end = GetStartPosition() + tmp;
 
             if (
                 p.X > start.X &&
@@ -166,7 +161,7 @@ namespace ShadowEngine.Objects.Texturing
 
             try
             {
-                animationOffset += Loop.delay;
+                animationOffset += Loop.Delay;
 
                 if (animationOffset > ActualAnimation.Length / ActualAnimation.Textures.Count)
                 {

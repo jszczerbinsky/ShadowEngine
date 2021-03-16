@@ -1,4 +1,5 @@
-﻿using ShadowEngine.Exceptions;
+﻿using ShadowEngine.Objects.Parameters;
+using ShadowEngine.Exceptions;
 using ShadowEngine.Rendering;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,7 @@ namespace ShadowEngine.Input.Mouse
         /// <summary>
         /// Gets current mouse position relative to game window.
         /// </summary>
-        public static Point Position
+        public static Vector2D Position
         {
             get
             {
@@ -55,29 +56,29 @@ namespace ShadowEngine.Input.Mouse
                     })
                 );
 
-                return new Point(p.X, p.Y);
+                return new Vector2D(p.X, p.Y);
             }
         }
 
         /// <summary>
         /// Gets current mouse position on screen.
         /// </summary>
-        public static Point GlobalPosition
+        public static Vector2D GlobalPosition
         {
             get
             {
-                return new Point(System.Windows.Forms.Cursor.Position.X, System.Windows.Forms.Cursor.Position.Y);
+                return new Vector2D(System.Windows.Forms.Cursor.Position.X, System.Windows.Forms.Cursor.Position.Y);
             }
         }
 
         /// <summary>
         /// Gets point in game, that mouse is pointing on
         /// </summary>
-        public static Point GamePosition
+        public static Vector2D GamePosition
         {
             get
             {
-                Point p = Position;
+                Vector2D p = Position;
                 p.X += Camera.Default.Position.X - Camera.Default.GetRealSize().Width / 2;
                 p.Y += Camera.Default.Position.Y - Camera.Default.GetRealSize().Height / 2;
                 return p;
@@ -97,7 +98,7 @@ namespace ShadowEngine.Input.Mouse
         /// <summary>
         /// returns mouse axis value.
         /// </summary>
-        public static double Get(MouseAxis a)
+        public static float Get(MouseAxis a)
         {
             switch (a)
             {

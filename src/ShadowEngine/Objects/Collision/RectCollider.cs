@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShadowEngine.Objects.Parameters;
+using System;
 using System.Windows;
 
 namespace ShadowEngine.Objects.Collision
@@ -17,14 +18,14 @@ namespace ShadowEngine.Objects.Collision
         /// <param name="y">y position relative to parent object</param>
         /// <param name="width">collider width</param>
         /// <param name="height">collider height</param>
-        public RectCollider(double x, double y, double width, double height) : base()
+        public RectCollider(float x, float y, float width, float height) : base()
         {
-            Point[] vertices = new Point[4];
+            Vector2D[] vertices = new Vector2D[4];
 
-            vertices[0] = new Point(x - width / 2, y + height / 2);
-            vertices[1] = new Point(x + width / 2, y + height / 2);
-            vertices[2] = new Point(x + width / 2, y - height / 2);
-            vertices[3] = new Point(x - width / 2, y - height / 2);
+            vertices[0] = new Vector2D(x - width / 2, y + height / 2);
+            vertices[1] = new Vector2D(x + width / 2, y + height / 2);
+            vertices[2] = new Vector2D(x + width / 2, y - height / 2);
+            vertices[3] = new Vector2D(x - width / 2, y - height / 2);
 
             this.Vertices = vertices;
         }

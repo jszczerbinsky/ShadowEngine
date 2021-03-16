@@ -1,4 +1,5 @@
-﻿using ShadowEngine.Input.Mouse;
+﻿using ShadowEngine.Objects.Parameters;
+using ShadowEngine.Input.Mouse;
 using ShadowEngine.Objects.Texturing;
 using ShadowEngine.Rendering;
 using System.Drawing;
@@ -19,7 +20,7 @@ namespace ShadowEngine.Objects.UI
         public string Content;
 
         /// <value>size of a text</value>
-        public System.Windows.Size ContentSize = new System.Windows.Size(100, 100);
+        public Parameters.Size ContentSize = new Parameters.Size(100, 100);
 
         /// <value>format of a text</value>
         public StringFormat ContentFormat = new StringFormat();
@@ -31,7 +32,7 @@ namespace ShadowEngine.Objects.UI
                 if (Mouse.LockCursor) return false;
                 if (PositionType == UIPositionType.Global) return base.MouseOver;
 
-                System.Windows.Point p = new System.Windows.Point(
+                Vector2D p = new Vector2D(
                                     Mouse.Position.X,
                                     Mouse.Position.Y
                                 );
@@ -52,19 +53,19 @@ namespace ShadowEngine.Objects.UI
             ContentFormat.Alignment = StringAlignment.Center;
         }
 
-        private void RenderContent(Graphics g, System.Windows.Point camPos)
+        private void RenderContent(Graphics g, Vector2D camPos)
         {
             Rectangle rect = new Rectangle(
                     (int)(this.GetStartPosition().X - camPos.X),
                     (int)(this.GetStartPosition().Y - camPos.Y),
-                    (int)(this.ContentSize.Width * this.SizeMultipler.Width),
-                    (int)(this.ContentSize.Height * this.SizeMultipler.Height)
+                    (int)(this.ContentSize.Width * this.Scale.Width),
+                    (int)(this.ContentSize.Height * this.Scale.Height)
                     );
             g.DrawString(this.Content, SystemFonts.MenuFont, new SolidBrush(Color.Black), rect, ContentFormat);
         }
-        public override void Render(Graphics g, System.Windows.Point startPosition)
+        public override void Render(Graphics g, Vector2D startPosition)
         {
-            System.Windows.Point camPosTmp = new System.Windows.Point(0, 0);
+            Vector2D camPosTmp = new Vector2D(0, 0);
 
             if (this.PositionType == UIPositionType.Global)
                 camPosTmp = startPosition;
@@ -73,16 +74,16 @@ namespace ShadowEngine.Objects.UI
                 this.GetActualTexture().Render(g, this, camPosTmp);
             this.RenderContent(g, camPosTmp);
         }
-        public override bool CheckPointInside(System.Windows.Point p)
+        public override bool CheckPointInside(Vector2D p)
         {
             if (this.PositionType == UIPositionType.Global)
                 return base.CheckPointInside(p);
 
-            double decreseLeft = this.GetRealSize().Width / 2;
-            double decreseTop = this.GetRealSize().Height / 2;
+            float decreseLeft = this.GetRealSize().Width / 2;
+            float decreseTop = this.GetRealSize().Height / 2;
 
-            System.Windows.Point start = new System.Windows.Point(this.GetGlobalPosition().X - decreseLeft, this.GetGlobalPosition().Y - decreseTop);
-            System.Windows.Point end = new System.Windows.Point(start.X + this.GetRealSize().Width, start.Y + this.GetRealSize().Height);
+            Vector2D start = new Vector2D(this.GetGlobalPosition().X - decreseLeft, this.GetGlobalPosition().Y - decreseTop);
+            Vector2D end = start + this.GetRealSize();
 
             if (
                 p.X > start.X &&

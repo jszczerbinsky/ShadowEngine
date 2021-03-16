@@ -64,11 +64,13 @@
     <Compile Include="Objects\Collision\PolygonCollider.cs" />
     <Compile Include="Objects\Collision\RectCollider.cs" />
     <Compile Include="Objects\Collision\RegularPolygonCollider.cs" />
+    <Compile Include="Objects\Parameters\Size.cs" />
     <Compile Include="Objects\RenderableObject.cs" />
     <Compile Include="Objects\Texturing\Image\ImageTexture.cs" />
     <Compile Include="Objects\Texturing\Shape.cs" />
     <Compile Include="Objects\Texturing\TexturedObject.cs" />
     <Compile Include="Objects\UI\UIObject.cs" />
+    <Compile Include="Objects\Parameters\Vector2D.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

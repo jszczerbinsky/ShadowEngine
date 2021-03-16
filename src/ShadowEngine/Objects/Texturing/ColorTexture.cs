@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShadowEngine.Objects.Parameters;
+using System;
 using System.Drawing;
 using System.Web.Script.Serialization;
 
@@ -44,7 +45,7 @@ namespace ShadowEngine.Objects.Texturing
             this.Color = color;
         }
 
-        public override void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
+        public override void Render(Graphics g, TexturedObject obj, Vector2D cameraPos)
         {
             ColorTexture tex = (ColorTexture)obj.GetActualTexture();
             Brush brush = new SolidBrush(tex.Color);
@@ -54,9 +55,9 @@ namespace ShadowEngine.Objects.Texturing
                      (int)(obj.GetStartPosition().X - cameraPos.X),
                      (int)(obj.GetStartPosition().Y - cameraPos.Y)
                 ),
-                new Size(
-                    (int)(obj.SizeMultipler.Width * obj.BaseSize.Width),
-                    (int)(obj.SizeMultipler.Height * obj.BaseSize.Height)
+                new System.Drawing.Size(
+                    (int)(obj.Scale.Width * obj.Size.Width),
+                    (int)(obj.Scale.Height * obj.Size.Height)
                 )
             );
             if (tex.Shape == ColorTextureShape.Ellipse)

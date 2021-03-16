@@ -1,4 +1,5 @@
-﻿using ShadowEngine.Objects.Collision;
+﻿using ShadowEngine.Objects.Parameters;
+using ShadowEngine.Objects.Collision;
 using ShadowEngine.Objects.Texturing;
 using ShadowEngine.Rendering;
 using System;
@@ -62,7 +63,7 @@ namespace ShadowEngine.Objects
             }
         }
 
-        public override void Move(double X, double Y)
+        public override void Move(float X, float Y)
         {
             if (X != 0 && Y != 0)
             {
@@ -98,7 +99,7 @@ namespace ShadowEngine.Objects
 
         }
 
-        public override void Render(System.Drawing.Graphics g, Point startPosition)
+        public override void Render(System.Drawing.Graphics g, Vector2D startPosition)
         {
             if (this.GetActualTexture() != null)
                 this.GetActualTexture().Render(g, this, startPosition);

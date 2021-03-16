@@ -1,4 +1,5 @@
-﻿using ShadowEngine.Config;
+﻿using ShadowEngine.Objects.Parameters;
+using ShadowEngine.Config;
 using ShadowEngine.Exceptions;
 using ShadowEngine.Objects.Texturing.Image;
 using System;
@@ -18,7 +19,7 @@ namespace ShadowEngine.Objects.Texturing
         /// <value>Texture name</value>
         public string Name;
 
-        public abstract void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos);
+        public abstract void Render(Graphics g, TexturedObject obj, Vector2D cameraPos);
 
         /// <summary>
         /// Sets up a texture
@@ -53,7 +54,7 @@ namespace ShadowEngine.Objects.Texturing
             return tex;
         }
 
-        public static void RenderObjectCenters(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
+        public static void RenderObjectCenters(Graphics g, TexturedObject obj, Vector2D cameraPos)
         {
             if (obj.Visible)
             {
@@ -66,7 +67,7 @@ namespace ShadowEngine.Objects.Texturing
                             (int)(obj.GetNonRotatedGlobalPosition().X - 2 - cameraPos.X),
                             (int)(obj.GetNonRotatedGlobalPosition().Y - 2 - cameraPos.Y)
                         ),
-                        new Size(
+                        new System.Drawing.Size(
                             5, 5)
                         ));
             }

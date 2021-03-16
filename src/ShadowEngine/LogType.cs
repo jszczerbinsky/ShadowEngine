@@ -1,4 +1,4 @@
-﻿namespace ShadowBuild
+﻿namespace ShadowEngine
 {
     public enum LogType
     {

@@ -66,7 +66,7 @@ namespace ShadowEngine.Input.Keyboard
         /// Gets axis value.
         /// </summary>
         /// <param name="name">axis name</param>
-        public static double GetValue(string name)
+        public static float GetValue(string name)
         {
             Axis axis = Find(name);
             if (axis == null) throw new AxisException("Cannot find axis \"" + name + "\"");
@@ -76,9 +76,9 @@ namespace ShadowEngine.Input.Keyboard
         /// <summary>
         /// Gets axis value.
         /// </summary>
-        public static double GetValue(Axis axis)
+        public static float GetValue(Axis axis)
         {
-            double value = 0;
+            float value = 0;
 
             if (Keyboard.KeyPressed(axis.Negative))
                 value--;

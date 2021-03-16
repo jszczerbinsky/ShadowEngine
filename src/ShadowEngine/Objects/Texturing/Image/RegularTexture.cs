@@ -1,4 +1,5 @@
-﻿using ShadowEngine.Exceptions;
+﻿using ShadowEngine.Objects.Parameters;
+using ShadowEngine.Exceptions;
 using System;
 using System.Drawing;
 
@@ -25,7 +26,7 @@ namespace ShadowEngine.Objects.Texturing.Image
             InitializeImage();
         }
 
-        public override void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
+        public override void Render(Graphics g, TexturedObject obj, Vector2D cameraPos)
         {
             RegularTexture tex = (RegularTexture)obj.GetActualTexture();
             g.InterpolationMode = tex.InterpolationMode;
@@ -38,9 +39,9 @@ namespace ShadowEngine.Objects.Texturing.Image
                     new Point(
                         (int)(obj.GetStartPosition().X - cameraPos.X),
                         (int)(obj.GetStartPosition().Y - cameraPos.Y)
-                    ), new Size(
-                        (int)Math.Round(obj.SizeMultipler.Width * obj.BaseSize.Width, MidpointRounding.AwayFromZero),
-                        (int)Math.Round(obj.SizeMultipler.Height * obj.BaseSize.Height, MidpointRounding.AwayFromZero)
+                    ), new System.Drawing.Size(
+                        (int)Math.Round(obj.Scale.Width * obj.Size.Width, MidpointRounding.AwayFromZero),
+                        (int)Math.Round(obj.Scale.Height * obj.Size.Height, MidpointRounding.AwayFromZero)
                         )
                     )
                 );

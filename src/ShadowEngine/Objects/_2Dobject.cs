@@ -1,5 +1,5 @@
-﻿using System;
-using System.Windows;
+﻿using ShadowEngine.Objects.Parameters;
+using System;
 
 namespace ShadowEngine.Objects
 {
@@ -12,13 +12,13 @@ namespace ShadowEngine.Objects
     {
 
         /// <value>Gets position of an object</value>
-        public Point Position { get; protected set; }
+        public Vector2D Position { get; protected set; }
 
         /// <value>Gets base size of an object</value>
-        public Size BaseSize { get; protected set; } = new Size(200, 200);
+        public Size Size { get; protected set; } = new Size(200, 200);
 
         /// <value>Gets size multipler of an object</value>
-        public Size SizeMultipler { get; protected set; } = new Size(1, 1);
+        public Size Scale { get; protected set; } = new Size(1, 1);
 
         /// <value>Gets rotation of an object</value>
         public float Rotation { get; protected set; }
@@ -28,7 +28,7 @@ namespace ShadowEngine.Objects
         /// <summary>
         /// Sets a position.
         /// </summary>
-        public virtual void SetPosition(Point position)
+        public virtual void SetPosition(Vector2D position)
         {
             this.Position = position;
         }
@@ -36,28 +36,28 @@ namespace ShadowEngine.Objects
         /// <summary>
         /// Sets a position.
         /// </summary>
-        public virtual void SetPosition(double X, double Y)
+        public virtual void SetPosition(float X, float Y)
         {
-            this.Position = new Point(X, Y);
+            this.Position = new Vector2D(X, Y);
         }
 
         /// <summary>
         /// Moves object.
         /// </summary>
-        public virtual void Move(double X, double Y)
+        public virtual void Move(float X, float Y)
         {
-            this.Position = new Point(X + this.Position.X, Y + this.Position.Y);
+            this.Position += new Vector2D(X, Y);
         }
 
         /// <summary>
         /// Moves object taking rotation into account.
         /// </summary>
-        public virtual void MoveLocal(double X, double Y)
+        public virtual void MoveLocal(float X, float Y)
         {
             double rot = (Math.PI / 180) * Rotation;
 
-            double moveX = Math.Sin(rot) * Y + Math.Cos(rot) * X;
-            double moveY = Math.Sin(rot) * X + Math.Cos(rot) * Y;
+            float moveX = (float)(Math.Sin(rot) * Y + Math.Cos(rot) * X);
+            float moveY = (float)(Math.Sin(rot) * X + Math.Cos(rot) * Y);
 
             Move(moveX, -moveY);
         }
@@ -65,15 +65,15 @@ namespace ShadowEngine.Objects
         /// <summary>
         /// Moves to point
         /// </summary>
-        public virtual void MoveTo(Point p, double speed)
+        public virtual void MoveTo(Vector2D p, float speed)
         {
-            double xDistance = p.X - this.Position.X;
-            double yDistance = p.Y - this.Position.Y;
+            float xDistance = p.X - this.Position.X;
+            float yDistance = p.Y - this.Position.Y;
 
-            double distance = DistanceFrom(p);
+            float distance = DistanceFrom(p);
 
-            double xNormal = xDistance / distance;
-            double yNormal = yDistance / distance;
+            float xNormal = xDistance / distance;
+            float yNormal = yDistance / distance;
 
             Move(xNormal * speed, yNormal * speed);
         }
@@ -81,23 +81,23 @@ namespace ShadowEngine.Objects
         /// <summary>
         /// Gets distance from another object.
         /// </summary>
-        public double DistanceFrom(_2Dobject o)
+        public float DistanceFrom(_2Dobject o)
         {
-            double x = Math.Abs(o.Position.X - this.Position.X);
-            double y = Math.Abs(o.Position.Y - this.Position.Y);
+            float x = Math.Abs(o.Position.X - this.Position.X);
+            float y = Math.Abs(o.Position.Y - this.Position.Y);
 
-            return Math.Sqrt(y * y + x * x);
+            return (float)Math.Sqrt(y * y + x * x);
         }
 
         /// <summary>
         /// Gets distance from a point.
         /// </summary>
-        public double DistanceFrom(Point p)
+        public float DistanceFrom(Vector2D p)
         {
-            double x = Math.Abs(p.X - this.Position.X);
-            double y = Math.Abs(p.Y - this.Position.Y);
+            float x = Math.Abs(p.X - this.Position.X);
+            float y = Math.Abs(p.Y - this.Position.Y);
 
-            return Math.Sqrt(y * y + x * x);
+            return (float)Math.Sqrt(y * y + x * x);
         }
 
 
@@ -113,39 +113,39 @@ namespace ShadowEngine.Objects
         /// </returns>
         public virtual Size GetRealSize()
         {
-            return new Size(this.BaseSize.Width * this.SizeMultipler.Width, this.BaseSize.Height * this.SizeMultipler.Height);
+            return Size * Scale;
         }
 
         /// <summary>
         /// Sets base size of an object.
-        /// </summary>
-        public void ChangeBaseSize(Size size)
-        {
-            this.BaseSize = size;
-        }
-
-        /// <summary>
-        /// Sets base size of an object.
-        /// </summary>
-        public void ChangeBaseSize(double X, double Y)
-        {
-            this.BaseSize = new Size(X, Y);
-        }
-
-        /// <summary>
-        /// Sets size multipler of an object.
         /// </summary>
         public void SetSize(Size size)
         {
-            this.SizeMultipler = size;
+            this.Size = size;
+        }
+
+        /// <summary>
+        /// Sets base size of an object.
+        /// </summary>
+        public void SetSize(float X, float Y)
+        {
+            this.Size = new Size(X, Y);
         }
 
         /// <summary>
         /// Sets size multipler of an object.
         /// </summary>
-        public void SetSize(double X, double Y)
+        public void SetScale(Size size)
         {
-            this.SizeMultipler = new Size(X, Y);
+            this.Scale = size;
+        }
+
+        /// <summary>
+        /// Sets size multipler of an object.
+        /// </summary>
+        public void SetScale(float X, float Y)
+        {
+            this.Scale = new Size(X, Y);
         }
 
         #endregion
@@ -163,7 +163,7 @@ namespace ShadowEngine.Objects
         /// <summary>
         /// Sets rotation to face a point
         /// </summary>
-        public virtual void RotateTo(Point p)
+        public virtual void RotateTo(Vector2D p)
         {
             float rot = (float)((180 / Math.PI) * Math.Atan2(p.Y - this.Position.Y, p.X - this.Position.X));
             if (rot < 0)

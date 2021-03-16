@@ -1,4 +1,5 @@
-﻿using ShadowEngine.Exceptions;
+﻿using ShadowEngine.Objects.Parameters;
+using ShadowEngine.Exceptions;
 using ShadowEngine.Input.Mouse;
 using ShadowEngine.Rendering;
 using System;
@@ -65,11 +66,7 @@ namespace ShadowEngine.Objects
             get
             {
                 if (Mouse.LockCursor || this.World != World.ActualWorld) return false;
-                Point p = new Point(
-                    Mouse.Position.X + Camera.Default.StartPosition.X,
-                    Mouse.Position.Y + Camera.Default.StartPosition.Y
-                );
-                return CheckPointInside(p);
+                return CheckPointInside(Mouse.Position - Camera.Default.StartPosition);
             }
         }
 
@@ -237,12 +234,12 @@ namespace ShadowEngine.Objects
         /// <summary>
         /// Returns global position ignoring rotation and all grandparents rotation.
         /// </summary>
-        public Point GetNonRotatedGlobalPosition()
+        public Vector2D GetNonRotatedGlobalPosition()
         {
-            Point tmpPosition = this.Position;
+            Vector2D tmpPosition = this.Position;
             if (this.Parent != null)
             {
-                tmpPosition = new Point(tmpPosition.X + this.Parent.GetNonRotatedGlobalPosition().X, tmpPosition.Y + this.Parent.GetNonRotatedGlobalPosition().Y);
+                tmpPosition += this.Parent.GetNonRotatedGlobalPosition();
             }
             return tmpPosition;
 
@@ -251,9 +248,9 @@ namespace ShadowEngine.Objects
         /// <summary>
         /// Returns global position.
         /// </summary>
-        public Point GetGlobalPosition()
+        public Vector2D GetGlobalPosition()
         {
-            Point pos = this.GetNonRotatedGlobalPosition();
+            Vector2D pos = this.GetNonRotatedGlobalPosition();
             if (this.Parent != null) this.Parent.InheritPosition(ref pos);
             return pos;
         }
@@ -272,7 +269,7 @@ namespace ShadowEngine.Objects
 
         #region rotation
 
-        public override void RotateTo(Point p)
+        public override void RotateTo(Vector2D p)
         {
             float rot = (float)((180 / Math.PI) * Math.Atan2(p.Y - this.GetGlobalPosition().Y, p.X - this.GetGlobalPosition().X));
             if (rot < 0)
@@ -329,7 +326,7 @@ namespace ShadowEngine.Objects
 
         #region inherit
 
-        public void InheritGraphicsTransform(System.Drawing.Graphics g, Point startPos)
+        public void InheritGraphicsTransform(System.Drawing.Graphics g, Vector2D startPos)
         {
             if (this.Parent != null) this.Parent.InheritGraphicsTransform(g, startPos);
 
@@ -350,12 +347,12 @@ namespace ShadowEngine.Objects
         /// <summary>
         /// Inherit position of all grandparents, including rotation transformations.
         /// </summary>
-        public void InheritPosition(ref Point p)
+        public void InheritPosition(ref Vector2D p)
         {
             double angleInRadians = this.Rotation * (Math.PI / 180);
             double cosTheta = Math.Cos(angleInRadians);
             double sinTheta = Math.Sin(angleInRadians);
-            p = new Point()
+            p = new Vector2D()
             {
                 X =
                     (int)
@@ -441,12 +438,12 @@ namespace ShadowEngine.Objects
 
         #endregion
 
-        public abstract void Render(System.Drawing.Graphics g, Point startPosition);
+        public abstract void Render(System.Drawing.Graphics g, Vector2D startPosition);
 
         /// <summary>
         /// Checks point is inside this object.
         /// </summary>
-        public abstract bool CheckPointInside(Point p);
+        public abstract bool CheckPointInside(Vector2D p);
 
     }
 }

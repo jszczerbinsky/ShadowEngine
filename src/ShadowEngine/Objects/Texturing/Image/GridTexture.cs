@@ -1,4 +1,5 @@
-﻿using ShadowEngine.Exceptions;
+﻿using ShadowEngine.Objects.Parameters;
+using ShadowEngine.Exceptions;
 using System.Drawing;
 
 namespace ShadowEngine.Objects.Texturing.Image
@@ -31,7 +32,7 @@ namespace ShadowEngine.Objects.Texturing.Image
             InitializeImage();
         }
 
-        public override void Render(Graphics g, TexturedObject obj, System.Windows.Point cameraPos)
+        public override void Render(Graphics g, TexturedObject obj, Vector2D cameraPos)
         {
             GridTexture tex = (GridTexture)obj.GetActualTexture();
             g.InterpolationMode = tex.InterpolationMode;
@@ -49,11 +50,11 @@ namespace ShadowEngine.Objects.Texturing.Image
                         tex.Image,
                         new Rectangle(
                             new Point(
-                                (int)(obj.GetStartPosition().X - cameraPos.X + x * obj.SizeMultipler.Width * obj.BaseSize.Width),
-                                (int)(obj.GetStartPosition().Y - cameraPos.Y + y * obj.SizeMultipler.Height * obj.BaseSize.Height)
-                            ), new Size(
-                                (int)(obj.SizeMultipler.Width * obj.BaseSize.Width),
-                                (int)(obj.SizeMultipler.Height * obj.BaseSize.Height)
+                                (int)(obj.GetStartPosition().X - cameraPos.X + x * obj.Scale.Width * obj.Size.Width),
+                                (int)(obj.GetStartPosition().Y - cameraPos.Y + y * obj.Scale.Height * obj.Size.Height)
+                            ), new System.Drawing.Size(
+                                (int)(obj.Scale.Width * obj.Size.Width),
+                                (int)(obj.Scale.Height * obj.Size.Height)
                                 )
                             )
                         );
