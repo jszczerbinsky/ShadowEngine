@@ -1,5 +1,6 @@
 ﻿using ShadowEngine.Exceptions;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ShadowEngine.Objects
 {
@@ -16,10 +17,10 @@ namespace ShadowEngine.Objects
         public static readonly World Default = new World("default");
 
         /// <value>Gets all worlds</value>
-        public static List<World> All { get; private set; } = new List<World> { World.Default };
+        public static Collection<World> All { get; private set; } = new Collection<World> { World.Default };
 
         /// <value>Gets all renderable objects in this world</value>
-        public List<RenderableObject> Objects { get; internal set; } = new List<RenderableObject>();
+        public Collection<RenderableObject> Objects { get; internal set; } = new Collection<RenderableObject>();
 
         /// <value>Actual rendered world</value>
         public static World ActualWorld = World.Default;

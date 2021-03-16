@@ -5,6 +5,7 @@ using ShadowEngine.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace ShadowEngine.Objects
 {
@@ -18,9 +19,9 @@ namespace ShadowEngine.Objects
 
         private static uint nextID = 0;
         /// <value>Gets all renderable objects</value>
-        public static List<RenderableObject> All { get; private set; } = new List<RenderableObject>();
-        private static List<RenderableObject> AddQueue = new List<RenderableObject>();
-        private static List<RenderableObject> RemoveQueue = new List<RenderableObject>();
+        public static Collection<RenderableObject> All { get; private set; } = new Collection<RenderableObject>();
+        private static Collection<RenderableObject> AddQueue = new Collection<RenderableObject>();
+        private static Collection<RenderableObject> RemoveQueue = new Collection<RenderableObject>();
 
         private uint ID;
 
@@ -50,9 +51,9 @@ namespace ShadowEngine.Objects
         public RenderableObject Parent;
 
         /// <value>Gets children of an object</value>
-        public List<RenderableObject> GetChildren()
+        public Collection<RenderableObject> GetChildren()
         {
-            List<RenderableObject> toReturn = new List<RenderableObject>();
+            Collection<RenderableObject> toReturn = new Collection<RenderableObject>();
             foreach (RenderableObject obj in All)
             {
                 if (obj.Parent == this) toReturn.Add(obj);
@@ -202,13 +203,13 @@ namespace ShadowEngine.Objects
         /// <returns>
         /// All granchildren of an object (All objects that are children of this object and all their grandchildren)
         /// </returns>
-        public List<RenderableObject> GetAllGrandchildren()
+        public Collection<RenderableObject> GetAllGrandchildren()
         {
-            List<RenderableObject> objs = new List<RenderableObject>();
+            Collection<RenderableObject> objs = new Collection<RenderableObject>();
 
             foreach (RenderableObject child in this.GetChildren())
             {
-                List<RenderableObject> toMerge = child.GetAllGrandchildren();
+                Collection<RenderableObject> toMerge = child.GetAllGrandchildren();
                 toMerge.Add(child);
                 foreach (RenderableObject toMergeObj in toMerge)
                     objs.Add(toMergeObj);

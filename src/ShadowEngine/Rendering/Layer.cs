@@ -3,6 +3,7 @@ using ShadowEngine.Exceptions;
 using ShadowEngine.Objects;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Web.Script.Serialization;
 
 namespace ShadowEngine.Rendering
@@ -19,15 +20,15 @@ namespace ShadowEngine.Rendering
         /// <value>Gets a default layer.</value>
         public static readonly Layer Default = new Layer("default", 0);
 
-        internal static readonly List<Layer> All = new List<Layer> { Layer.Default };
+        internal static readonly Collection<Layer> All = new Collection<Layer> { Layer.Default };
 
         /// <value>Gets objects assigned to the layer.</value>
         [ScriptIgnore]
-        public List<RenderableObject> Objects
+        public Collection<RenderableObject> Objects
         {
             get
             {
-                List<RenderableObject> objs = new List<RenderableObject>();
+                Collection<RenderableObject> objs = new Collection<RenderableObject>();
                 foreach (RenderableObject obj in World.ActualWorld.Objects)
                 {
                     if (obj.RenderLayer == this) objs.Add(obj);
@@ -117,7 +118,7 @@ namespace ShadowEngine.Rendering
         }
         public static void SaveConfig(string path)
         {
-            var serialized = new { Layers = new List<Layer>(All) };
+            var serialized = new { Layers = new Collection<Layer>(All) };
             serialized.Layers.Remove(Layer.Find("default"));
             WriteConfigFile(path, serialized);
         }

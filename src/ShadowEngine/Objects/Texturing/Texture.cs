@@ -5,6 +5,7 @@ using ShadowEngine.Objects.Texturing.Image;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Collections.ObjectModel;
 
 namespace ShadowEngine.Objects.Texturing
 {
@@ -14,7 +15,7 @@ namespace ShadowEngine.Objects.Texturing
     public abstract class Texture : ConfigSavable
     {
         /// <value>All set up textures</value>
-        public static List<Texture> All = new List<Texture>();
+        public static Collection<Texture> All = new Collection<Texture>();
 
         /// <value>Texture name</value>
         public string Name;
@@ -43,9 +44,9 @@ namespace ShadowEngine.Objects.Texturing
             throw new TextureException("Cannot find texture \"" + name);
         }
 
-        public static List<Texture> StartsWidth(string name)
+        public static Collection<Texture> StartsWidth(string name)
         {
-            List<Texture> tex = new List<Texture>();
+            Collection<Texture> tex = new Collection<Texture>();
 
             foreach (Texture t in All)
                 if (t.Name.StartsWith(name))
@@ -75,9 +76,9 @@ namespace ShadowEngine.Objects.Texturing
 
         public static void SaveConfig(string path)
         {
-            List<ColorTexture> c = new List<ColorTexture>();
-            List<RegularTexture> r = new List<RegularTexture>();
-            List<GridTexture> g = new List<GridTexture>();
+            Collection<ColorTexture> c = new Collection<ColorTexture>();
+            Collection<RegularTexture> r = new Collection<RegularTexture>();
+            Collection<GridTexture> g = new Collection<GridTexture>();
             foreach (Texture t in All)
                 if (t is ColorTexture) c.Add((ColorTexture)t);
                 else if (t is RegularTexture) r.Add((RegularTexture)t);

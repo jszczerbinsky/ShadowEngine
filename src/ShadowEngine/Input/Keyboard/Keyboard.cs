@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
 namespace ShadowEngine.Input.Keyboard
@@ -8,10 +9,10 @@ namespace ShadowEngine.Input.Keyboard
     /// </summary>
     public static class Keyboard
     {
-        private static List<Keys> PressedKeys = new List<Keys>();
-        private static List<Keys> ClickedKeys = new List<Keys>();
+        private static Collection<Keys> PressedKeys = new Collection<Keys>();
+        private static Collection<Keys> ClickedKeys = new Collection<Keys>();
 
-        private static bool CheckExists(Keys k, List<Keys> where)
+        private static bool CheckExists(Keys k, Collection<Keys> where)
         {
             foreach (Keys k1 in where)
             {

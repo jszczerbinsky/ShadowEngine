@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Forms;
+using System.Collections.ObjectModel;
 
 namespace ShadowEngine.Input.Mouse
 {
@@ -13,8 +14,8 @@ namespace ShadowEngine.Input.Mouse
     /// </summary>
     public static class Mouse
     {
-        private static List<MouseButtons> PressedButtons = new List<MouseButtons>();
-        private static List<MouseButtons> ClickedButtons = new List<MouseButtons>();
+        private static Collection<MouseButtons> PressedButtons = new Collection<MouseButtons>();
+        private static Collection<MouseButtons> ClickedButtons = new Collection<MouseButtons>();
 
         private static bool lockCursor = false;
 
@@ -132,7 +133,7 @@ namespace ShadowEngine.Input.Mouse
 
         }
 
-        private static bool CheckExists(MouseButtons k, List<MouseButtons> where)
+        private static bool CheckExists(MouseButtons k, Collection<MouseButtons> where)
         {
             foreach (MouseButtons k1 in where)
             {

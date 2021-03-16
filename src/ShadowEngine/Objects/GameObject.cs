@@ -5,6 +5,7 @@ using ShadowEngine.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace ShadowEngine.Objects
 {
@@ -37,7 +38,7 @@ namespace ShadowEngine.Objects
 
         public override void Rotate(float rotation)
         {
-            List<RenderableObject> childrenWithThis = this.GetAllGrandchildren();
+            Collection<RenderableObject> childrenWithThis = this.GetAllGrandchildren();
             childrenWithThis.Add(this);
 
             this.Rotation += rotation;
@@ -72,7 +73,7 @@ namespace ShadowEngine.Objects
                 return;
             }
 
-            List<RenderableObject> childrenWithThis = this.GetAllGrandchildren();
+            Collection<RenderableObject> childrenWithThis = this.GetAllGrandchildren();
             childrenWithThis.Add(this);
 
             this.SetPosition(this.Position.X + X, this.Position.Y + Y);

@@ -1,6 +1,7 @@
 ﻿using ShadowEngine.Objects.Parameters;
 using ShadowEngine.Objects;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ShadowEngine.Rendering
 {
@@ -15,7 +16,7 @@ namespace ShadowEngine.Rendering
         public static Camera Default;
 
         /// <value>Gets all render layers, that this camera renders</value>
-        public readonly List<Layer> RenderLayers = new List<Layer>() { Layer.Default };
+        public readonly Collection<Layer> RenderLayers = new Collection<Layer>() { Layer.Default };
 
         /// <value>Camera background color</value>
         public System.Drawing.Color Background = System.Drawing.Color.Gray;
@@ -68,7 +69,7 @@ namespace ShadowEngine.Rendering
         /// <param name="position">Camera position. Position is always in a middle of a camera rendered area.</param>
         /// <param name="size">Size of rendered area.</param>
         /// <param name="layers">Layers, that this camera will render.</param>
-        public Camera(Vector2D position, Size size, List<Layer> layers)
+        public Camera(Vector2D position, Size size, Collection<Layer> layers)
         {
             this.Position = position;
             this.Size = size;

@@ -2,6 +2,7 @@
 using ShadowEngine.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Forms;
 
 namespace ShadowEngine.Input.Keyboard
@@ -11,7 +12,7 @@ namespace ShadowEngine.Input.Keyboard
     /// </summary>
     public class Axis : ConfigSavable
     {
-        private static List<Axis> Axes = new List<Axis>();
+        private static Collection<Axis> Axes = new Collection<Axis>();
 
         /// <value>Axis name</value>
         public string Name;
@@ -93,7 +94,7 @@ namespace ShadowEngine.Input.Keyboard
         /// </summary>
         public static void SaveConfig(string path)
         {
-            var serialized = new { Axes = new List<Axis>() };
+            var serialized = new { Axes = new Collection<Axis>() };
             foreach (Axis a in Axes)
                 serialized.Axes.Add(a);
 
@@ -105,7 +106,7 @@ namespace ShadowEngine.Input.Keyboard
         /// </summary>
         public static void LoadConfig(string path)
         {
-            Axes = new List<Axis>();
+            Axes = new Collection<Axis>();
             dynamic val = ReadConfigFile(path);
 
 
