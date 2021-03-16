@@ -1,6 +1,5 @@
 ﻿using ShadowEngine.Input.Keyboard;
 using ShadowEngine.Input.Mouse;
-using ShadowEngine.Objects.Animationing;
 using ShadowEngine.Rendering;
 using System;
 using System.Drawing;

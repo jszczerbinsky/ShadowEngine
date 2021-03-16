@@ -75,7 +75,7 @@ namespace ShadowEngine.Objects
             double xNormal = xDistance / distance;
             double yNormal = yDistance / distance;
 
-            Move(xNormal*speed, yNormal*speed);
+            Move(xNormal * speed, yNormal * speed);
         }
 
         /// <summary>
@@ -165,8 +165,8 @@ namespace ShadowEngine.Objects
         /// </summary>
         public virtual void RotateTo(Point p)
         {
-            float rot = (float)((180/Math.PI)*Math.Atan2(p.Y - this.Position.Y, p.X - this.Position.X));
-            if(rot < 0)
+            float rot = (float)((180 / Math.PI) * Math.Atan2(p.Y - this.Position.Y, p.X - this.Position.X));
+            if (rot < 0)
             {
                 rot = 360 - (-rot);
             }

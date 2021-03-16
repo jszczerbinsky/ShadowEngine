@@ -55,7 +55,7 @@ namespace ShadowEngine.Sound
                 }
                 catch (FileNotFoundException e)
                 {
-                    Exception ex =  new SoundException("Not found " + Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + path + " file", e);
+                    Exception ex = new SoundException("Not found " + Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) + "/" + path + " file", e);
                     Log.Exception(ex);
                     throw ex;
                 }

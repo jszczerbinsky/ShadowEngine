@@ -115,7 +115,7 @@ namespace ShadowEngine.Input.Keyboard
             }
             catch (Exception e)
             {
-                Exception ex =  new ConfigException(path + " config file is incorrect", e);
+                Exception ex = new ConfigException(path + " config file is incorrect", e);
                 Log.Exception(ex);
                 throw ex;
             }

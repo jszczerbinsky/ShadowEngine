@@ -9,7 +9,7 @@ namespace ShadowEngine.Objects.Animationing
     /// </summary>
     public class Animation
     {
-        
+
         private static List<Animation> All = new List<Animation>();
 
         /// <value>Gets name of animation.</value>

@@ -1,6 +1,5 @@
 ﻿using ShadowBuild;
 using System;
-using System.Windows.Forms;
 
 namespace ShadowEngine
 {
@@ -26,7 +25,7 @@ namespace ShadowEngine
             DateTime now = DateTime.Now;
             Console.Write(now.Hour + ":" + now.Minute + ":" + now.Second);
 
-            
+
             Console.ForegroundColor = ConsoleColor.White;
 
             Console.Write("] ");

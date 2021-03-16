@@ -22,8 +22,8 @@ namespace ShadowEngine.Objects.Texturing
         /// <value>Actual object texture (if there is no animation it returns default texture)</value>
         public Texture GetActualTexture()
         {
-                if (ActualAnimation != null) return ActualAnimation.Textures[animationTextureID];
-                return this.DefaultTexture;
+            if (ActualAnimation != null) return ActualAnimation.Textures[animationTextureID];
+            return this.DefaultTexture;
         }
 
         private double animationOffset = 0;
@@ -179,7 +179,7 @@ namespace ShadowEngine.Objects.Texturing
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log.Exception(e);
                 throw e;

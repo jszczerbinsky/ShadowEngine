@@ -1,6 +1,5 @@
 ﻿using ShadowEngine.Objects;
 using System;
-using System.Security.RightsManagement;
 using System.Threading;
 
 namespace ShadowEngine

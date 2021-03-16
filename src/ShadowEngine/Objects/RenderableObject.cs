@@ -156,7 +156,9 @@ namespace ShadowEngine.Objects
         {
             foreach (RenderableObject o in All)
                 if (o.ID == id) return o;
-            throw new ObjectException("Could not find object with ID " + id);
+            Exception ex = new ObjectException("Could not find object with ID " + id);
+            Log.Exception(ex);
+            throw ex;
         }
 
         /// <summary>
@@ -166,7 +168,9 @@ namespace ShadowEngine.Objects
         {
             foreach (RenderableObject o in All)
                 if (o.Name == name) return o;
-            throw new ObjectException("Could not find object \"" + name + "\"");
+            Exception ex = new ObjectException("Could not find object \"" + name + "\"");
+            Log.Exception(ex);
+            throw ex;
         }
 
         /// <summary>
@@ -177,7 +181,9 @@ namespace ShadowEngine.Objects
         {
             foreach (RenderableObject o in All)
                 if (o.Name == name && o is T) return (T)o;
-            throw new ObjectException("Could not find object \"" + name + "\" with type \"" + typeof(T).FullName + "\"");
+            Exception ex = new ObjectException("Could not find object \"" + name + "\" with type \"" + typeof(T).FullName + "\"");
+            Log.Exception(ex);
+            throw ex;
         }
 
         #endregion
@@ -304,7 +310,9 @@ namespace ShadowEngine.Objects
                     MoveChildrenToWorld(w);
                     return;
                 }
-            throw new WorldNameException("There is no world with name " + worldName);
+            Exception ex = new WorldNameException("There is no world with name " + worldName);
+            Log.Exception(ex);
+            throw ex;
         }
 
         /// <summary>
@@ -367,22 +375,36 @@ namespace ShadowEngine.Objects
 
         public virtual void BeforeSerialization()
         {
-            if (this.Parent == null)
-                this.parentID = uint.MaxValue;
-            else
-                parentID = this.Parent.ID;
-            worldName = this.World.Name;
-            renderLayerName = this.RenderLayer.Name;
+            try
+            {
+                if (this.Parent == null)
+                    this.parentID = uint.MaxValue;
+                else
+                    parentID = this.Parent.ID;
+                worldName = this.World.Name;
+                renderLayerName = this.RenderLayer.Name;
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         public virtual void AfterDeserialization()
         {
-            if (this.parentID == uint.MaxValue)
-                this.Parent = null;
-            else
-                this.Parent = findByID(this.parentID);
-            this.World = World.Find(this.worldName);
-            this.RenderLayer = Layer.Find(this.renderLayerName);
+            try
+            {
+                if (this.parentID == uint.MaxValue)
+                    this.Parent = null;
+                else
+                    this.Parent = findByID(this.parentID);
+                this.World = World.Find(this.worldName);
+                this.RenderLayer = Layer.Find(this.renderLayerName);
+            }
+            catch (Exception e)
+            {
+                Log.Exception(e);
+            }
         }
 
         #endregion
@@ -402,7 +424,7 @@ namespace ShadowEngine.Objects
 
         public static void UpdateAllObjects()
         {
-            while(AddQueue.Count != 0)
+            while (AddQueue.Count != 0)
             {
                 All.Add(AddQueue[0]);
                 AddQueue[0].World.Objects.Add(AddQueue[0]);
