@@ -25,8 +25,6 @@ namespace ShadowEngine
         /// <value>Gets current frames per second value.</value>
         public static long currentFPS { get; private set; } = 0;
 
-        public static float MaxFPS = 60;
-
         /// <value>Gets time between last 2 timer ticks.</value>
         public static float Delay = 0;
 
@@ -47,10 +45,7 @@ namespace ShadowEngine
                         Thread.Sleep(10);
                         Delay = (float)tsdelay.TotalSeconds;
 
-                        if (Delay > 1.0 / MaxFPS || Delay == 0)
-                        {
-                            OnTick();
-                        }
+                        OnTick();
 
                         waitForCount += Delay;
                         if (waitForCount >= 0.5)
@@ -62,7 +57,8 @@ namespace ShadowEngine
 
                         tsdelay = timeOnEnd - timeOnStart;
                     }
-                }catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     Log.Exception(e);
                 }
