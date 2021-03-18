@@ -425,8 +425,17 @@ namespace ShadowEngine.Objects
             while (AddQueue.Count != 0)
             {
                 All.Add(AddQueue[0]);
-                AddQueue[0].World.Objects.Add(AddQueue[0]);
+                try
+                {
+                    AddQueue[0].World.Objects.Add(AddQueue[0]);
+                }
+                catch (NullReferenceException e)
+                {
+                    All.Remove(AddQueue[0]);
+                    continue;
+                }
                 AddQueue.Remove(AddQueue[0]);
+
             }
 
             while (RemoveQueue.Count != 0)

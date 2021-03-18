@@ -32,7 +32,13 @@ namespace ShadowEngine.Objects.Texturing.Image
             g.InterpolationMode = tex.InterpolationMode;
             g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
 
-            if (tex.Image == null) throw new RenderException("Image was not initialized in texture \"" + tex.Name);
+            if (tex.Image == null)
+            {
+                Exception ex = new RenderException("Image was not initialized in texture \"" + tex.Name);
+                Log.Exception(ex);
+                throw ex;
+            }
+
             g.DrawImage(
                 tex.Image,
                 new Rectangle(

@@ -68,7 +68,7 @@ namespace ShadowEngine.Input.Mouse
         {
             get
             {
-                return new Vector2D(System.Windows.Forms.Cursor.Position.X, System.Windows.Forms.Cursor.Position.Y);
+                return new Vector2D(Cursor.Position.X, Cursor.Position.Y);
             }
         }
 
@@ -110,7 +110,9 @@ namespace ShadowEngine.Input.Mouse
                 case MouseAxis.Wheel:
                     return MouseAxesValues.Wheel;
                 default:
-                    throw new AxisException("You cannot find value for null MouseAxis");
+                    Exception ex = new AxisException("MouseAxis is null", new NullReferenceException());
+                    Log.Exception(ex);
+                    throw ex;
             }
         }
         private static void CountValues()

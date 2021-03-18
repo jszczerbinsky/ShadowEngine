@@ -1,6 +1,7 @@
 ﻿using ShadowEngine.Config;
 using ShadowEngine.Exceptions;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Forms;
@@ -47,9 +48,14 @@ namespace ShadowEngine.Input.Keyboard
         /// <summary>
         /// Sets up your axis to find it by name later.
         /// </summary>
-        public static void Setup(Axis axis)
+        private static void setup(Axis axis)
         {
-            if (Axis.Find(axis.Name) != null) throw new AxisException("Axis name \"" + axis.Name + "\" is already used");
+            if (Axis.Find(axis.Name) != null)
+            {
+                Exception ex = new AxisException("Axis name \"" + axis.Name + "\" is already used");
+                Log.Exception(ex);
+                throw ex;
+            }
             Axes.Add(axis);
         }
 
@@ -70,7 +76,12 @@ namespace ShadowEngine.Input.Keyboard
         public static float GetValue(string name)
         {
             Axis axis = Find(name);
-            if (axis == null) throw new AxisException("Cannot find axis \"" + name + "\"");
+            if (axis == null)
+            {
+                Exception ex = new AxisException("Cannot find axis \"" + name + "\"");
+                Log.Exception(ex);
+                throw ex;
+            }
             return GetValue(axis);
         }
 
@@ -79,6 +90,12 @@ namespace ShadowEngine.Input.Keyboard
         /// </summary>
         public static float GetValue(Axis axis)
         {
+            if(axis == null)
+            {
+                Exception ex = new AxisException("Axis is null", new NullReferenceException());
+                Log.Exception(ex);
+                throw ex;
+            }
             float value = 0;
 
             if (Keyboard.KeyPressed(axis.Negative))
@@ -138,7 +155,7 @@ namespace ShadowEngine.Input.Keyboard
                     throw ex;
                 }
                 Axis a = new Axis(name, neg, pos);
-                Axis.Setup(a);
+                Axis.setup(a);
             }
 
         }

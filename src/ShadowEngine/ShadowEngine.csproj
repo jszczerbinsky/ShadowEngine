@@ -77,7 +77,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Rendering\Camera.cs" />
-    <Compile Include="Events\Event.cs" />
     <Compile Include="Exceptions\AxisException.cs" />
     <Compile Include="Exceptions\EventException.cs" />
     <Compile Include="Input\Keyboard\Axis.cs" />

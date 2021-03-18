@@ -36,7 +36,7 @@ namespace ShadowEngine.Objects.Collision
             int i = 0;
             foreach (Vector2D p in this.Vertices)
             {
-                Vector2D newP = new Vector2D(p.X + parent.GetNonRotatedGlobalPosition().X, p.Y + parent.GetNonRotatedGlobalPosition().Y);
+                Vector2D newP = p + parent.GetNonRotatedGlobalPosition();
                 parent.InheritPosition(ref newP);
                 globalPoints[i] = newP;
                 i++;

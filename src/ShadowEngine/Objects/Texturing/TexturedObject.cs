@@ -132,7 +132,7 @@ namespace ShadowEngine.Objects.Texturing
         {
             animationOffset = 0;
             animationTextureID = 0;
-            Animation anim = Animation.Get(animName);
+            Animation anim = Animation.Find(animName);
             this.ActualAnimation = anim;
         }
 
@@ -201,7 +201,7 @@ namespace ShadowEngine.Objects.Texturing
             if (this.actualAnimationName == null)
                 this.ActualAnimation = null;
             else
-                this.ActualAnimation = Animation.Get(actualAnimationName);
+                this.ActualAnimation = Animation.Find(actualAnimationName);
             if (this.defaultTextureName == null)
                 this.DefaultTexture = null;
             else

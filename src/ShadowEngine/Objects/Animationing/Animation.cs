@@ -1,5 +1,6 @@
 ﻿using ShadowEngine.Objects.Texturing;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ShadowEngine.Objects.Animationing
 {
@@ -10,7 +11,7 @@ namespace ShadowEngine.Objects.Animationing
     public class Animation
     {
 
-        private static List<Animation> All = new List<Animation>();
+        private static Collection<Animation> All = new Collection<Animation>();
 
         /// <value>Gets name of animation.</value>
         public readonly string Name;
@@ -19,7 +20,7 @@ namespace ShadowEngine.Objects.Animationing
         public readonly List<Texture> Textures;
 
         /// <value>Animation speed.</value>
-        public double Length = 1;
+        public float Length = 1;
 
         /// <summary>
         /// Animation constructor.
@@ -30,12 +31,14 @@ namespace ShadowEngine.Objects.Animationing
         {
             this.Name = name;
             this.Textures = textures;
+            if (this.Name != null)
+                Setup(this);
         }
 
         /// <summary>
         /// Finds animation by name. Animation has to be set up before.
         /// </summary>
-        public static Animation Get(string name)
+        public static Animation Find(string name)
         {
             foreach (Animation anim in All)
             {
@@ -47,7 +50,7 @@ namespace ShadowEngine.Objects.Animationing
         /// <summary>
         /// Sets up animation.
         /// </summary>
-        public static void Setup(Animation anim)
+        private static void Setup(Animation anim)
         {
             All.Add(anim);
         }

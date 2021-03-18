@@ -23,8 +23,18 @@ namespace ShadowEngine.Objects.Collision
         /// <param name="height">collider height</param>
         public RegularPolygonCollider(uint edges, float x, float y, float size) : base()
         {
-            if (edges < 3) throw new ColliderException("Regular polygon cannot have less than 3 edges!");
-            if (size <= 0) throw new ColliderException("Size has to be a positive number");
+            if (edges < 3)
+            {
+                Exception ex = new ColliderException("Regular polygon cannot have less than 3 edges!");
+                Log.Exception(ex);
+                throw ex;
+            }
+            if (size <= 0)
+            {
+                Exception ex = new ColliderException("Size has to be a positive number");
+                Log.Exception(ex);
+                throw ex;
+            }
 
             float angle = (float)Math.PI * 2 / edges;
             Vector2D[] vertices = new Vector2D[edges];

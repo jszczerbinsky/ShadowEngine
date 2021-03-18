@@ -36,30 +36,36 @@ namespace ShadowEngine
         {
             thread = new Thread(() =>
             {
-                thread.Name = "Game loop";
-
-                double waitForCount = 0;
-                while (true)
+                try
                 {
-                    DateTime timeOnStart = DateTime.Now;
-                    Thread.Sleep(10);
-                    Delay = (float)tsdelay.TotalSeconds;
+                    thread.Name = "Game loop";
 
-                    if (Delay > 1.0 / MaxFPS || Delay == 0)
+                    double waitForCount = 0;
+                    while (true)
                     {
-                        OnTick.Invoke();
-                        RenderableObject.UpdateAllObjects();
-                    }
+                        DateTime timeOnStart = DateTime.Now;
+                        Thread.Sleep(10);
+                        Delay = (float)tsdelay.TotalSeconds;
 
-                    waitForCount += Delay;
-                    if (waitForCount >= 0.5)
-                    {
-                        currentFPS = (int)(1000 / tsdelay.TotalMilliseconds);
-                        waitForCount = 0;
-                    }
-                    DateTime timeOnEnd = DateTime.Now;
+                        if (Delay > 1.0 / MaxFPS || Delay == 0)
+                        {
+                            OnTick.Invoke();
+                            RenderableObject.UpdateAllObjects();
+                        }
 
-                    tsdelay = timeOnEnd - timeOnStart;
+                        waitForCount += Delay;
+                        if (waitForCount >= 0.5)
+                        {
+                            currentFPS = (int)(1000 / tsdelay.TotalMilliseconds);
+                            waitForCount = 0;
+                        }
+                        DateTime timeOnEnd = DateTime.Now;
+
+                        tsdelay = timeOnEnd - timeOnStart;
+                    }
+                }catch (Exception e)
+                {
+                    Log.Exception(e);
                 }
             });
             thread.Start();
