@@ -29,10 +29,11 @@ namespace ShadowEngine.Rendering
             get
             {
                 Collection<RenderableObject> objs = new Collection<RenderableObject>();
-                foreach (RenderableObject obj in World.ActualWorld.Objects)
-                {
-                    if (obj.RenderLayer == this) objs.Add(obj);
-                }
+                lock (World.ActualWorld.Objects)
+                    foreach (RenderableObject obj in World.ActualWorld.Objects)
+                    {
+                        if (obj.RenderLayer == this) objs.Add(obj);
+                    }
                 return objs;
             }
         }

@@ -48,19 +48,20 @@ namespace ShadowEngine.Objects
 
                 GameObject childG = (GameObject)child;
 
-                foreach (RenderableObject robj in World.Objects)
-                {
-                    if (!(robj is GameObject)) continue;
-                    GameObject obj = (GameObject)robj;
-                    if (obj == childG || obj.IsChildOf(childG) || childG.IsChildOf(obj)) continue;
-
-                    if (CheckCollision(childG, obj))
+                lock (World.Objects)
+                    foreach (RenderableObject robj in World.Objects)
                     {
-                        OnCollision(obj);
-                        this.Rotation -= rotation;
-                        return;
+                        if (!(robj is GameObject)) continue;
+                        GameObject obj = (GameObject)robj;
+                        if (obj == childG || obj.IsChildOf(childG) || childG.IsChildOf(obj)) continue;
+
+                        if (CheckCollision(childG, obj))
+                        {
+                            OnCollision(obj);
+                            this.Rotation -= rotation;
+                            return;
+                        }
                     }
-                }
             }
         }
 
@@ -83,19 +84,20 @@ namespace ShadowEngine.Objects
 
                 GameObject childG = (GameObject)child;
 
-                foreach (RenderableObject robj in World.Objects)
-                {
-                    if (!(robj is GameObject)) continue;
-                    GameObject obj = (GameObject)robj;
-                    if (obj == childG || obj.IsChildOf(childG) || childG.IsChildOf(obj)) continue;
-
-                    if (CheckCollision(childG, obj))
+                lock (World.Objects)
+                    foreach (RenderableObject robj in World.Objects)
                     {
-                        OnCollision(obj);
-                        this.SetPosition(this.Position.X - X, this.Position.Y - Y);
-                        return;
+                        if (!(robj is GameObject)) continue;
+                        GameObject obj = (GameObject)robj;
+                        if (obj == childG || obj.IsChildOf(childG) || childG.IsChildOf(obj)) continue;
+
+                        if (CheckCollision(childG, obj))
+                        {
+                            OnCollision(obj);
+                            this.SetPosition(this.Position.X - X, this.Position.Y - Y);
+                            return;
+                        }
                     }
-                }
             }
 
         }

@@ -20,8 +20,6 @@ namespace ShadowEngine.Objects
         private static uint nextID = 0;
         /// <value>Gets all renderable objects</value>
         public static Collection<RenderableObject> All { get; private set; } = new Collection<RenderableObject>();
-        private static Collection<RenderableObject> AddQueue = new Collection<RenderableObject>();
-        private static Collection<RenderableObject> RemoveQueue = new Collection<RenderableObject>();
 
         private uint ID;
 
@@ -54,10 +52,11 @@ namespace ShadowEngine.Objects
         public Collection<RenderableObject> GetChildren()
         {
             Collection<RenderableObject> toReturn = new Collection<RenderableObject>();
-            foreach (RenderableObject obj in All)
-            {
-                if (obj.Parent == this) toReturn.Add(obj);
-            }
+            lock (All)
+                foreach (RenderableObject obj in All)
+                {
+                    if (obj.Parent == this) toReturn.Add(obj);
+                }
             return toReturn;
         }
 
@@ -84,11 +83,17 @@ namespace ShadowEngine.Objects
 
         public virtual void Destroy()
         {
-            this.addToRemoveQueue();
+            lock (All)
+                All.Remove(this);
+            lock (this.World.Objects)
+                this.World.Objects.Remove(this);
         }
         public virtual void ReassignToWorld()
         {
-            this.addToQueue();
+            lock (All)
+                All.Add(this);
+            lock (this.World.Objects)
+                this.World.Objects.Add(this);
         }
 
         public virtual void SetVisiblity(bool visiblity)
@@ -107,7 +112,7 @@ namespace ShadowEngine.Objects
             this.World = World.Default;
             this.SetPosition(0, 0);
             this.Visible = true;
-            addToQueue();
+            this.ReassignToWorld();
         }
         protected RenderableObject(string name, Layer layer)
         {
@@ -118,7 +123,8 @@ namespace ShadowEngine.Objects
             this.World = World.Default;
             this.SetPosition(0, 0);
             this.Visible = true;
-            addToQueue();
+            this.ReassignToWorld();
+
         }
         protected RenderableObject(string name, World world)
         {
@@ -129,7 +135,8 @@ namespace ShadowEngine.Objects
             this.World = world;
             this.SetPosition(0, 0);
             this.Visible = true;
-            addToQueue();
+            this.ReassignToWorld();
+
 
         }
         protected RenderableObject(string name, Layer layer, World world)
@@ -141,7 +148,8 @@ namespace ShadowEngine.Objects
             this.World = world;
             this.SetPosition(0, 0);
             this.Visible = true;
-            addToQueue();
+            this.ReassignToWorld();
+
 
         }
         protected RenderableObject() { }
@@ -152,8 +160,9 @@ namespace ShadowEngine.Objects
 
         private RenderableObject findByID(uint id)
         {
-            foreach (RenderableObject o in All)
-                if (o.ID == id) return o;
+            lock (All)
+                foreach (RenderableObject o in All)
+                    if (o.ID == id) return o;
             Exception ex = new ObjectException("Could not find object with ID " + id);
             Log.Exception(ex);
             throw ex;
@@ -164,8 +173,9 @@ namespace ShadowEngine.Objects
         /// </summary>
         public static RenderableObject Get(string name)
         {
-            foreach (RenderableObject o in All)
-                if (o.Name == name) return o;
+            lock (All)
+                foreach (RenderableObject o in All)
+                    if (o.Name == name) return o;
             Exception ex = new ObjectException("Could not find object \"" + name + "\"");
             Log.Exception(ex);
             throw ex;
@@ -177,8 +187,9 @@ namespace ShadowEngine.Objects
         /// <typeparam name="T">Type of object (TexturedObject, GameObject etc.)</typeparam>
         public static T Get<T>(string name) where T : RenderableObject
         {
-            foreach (RenderableObject o in All)
-                if (o.Name == name && o is T) return (T)o;
+            lock (All)
+                foreach (RenderableObject o in All)
+                    if (o.Name == name && o is T) return (T)o;
             Exception ex = new ObjectException("Could not find object \"" + name + "\" with type \"" + typeof(T).FullName + "\"");
             Log.Exception(ex);
             throw ex;
@@ -402,47 +413,6 @@ namespace ShadowEngine.Objects
             catch (Exception e)
             {
                 Log.Exception(e);
-            }
-        }
-
-        #endregion
-
-
-        #region adding and removing
-
-        private void addToQueue()
-        {
-            AddQueue.Add(this);
-        }
-
-        private void addToRemoveQueue()
-        {
-            RemoveQueue.Add(this);
-        }
-
-        public static void UpdateAllObjects()
-        {
-            while (AddQueue.Count != 0)
-            {
-                All.Add(AddQueue[0]);
-                try
-                {
-                    AddQueue[0].World.Objects.Add(AddQueue[0]);
-                }
-                catch (NullReferenceException e)
-                {
-                    All.Remove(AddQueue[0]);
-                    continue;
-                }
-                AddQueue.Remove(AddQueue[0]);
-
-            }
-
-            while (RemoveQueue.Count != 0)
-            {
-                All.Remove(RemoveQueue[0]);
-                RemoveQueue[0].World.Objects.Remove(RemoveQueue[0]);
-                RemoveQueue.Remove(RemoveQueue[0]);
             }
         }
 

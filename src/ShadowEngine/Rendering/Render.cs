@@ -43,6 +43,10 @@ namespace ShadowEngine.Rendering
         /// <param name="cam">Camera</param>
         public static void FromCamera(Graphics g, Camera cam)
         {
+            g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
+            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighSpeed;
+            
             Vector2D startPos =
                 new Vector2D(
                     cam.Position.X - cam.Size.Width / 2,

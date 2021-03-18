@@ -4,6 +4,7 @@ using ShadowEngine.Input.Keyboard;
 using ShadowEngine.Objects.Texturing;
 using ShadowEngine.Rendering;
 using System;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -47,17 +48,23 @@ namespace ShadowEngine
         /// <param name="args">Apllication startup arguments.</param>
         protected ShadowEngineProject(string[] args)
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                ShowWindow(GetConsoleWindow(), SW_HIDE);
-            Project = this;
+            try
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                    ShowWindow(GetConsoleWindow(), SW_HIDE);
+                Project = this;
 
-            LoadConfig();
+                LoadConfig();
 
-            CheckArgs(args);
+                CheckArgs(args);
 
-            new GameWindow();
-            Loop.OnTick += OnTick;
-            Application.Run(GameWindow.actualGameWindow);
+                new GameWindow();
+                Loop.OnTick += OnTick;
+                Application.Run(GameWindow.actualGameWindow);
+            }catch(Exception e)
+            {
+                Log.Exception(e);
+            }
         }
         private bool CheckArg(string arg, string content)
         {
