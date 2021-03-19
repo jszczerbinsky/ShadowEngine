@@ -7,8 +7,8 @@
     <ProjectGuid>{D8BE5A7D-C5EC-4DB7-A54E-DAD0FD526F99}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ShadowBuild</RootNamespace>
-    <AssemblyName>ShadowBuild</AssemblyName>
+    <RootNamespace>ShadowEngine</RootNamespace>
+    <AssemblyName>ShadowEngine</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
