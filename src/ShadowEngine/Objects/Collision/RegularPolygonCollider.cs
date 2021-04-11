@@ -41,7 +41,7 @@ namespace ShadowEngine.Objects.Collision
 
             for (int i = 0; i < edges; i++)
             {
-                vertices[i] = new Vector2D((float)(size * Math.Sin(i * angle)), (float)(size * Math.Cos(i * angle)));
+                vertices[i] = new Vector2D((float)(size * Math.Sin(i * angle))+x, (float)(size * Math.Cos(i * angle))+y);
             }
 
             this.Vertices = vertices;
