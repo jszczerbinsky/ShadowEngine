@@ -17,12 +17,12 @@ namespace ShadowEngine.Utils.NoiseGenerators
 
         }
 
-        float lerp(float a0, float a1, float w)
+        private float lerp(float a0, float a1, float w)
         {
             return (1f - w) * a0 + w * a1;
         }
 
-        float dotGridGradient(int ix, int iy, float x, float y)
+        private float dotGridGradient(int ix, int iy, float x, float y)
         {
 
             float dx = x - ix;
@@ -64,7 +64,7 @@ namespace ShadowEngine.Utils.NoiseGenerators
             for (int x = 0; x < (int)size.Width; x++)
                 for (int y = 0; y < (int)size.Height; y++)
                 {
-                    int val = (int)((getValue((float)x*xMultipler, (float)y*yMultipler)+1) * (255 / 2));
+                    int val = (int)((getValue((float)x * xMultipler, (float)y * yMultipler) + 1) * (255 / 2));
                     bmp.SetPixel(x, y, System.Drawing.Color.FromArgb(val, val, val));
                 }
 
