@@ -32,8 +32,8 @@ namespace ShadowEngine
             }
 
             this.display.Initialize(
-                new System.Drawing.Size((int)(Render.Resolution.Width * Render.ResolutionMultipler),
-                (int)(Render.Resolution.Height * Render.ResolutionMultipler)
+                new System.Drawing.Size((int)(Render.Resolution.Width),
+                (int)(Render.Resolution.Height)
                 ));
             Render.OnResolutionUpdate += this.OnResolutionUpdate;
             Loop.OnTick += this.RenderNewFrame;
@@ -97,8 +97,8 @@ namespace ShadowEngine
         public void OnResolutionUpdate()
         {
             Objects.Parameters.Size newSize = new Objects.Parameters.Size(
-                this.Size.Width * Render.ResolutionMultipler,
-                this.Size.Height * Render.ResolutionMultipler
+                this.Size.Width,
+                this.Size.Height
                 );
             Render.Resolution = newSize;
             Camera.Default.SetSize(Render.Resolution);
