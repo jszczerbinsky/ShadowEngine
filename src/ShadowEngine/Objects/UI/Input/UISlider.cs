@@ -26,7 +26,7 @@ namespace ShadowEngine.Objects.UI.Input
         public UISlider(string name, Texture texture) : base(name, texture)
         {
             this.pointer = new UIObject(null, PointerTexture);
-            this.pointer.SetSize(30, 30);
+            this.pointer.SetSize(15, 15);
             pointer.SetParent(this);
             Loop.OnTick += this.OnTick;
         }
@@ -34,7 +34,7 @@ namespace ShadowEngine.Objects.UI.Input
         public UISlider(string name, Texture texture, Layer layer) : base(name, texture, layer)
         {
             this.pointer = new UIObject(null, PointerTexture);
-            this.pointer.SetSize(30, 30);
+            this.pointer.SetSize(15, 15);
             pointer.SetParent(this);
             Loop.OnTick += this.OnTick;
         }
@@ -70,7 +70,6 @@ namespace ShadowEngine.Objects.UI.Input
                     this.Value = this.MinValue + tmpValue * valuesOffset;
                 }
             }
-                Log.Message(this.Value.ToString());
         }
 
         public override void Render(Graphics g, Vector2D startPosition)
