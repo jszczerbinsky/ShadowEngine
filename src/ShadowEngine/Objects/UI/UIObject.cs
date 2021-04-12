@@ -16,15 +16,6 @@ namespace ShadowEngine.Objects.UI
         /// <value>UI object position type</value>
         public UIPositionType PositionType = UIPositionType.RelativeToScreen;
 
-        /// <value>Text on UI object</value>
-        public string Content;
-
-        /// <value>size of a text</value>
-        public Parameters.Size ContentSize = new Parameters.Size(100, 100);
-
-        /// <value>format of a text</value>
-        public StringFormat ContentFormat = new StringFormat();
-
         public override bool MouseOver
         {
             get
@@ -40,29 +31,16 @@ namespace ShadowEngine.Objects.UI
             }
         }
 
-        public UIObject(string name, Texture texture, string content) : base(name, texture)
+        public UIObject(string name, Texture texture) : base(name, texture)
         {
-            this.Content = content;
-            ContentFormat.LineAlignment = StringAlignment.Center;
-            ContentFormat.Alignment = StringAlignment.Center;
+            
         }
-        public UIObject(string name, Texture texture, Layer layer, string content) : base(name, texture, layer)
+        public UIObject(string name, Texture texture, Layer layer) : base(name, texture, layer)
         {
-            this.Content = content;
-            ContentFormat.LineAlignment = StringAlignment.Center;
-            ContentFormat.Alignment = StringAlignment.Center;
+            
         }
 
-        private void RenderContent(Graphics g, Vector2D camPos)
-        {
-            Rectangle rect = new Rectangle(
-                    (int)(this.GetStartPosition().X - camPos.X),
-                    (int)(this.GetStartPosition().Y - camPos.Y),
-                    (int)(this.ContentSize.Width * this.Scale.Width),
-                    (int)(this.ContentSize.Height * this.Scale.Height)
-                    );
-            g.DrawString(this.Content, SystemFonts.MenuFont, new SolidBrush(Color.Black), rect, ContentFormat);
-        }
+        
         public override void Render(Graphics g, Vector2D startPosition)
         {
             Vector2D camPosTmp = new Vector2D(0, 0);
@@ -72,7 +50,6 @@ namespace ShadowEngine.Objects.UI
 
             if (this.GetActualTexture() != null)
                 this.GetActualTexture().Render(g, this, camPosTmp);
-            this.RenderContent(g, camPosTmp);
         }
         public override bool CheckPointInside(Vector2D p)
         {

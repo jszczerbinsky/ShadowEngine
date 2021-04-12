@@ -69,6 +69,8 @@
     <Compile Include="Objects\Texturing\Image\ImageTexture.cs" />
     <Compile Include="Objects\Texturing\Shape.cs" />
     <Compile Include="Objects\Texturing\TexturedObject.cs" />
+    <Compile Include="Objects\UI\Input\UISlider.cs" />
+    <Compile Include="Objects\UI\Label.cs" />
     <Compile Include="Objects\UI\UIObject.cs" />
     <Compile Include="Objects\Parameters\Vector2D.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
