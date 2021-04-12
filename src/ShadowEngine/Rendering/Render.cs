@@ -15,9 +15,10 @@ namespace ShadowEngine.Rendering
 
         /// <value>Game window resolution</value>
         public static Objects.Parameters.Size Resolution = new Objects.Parameters.Size(800, 600);
+        public static float ResolutionMultipler = 1;
 
-        public delegate void OnWindowResizeDelegateVoid();
-        public static OnWindowResizeDelegateVoid OnWindowResize;
+        public delegate void OnResolutionUpdateDelegateVoid();
+        public static OnResolutionUpdateDelegateVoid OnResolutionUpdate;
 
         /// <value>If true - FPS counter will be shown</value>
         public static bool ShowFPS = false;

@@ -31,7 +31,11 @@ namespace ShadowEngine
                 this.FormBorderStyle = FormBorderStyle.None;
             }
 
-            this.display.Initialize(new System.Drawing.Size((int)Render.Resolution.Width, (int)Render.Resolution.Height));
+            this.display.Initialize(
+                new System.Drawing.Size((int)(Render.Resolution.Width * Render.ResolutionMultipler),
+                (int)(Render.Resolution.Height * Render.ResolutionMultipler)
+                ));
+            Render.OnResolutionUpdate += this.OnResolutionUpdate;
             Loop.OnTick += this.RenderNewFrame;
             Mouse.OnStart();
             Loop.OnTick += Mouse.OnTick;
@@ -58,26 +62,27 @@ namespace ShadowEngine
 
         private void InitializeComponent()
         {
-            this.display = new Display();
+            this.display = new ShadowEngine.Rendering.Display();
             ((System.ComponentModel.ISupportInitialize)(this.display)).BeginInit();
             this.SuspendLayout();
             // 
             // display
             // 
+            this.display.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.display.Dock = System.Windows.Forms.DockStyle.Fill;
             this.display.Location = new System.Drawing.Point(0, 0);
             this.display.Name = "display";
             this.display.Size = new System.Drawing.Size(782, 553);
-            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.display.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.display.TabIndex = 0;
             this.display.TabStop = false;
+            this.display.SizeChanged += new System.EventHandler(this.OnResize);
             this.display.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnMouseDown);
             this.display.MouseUp += new System.Windows.Forms.MouseEventHandler(this.OnMouseUp);
             // 
             // GameWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
-            this.SizeChanged += OnResize;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.ClientSize = new System.Drawing.Size(782, 553);
             this.Controls.Add(this.display);
@@ -86,15 +91,23 @@ namespace ShadowEngine
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnKeyUp);
             ((System.ComponentModel.ISupportInitialize)(this.display)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
+
+        }
+
+        public void OnResolutionUpdate()
+        {
+            Objects.Parameters.Size newSize = new Objects.Parameters.Size(
+                this.Size.Width * Render.ResolutionMultipler,
+                this.Size.Height * Render.ResolutionMultipler
+                );
+            Render.Resolution = newSize;
+            Camera.Default.SetSize(Render.Resolution);
+            this.display.Initialize(new System.Drawing.Size((int)newSize.Width, (int)newSize.Height));
 
         }
         private void OnResize(object sender, EventArgs e)
         {
-            Render.Resolution = new Objects.Parameters.Size(this.Size.Width, this.Size.Height);
-            Camera.Default.SetSize(Render.Resolution);
-            Render.OnWindowResize?.Invoke();
-            this.display.Initialize(new System.Drawing.Size(this.Size.Width, this.Size.Height));
+            Render.OnResolutionUpdate?.Invoke();
         }
         private void OnMouseDown(object sender, MouseEventArgs e)
         {
