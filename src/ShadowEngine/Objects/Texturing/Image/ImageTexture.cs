@@ -18,5 +18,10 @@ namespace ShadowEngine.Objects.Texturing.Image
         {
             this.Image = new Bitmap(ImagePath);
         }
+
+        public void SetBitmap(Bitmap bmp)
+        {
+            this.Image = bmp;
+        }
     }
 }
