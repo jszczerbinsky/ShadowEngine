@@ -108,6 +108,7 @@
     <Compile Include="Exceptions\SoundException.cs" />
     <Compile Include="Objects\Geometry\GeometryObject.cs" />
     <Compile Include="Objects\Geometry\Shape.cs" />
+    <Compile Include="Utils\NoiseGenerators\PerlinNoise.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="GameWindow.resx">
